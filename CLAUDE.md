@@ -24,7 +24,17 @@ ship the reference files as-is.
   - Colours: ink `#0E1726`, navy `#0B1220`, panel `#111A2E`, border-dark `#22304A`, ground `#F5F6F8`, card `#FFFFFF`, border `#E1E5EC`, body-grey `#475266`, caption-grey `#5B6678`, accent `#2B5BFF`, accent-light `#8FB0FF`, link `#1E3FBF`.
 - Responsive: must read well at 375px, 768px and 1440px. Grids collapse to one column on phones; tables scroll horizontally inside their container; nav collapses to a simple menu.
 - Accessibility: semantic HTML, one `h1` per page, real `<button>`/`<a>`/`<label>` elements, visible focus states, 4.5:1 contrast, `aria-label` on icon-only controls. Lighthouse accessibility ≥ 95.
-- Performance: no images except the favicon/logo SVG and the YouTube thumbnail; Lighthouse performance ≥ 95 on mobile.
+- Performance: no images except the favicon/logo SVGs (see Logo) and the YouTube thumbnail; Lighthouse performance ≥ 95 on mobile.
+
+## Logo (approved 2026-10-07 — "hybrid H2")
+
+Use only the files in `src/static/brand/` (published at `/brand/`). Never redraw the logo by hand, set it as live text, or substitute the old circle-and-cross mark.
+
+- **Wordmark:** lowercase `eonai` in Space Grotesk. `e` and `n` are Light (300); the `o` is replaced by the **open loop** (a ring drawn at the Light stem weight, open at the top right, with a solid dot just outside the gap); `ai` is Bold (700). The dot and `ai` share the accent colour.
+- **Colours:** on dark backgrounds, white letters and loop, with the dot and `ai` in accent-light `#8FB0FF` (`eonai-logo-on-dark.svg`). On light backgrounds, ink `#0E1726`, with the dot and `ai` in accent `#2B5BFF` (`eonai-logo-on-light.svg`, plus `.png`).
+- **Mark / icon:** the loop and dot on their own (`eonai-mark-on-*.svg`). Favicon (`src/static/favicon.svg`) is the loop on a navy rounded square; `eonai-app-icon.svg` is the white loop on an accent square for social avatars.
+- **Usage:** site header (36px tall, inlined) and footer (30px), Open Graph image, JSON-LD `Organization.logo`. The legal name in text stays "EonAI Private Limited"; the lowercase form is for the logo only.
+- **Regenerating:** `python3 src/brand/make-logo.py` (needs `pip install fonttools`) rebuilds every SVG from the bundled font outlines (`src/brand/SpaceGrotesk[wght].ttf`, SIL OFL). The geometry constants at the top of that script are the specification; change them there, not in the SVGs.
 
 ## Pages and URLs
 

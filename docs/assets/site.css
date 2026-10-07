@@ -116,7 +116,7 @@ ul, ol { margin: 0; }
 }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; }
 .brand:hover { color: #fff; }
-.brand__name { font-family: var(--font-head); font-weight: 700; font-size: 22px; letter-spacing: -0.01em; }
+.brand__logo { display: block; height: 36px; width: auto; }
 .nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; font-size: 15px; }
 .nav a { color: var(--on-dark); text-decoration: none; padding: 6px 0; }
 .nav a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
@@ -316,7 +316,8 @@ ul, ol { margin: 0; }
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; font-size: 13px; line-height: 1.7;
 }
 .site-footer__brand { display: flex; flex-direction: column; gap: 10px; max-width: 420px; }
-.site-footer__name { font-family: var(--font-head); font-weight: 700; font-size: 20px; color: #fff; }
+.site-footer__name { align-self: flex-start; }
+.site-footer__logo { display: block; height: 30px; width: auto; }
 .site-footer__legal { padding-top: 8px; }
 .site-footer__cols { display: flex; flex-wrap: wrap; gap: 32px 48px; }
 .site-footer__col { display: flex; flex-direction: column; gap: 6px; }

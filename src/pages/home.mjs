@@ -370,6 +370,7 @@ export default page({
     '@type': 'Organization',
     name: 'EonAI Private Limited',
     url: SITE_URL,
+    logo: `${SITE_URL}/brand/eonai-logo-on-light.png`,
     email: 'hello@eonai.ai',
     address: {
       '@type': 'PostalAddress',

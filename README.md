@@ -8,7 +8,8 @@ src/layout.mjs        header, footer, <head> metadata
 src/pages/            home, notes index, note template, privacy, 404
 src/notes-data.mjs    content of all nine engineering notes
 src/assets/           site.css (single stylesheet), site.js (mobile nav, form)
-src/static/           favicon.svg, og.png (copied to docs/)
+src/static/           favicon.svg, brand/ (logo files), assets/og.png (copied to docs/)
+src/brand/            logo generator script and the Space Grotesk font it reads
 docs/                 build output, committed; do not edit by hand
 reference/, content/  original approved copy
 ```
@@ -25,6 +26,20 @@ Commands: `npm run build`, `npm run check` (links, anchors, h1 count, required f
 | `CF_ANALYTICS_TOKEN` | no analytics beacon (optional) |
 
 Also open items: the privacy policy date (`[DATE]` in `src/pages/privacy.mjs`) and the owner review of its text.
+
+## Logo
+
+The logo files live in `src/static/brand/` and are published at `https://eonai.ai/brand/`:
+
+| File | Use |
+|---|---|
+| `eonai-logo-on-dark.svg` | wordmark on navy or dark backgrounds (site header and footer) |
+| `eonai-logo-on-light.svg` / `.png` | wordmark on white or light backgrounds (documents, decks, email) |
+| `eonai-mark-on-dark.svg`, `eonai-mark-on-light.svg` | the loop on its own |
+| `eonai-app-icon.svg` | square icon for LinkedIn and social avatars |
+| `../favicon.svg` | browser tab icon |
+
+To change the logo, edit the constants at the top of `src/brand/make-logo.py` and run `python3 src/brand/make-logo.py` (needs `pip install fonttools`), then `npm run build`. The rules are in `CLAUDE.md` § Logo. If you change the logo, also re-render `src/static/assets/og.png` from `og.svg` (open it in Chrome and screenshot at 1200×630) and `eonai-logo-on-light.png`.
 
 ## Edit copy
 

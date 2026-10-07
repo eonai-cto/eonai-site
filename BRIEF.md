@@ -22,6 +22,10 @@ static exports of the approved prototype. They are **content- and design-complet
 **technically rough** (inline styles, no responsive rules, duplicated nav). Rebuild them with
 a proper stylesheet and components; keep every word, section, order and colour.
 
+## 2a. Logo
+
+The approved logo is the lowercase wordmark **eonai** with the `o` replaced by an open loop and a dot ("hybrid H2", approved 2026-10-07). Light `eon`, bold `ai`; the dot and `ai` are in the accent colour. Final artwork and the generator script are in the repo: `src/static/brand/` and `src/brand/make-logo.py`. Full rules are in `CLAUDE.md` § Logo. Any rebuild of the site must use these files in the header, footer, favicon, Open Graph image and `Organization` JSON-LD.
+
 ## 3. Site tree
 
 | URL | Source | Notes |
@@ -57,7 +61,7 @@ Footer (all pages): company legal line + registered address, Company links, Cont
 
 ## 5. Components to extract
 
-- Site header (dark) with responsive nav.
+- Site header (dark) with the eonai logo (see § 2a) and responsive nav.
 - Section header: mono eyebrow + Space Grotesk h2 (+ optional lede).
 - Card (light), card (dark), card (highlight `#EEF2FF`).
 - Problem card (eyebrow "Usually raised by…", quote, body, engagement tag).
@@ -77,7 +81,7 @@ Footer (all pages): company legal line + registered address, Company links, Cont
 - Home meta description: "EonAI builds, tests and runs AI systems that work in production. Agentic AI engineering, AI quality and verifiable assurance, AI transformation and fractional technology leadership."
 - Notes index title: "Engineering notes — EonAI". Note titles: "<note title> — EonAI".
 - JSON-LD: `Organization` (name EonAI Private Limited, url, email hello@eonai.ai, address Madhapur, Hyderabad) on home; `Article` with `headline`, `datePublished` (2026-10-07), `author` {"@type":"Organization","name":"EonAI"} on notes.
-- Open Graph image: generate one simple on-brand 1200×630 SVG/PNG (dark navy, "EonAI" wordmark, tagline). No photos.
+- Open Graph image: one simple on-brand 1200×630 PNG (dark navy, the eonai logo from `src/static/brand/`, tagline). No photos. Source: `src/static/assets/og.svg`.
 - `sitemap.xml` listing all pages; `robots.txt` allowing all.
 
 ## 7. Analytics (free, privacy-respecting)
