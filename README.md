@@ -36,7 +36,7 @@ After setting a value, run `npm run build`, then commit and push.
 ## Owner to-do before announcing the site
 
 - [ ] `BOOKING_URL`: Zoho Bookings or Calendly link (src/config.mjs)
-- [ ] Contact form (FormSubmit): send one test enquiry from https://eonai.ai/#contact, then click the activation link FormSubmit emails to hello@eonai.ai. Until then, submissions are held and the form shows an error. Optional: paste the random alias from FormSubmit into `FORM_TARGET`.
+- [x] Contact form (FormSubmit): activated 2026-10-07; enquiries arrive at hello@eonai.ai. Activation is one-time; it is needed again only if `FORM_TARGET` changes to a new address or the form moves to another domain. Optional: paste FormSubmit's random alias into `FORM_TARGET` to keep the address out of the HTML.
 - [ ] `LINKEDIN_COMPANY_URL` (src/config.mjs)
 - [ ] Privacy policy: review with your advisor, set the date (`[DATE]`), and remove the "It is a draft…" sentence. Edit both `src/pages/privacy.mjs` (what is published) and `content/privacy.md` (the source draft).
 - [ ] Engineering notes 2 to 9 carry a visible "Draft — to be completed" marker; finish the prose in `src/notes-data.mjs` and remove `draft: true`.

@@ -102,7 +102,7 @@ Status at launch, 2026-10-07. Open owner items are listed in README → "Owner t
 - [x] Logo per `CLAUDE.md` § Logo in header, footer, favicon, Open Graph image and `Organization.logo`.
 - [x] No phone number, no names, no headcount, no prices anywhere (grep for `+91`, `Rajshiva`, `founder`, `₹`, `$` in copy). _(Remaining hits come from the approved copy: "founder" as a role, and dollar figures in the refunds note scenarios. See README → "Copy issues".)_
 - [x] Every "Book a call" link points to `BOOKING_URL` or `#contact`. _(Currently `/#contact` until the booking link is supplied.)_
-- [x] Contact form posts to FormSubmit via `FORM_TARGET`, required consent enforced, honeypot present, success state shown. _(Needs one-time activation from hello@eonai.ai.)_
+- [x] Contact form posts to FormSubmit via `FORM_TARGET`, required consent enforced, honeypot present, success state shown. _(Activated 2026-10-07; tested end to end.)_
 - [x] `/notes/refunds-agent/` matches the reference content exactly; other eight notes exist with outline content and a "Draft" marker.
 - [x] `/privacy/` and `/404.html` present. `sitemap.xml`, `robots.txt`, `favicon.svg`, `CNAME` present.
 - [x] README explains: edit copy, add a note, deploy, where the placeholders are.
