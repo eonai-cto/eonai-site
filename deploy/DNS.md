@@ -41,6 +41,6 @@ Also added, and must stay in place permanently (GitHub re-checks it):
 
 See README → "Owner to-do" for the current list.
 - `BOOKING_URL` (Zoho Bookings or Calendly link)
-- `FORMSPREE_ENDPOINT` (create a free form at formspree.io, send to hello@eonai.ai)
+- Contact form: FormSubmit, no DNS change needed. Activate it once from the email FormSubmit sends to hello@eonai.ai.
 - `LINKEDIN_COMPANY_URL`
 - Optional: `CF_ANALYTICS_TOKEN` (Cloudflare Web Analytics, free, no DNS change needed)

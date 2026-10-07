@@ -80,7 +80,7 @@ See `BRIEF.md` § Site tree. Every page gets: `<title>`, meta description, canon
 
 ## Forms
 
-Contact form posts to Formspree (free tier). Use the endpoint placeholder `FORMSPREE_ENDPOINT` in a single config constant; the owner will supply the real one. Both consent checkboxes are real inputs; the first is `required`. Honeypot field for spam. On success, show an inline confirmation (no redirect).
+Contact form posts to **FormSubmit** (formsubmit.co): free, no account, no published submission limit. Chosen over Formspree on 2026-10-07 because Formspree's free tier caps submissions. The single config constant is `FORM_TARGET` in `src/config.mjs` (`hello@eonai.ai`, or the random alias FormSubmit sends after activation). The form's `action` is `https://formsubmit.co/<FORM_TARGET>` (no-JS fallback, with `_next` back to `/#contact`) and `site.js` posts to `https://formsubmit.co/ajax/<FORM_TARGET>` with `Accept: application/json`, treating anything but `success: "true"` as an error. Hidden fields: `_subject`, `_template=table`, `_captcha=false`. The honeypot field is named `_honey`. Name and email are `required`. Both consent checkboxes are real inputs; the first is `required`. Honeypot field for spam. On success, show an inline confirmation (no redirect).
 
 ## Definition of done
 

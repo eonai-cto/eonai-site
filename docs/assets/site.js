@@ -17,7 +17,8 @@
     });
   }
 
-  // Contact form. The endpoint comes from the form's action attribute, set at build time (src/config.mjs).
+  // Contact form (FormSubmit). The AJAX endpoint is set at build time from src/config.mjs.
+  // Without JS the form still posts to the action URL and FormSubmit redirects back.
   var form = document.getElementById('contact-form');
   if (!form) return;
   var status = document.getElementById('form-status');
@@ -31,18 +32,17 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var endpoint = form.getAttribute('action') || '';
-    if (!/^https:\/\//.test(endpoint)) {
-      show('error', 'The form is not connected yet. Please email hello@eonai.ai instead.');
-      return;
-    }
+    var endpoint = form.getAttribute('data-endpoint') || '';
     button.disabled = true;
     fetch(endpoint, {
       method: 'POST',
-      body: new FormData(form),
-      headers: { Accept: 'application/json' }
+      body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
     }).then(function (res) {
-      if (!res.ok) throw new Error('Request failed');
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (!res.ok || String(data.success) !== 'true') throw new Error('Request failed');
+      });
+    }).then(function () {
       form.reset();
       show('ok', 'Thank you. Your message has been sent. We reply within one business day.');
     }).catch(function () {

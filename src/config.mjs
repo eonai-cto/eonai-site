@@ -4,8 +4,10 @@ export const SITE_URL = 'https://eonai.ai';
 // Booking link (Zoho Bookings or Calendly). While null, every "Book a call" link points to #contact.
 export const BOOKING_URL = null; // TODO: BOOKING_URL
 
-// Formspree endpoint, e.g. 'https://formspree.io/f/abcdwxyz'.
-export const FORMSPREE_ENDPOINT = 'FORMSPREE_ENDPOINT'; // TODO: FORMSPREE_ENDPOINT
+// Contact form delivery via FormSubmit (formsubmit.co: free, no account, no published submission limit).
+// The form posts to https://formsubmit.co/ajax/<FORM_TARGET>. Use the email address until FormSubmit's
+// activation email supplies a random alias, then paste the alias here so the address is not in the HTML.
+export const FORM_TARGET = 'hello@eonai.ai'; // TODO (optional): replace with the FormSubmit alias
 
 // Footer LinkedIn link. While null, the link points to #contact.
 export const LINKEDIN_COMPANY_URL = null; // TODO: LINKEDIN_COMPANY_URL

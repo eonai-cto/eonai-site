@@ -1,5 +1,5 @@
 import { page, BOOK, esc } from '../layout.mjs';
-import { SITE_URL, FORMSPREE_ENDPOINT, TALK_URL, TALK_THUMB, TALK_TITLE } from '../config.mjs';
+import { SITE_URL, FORM_TARGET, TALK_URL, TALK_THUMB, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
 
@@ -338,17 +338,21 @@ ${faqs}
 </ol>
 </div>
 </div>
-<form class="form" id="contact-form" method="post" action="${esc(FORMSPREE_ENDPOINT)}">
+<form class="form" id="contact-form" method="post" action="https://formsubmit.co/${esc(FORM_TARGET)}" data-endpoint="https://formsubmit.co/ajax/${esc(FORM_TARGET)}">
+<input type="hidden" name="_subject" value="New enquiry from eonai.ai">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="${SITE_URL}/#contact">
 <div class="form__row">
-<div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name"></div>
-<div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+<div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+<div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
 </div>
 <div class="form__row">
 <div class="field"><label for="f-interest">I’m interested in</label><select id="f-interest" name="interest"><option>Building an AI product or agent</option><option>Testing or auditing an AI system</option><option>Keeping an AI system running well</option><option>AI strategy and governance</option><option>Fractional CTO or India team</option><option>A team workshop</option><option>Something else</option></select></div>
 <div class="field"><label for="f-stage">Where are you in your AI journey?</label><select id="f-stage" name="stage"><option>Exploring what’s possible</option><option>Have a use case, no build yet</option><option>Have a pilot or prototype</option><option>Have something in production</option></select></div>
 </div>
 <div class="field"><label for="f-message">What problem are you trying to solve?</label><textarea id="f-message" name="message" rows="4"></textarea></div>
-<div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this field empty</label><input id="f-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+<div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this field empty</label><input id="f-gotcha" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
 <label class="check"><input type="checkbox" name="consent_processing" value="yes" required><span>I agree to EonAI processing this information to respond to my enquiry, as described in the <a href="/privacy/">Privacy policy</a>. Required.</span></label>
 <label class="check"><input type="checkbox" name="consent_marketing" value="yes"><span>Send me occasional notes from EonAI on AI quality and engineering. I can unsubscribe at any time. Optional.</span></label>
 <div class="form__actions">

@@ -27,7 +27,7 @@ Typical change: edit a file in `src/`, run `npm run build && npm run check`, pre
 | Constant | Effect while unset |
 |---|---|
 | `BOOKING_URL` | every "Book a call" link points to `/#contact` |
-| `FORMSPREE_ENDPOINT` | form shows "not connected yet, email us" on submit. Set to e.g. `https://formspree.io/f/xxxx` |
+| `FORM_TARGET` | set to `hello@eonai.ai`; the form works once FormSubmit is activated. Optionally replace with FormSubmit's random alias to keep the address out of the HTML |
 | `LINKEDIN_COMPANY_URL` | footer LinkedIn link points to `/#contact` |
 | `CF_ANALYTICS_TOKEN` | no analytics beacon (optional) |
 
@@ -36,7 +36,7 @@ After setting a value, run `npm run build`, then commit and push.
 ## Owner to-do before announcing the site
 
 - [ ] `BOOKING_URL`: Zoho Bookings or Calendly link (src/config.mjs)
-- [ ] `FORMSPREE_ENDPOINT`: create a free form at formspree.io that delivers to hello@eonai.ai (src/config.mjs). Then submit a test enquiry on the live site.
+- [ ] Contact form (FormSubmit): send one test enquiry from https://eonai.ai/#contact, then click the activation link FormSubmit emails to hello@eonai.ai. Until then, submissions are held and the form shows an error. Optional: paste the random alias from FormSubmit into `FORM_TARGET`.
 - [ ] `LINKEDIN_COMPANY_URL` (src/config.mjs)
 - [ ] Privacy policy: review with your advisor, set the date (`[DATE]`), and remove the "It is a draft…" sentence. Edit both `src/pages/privacy.mjs` (what is published) and `content/privacy.md` (the source draft).
 - [ ] Engineering notes 2 to 9 carry a visible "Draft — to be completed" marker; finish the prose in `src/notes-data.mjs` and remove `draft: true`.
