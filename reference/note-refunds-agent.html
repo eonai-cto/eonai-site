@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EonAI — Engineering note</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1E3FBF}a:hover{color:#142C8A}
+</style>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0E1726; background: #F5F6F8; min-height: 100vh">
+
+<header style="background: #0B1220; border-bottom: 1px solid #1C2638">
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #FFFFFF">
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em">EonAI</span>
+</a>
+<nav style="display: flex; flex-wrap: wrap; align-items: center; gap: 26px; font-size: 15px">
+<a href="index.html#problems" style="color: #C9D2E3; text-decoration: none">Problems we solve</a>
+<a href="index.html#services" style="color: #C9D2E3; text-decoration: none">Services</a>
+<a href="index.html#offers" style="color: #C9D2E3; text-decoration: none">Engagements</a>
+<a href="notes.html" style="color: #FFFFFF; text-decoration: none; font-weight: 600">Engineering notes</a>
+<a href="index.html#contact" style="color: #FFFFFF; background: #2B5BFF; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: 600">Book a call</a>
+</nav>
+</div>
+</header>
+
+<section style="background: #0B1220; color: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 64px; display: flex; flex-direction: column; gap: 22px">
+<a href="notes.html" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #93A1BC; text-decoration: none">← ENGINEERING NOTES</a>
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #8FB0FF">SECURITY &amp; GUARDRAILS · ADVISORY NOTE · 8 MIN READ</div>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 50px; line-height: 1.08; letter-spacing: -0.025em; max-width: 920px">If your agent can issue refunds, a content filter is not protecting you.</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.6; color: #C9D2E3; max-width: 820px">Most support agents in production rely on injection filters, output scanning and a per-transaction cap. Those controls stop the attacks that look like attacks. The ones that cost money look like ordinary business. This note sets out the exposure, where standard controls fall short, and the seven controls we recommend.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 13px; color: #93A1BC; padding-top: 6px">
+<span>For: CTOs, heads of customer operations, risk and compliance leads</span><span>Applies to: any agent that can refund, update records or send messages</span>
+<span>Related engagement: AI Reliability Audit</span>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 64px 32px 112px; display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start">
+
+<article style="flex: 999 1 620px; min-width: 0; max-width: 760px; display: flex; flex-direction: column; gap: 36px; font-size: 17px; line-height: 1.7; color: #2A3446">
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.2; color: #0E1726">The exposure</h2>
+<p style="margin: 0">A chatbot that says the wrong thing produces a bad sentence. An agent that is manipulated into the wrong action produces a refund, a redirected parcel or a disclosed customer record. The liability sits with you, not with the model vendor.</p>
+<p style="margin: 0">The controls most teams ship with are designed for an ordinary user who may be rude or careless. They are not designed for a motivated person who has read the defences and is working around them, and that is the person who extracts money. The practical question for your business is not “can the filter catch bad text?” but “can anyone make this agent take an action it should not?”</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.2; color: #0E1726">Where standard controls fall short</h2>
+<p style="margin: 0">In our reference build, a support agent protected with the standard controls stopped the textbook injection and then failed six scenarios that read as normal customer traffic. Each one maps to a loss your finance or fraud team would recognise.</p>
+<div style="background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; overflow-x: auto">
+<div style="min-width: 560px; font-size: 15px; line-height: 1.55">
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 16px; padding: 14px 20px; border-bottom: 1px solid #E1E5EC; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678"><div>SCENARIO</div><div>EXPOSURE</div><div>WHY STANDARD CONTROLS MISS IT</div></div>
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 16px; padding: 16px 20px; border-bottom: 1px solid #EEF1F5"><div style="font-weight: 600">Injection without keywords</div><div>The same instruction-hijack as the textbook attack, phrased so nothing on the block list appears. The agent follows it.</div><div style="color: #475266">The classifier matches appearance, not intent.</div></div>
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 16px; padding: 16px 20px; border-bottom: 1px solid #EEF1F5"><div style="font-weight: 600">Multi-turn setup</div><div>Four ordinary messages. A false premise is established in the third and acted on in the fourth: a profile change the agent had no way to verify.</div><div style="color: #475266">Per-message checks cannot see a sequence.</div></div>
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 16px; padding: 16px 20px; border-bottom: 1px solid #EEF1F5"><div style="font-weight: 600">Tampered policy document</div><div>Six characters changed in the knowledge base: $250 became $2,500. The agent’s self-service authority increased tenfold, and it quoted the new limit with full confidence.</div><div style="color: #475266">Not an injection and not visibly wrong. A human review skims past it.</div></div>
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 16px; padding: 16px 20px; border-bottom: 1px solid #EEF1F5"><div style="font-weight: 600">Acting on someone else’s account</div><div>A customer requested a refund on another customer’s $1,899 order and received it.</div><div style="color: #475266">The agent had no concept of who was asking. Nothing to check ownership against.</div></div>
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 16px; padding: 16px 20px; border-bottom: 1px solid #EEF1F5"><div style="font-weight: 600">Refund splitting</div><div>Three refunds of $160, $150 and $140, each with a plausible reason, on an order worth $612 that had already been partly refunded. Total paid out exceeded the order value.</div><div style="color: #475266">The per-transaction cap was satisfied every time. It limits the wrong thing.</div></div>
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 16px; padding: 16px 20px"><div style="font-weight: 600">Two routine actions, one fraud</div><div>An address change followed by a refund on the same order in one session. Individually routine; together, the delivery-interception pattern your own policy probably warns about.</div><div style="color: #475266">Per-action checks see one action at a time. The risk only exists across two.</div></div>
+</div>
+</div>
+<p style="margin: 0">The pattern matters more than any single row. Standard controls are strongest against the scenario that looks most like an attack and weakest against the ones that look like business as usual. If your current protection is a filter and a cap, assume the lower five rows apply to you.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.2; color: #0E1726">What we recommend</h2>
+<p style="margin: 0">Put authorisation in the architecture, not in the prompt. The model may decide what to propose; it must never decide what is permitted. In practice that is seven controls, in order of dependency. Most teams can implement the first two in days, and they close the most expensive scenarios.</p>
+<ol style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px">
+<li><span style="font-weight: 600">Know who is asking.</span> Every session is bound to an identified customer at a known assurance level (unverified, email-verified, MFA). Higher-impact actions require the higher levels. Everything below depends on this.</li>
+<li><span style="font-weight: 600">A permission table your auditor can read.</span> Each tool declares what it requires; anything not listed is denied by default. Queries return only the fields a task needs, so a field that was never fetched cannot be leaked.</li>
+<li><span style="font-weight: 600">Keep the filters, demote them.</span> Injection scanning stays, extended to retrieved documents, but it flags and logs rather than decides. It becomes your early-warning telemetry.</li>
+<li><span style="font-weight: 600">Protect the policy source.</span> Knowledge-base documents are integrity-checked before use, and monetary limits live in code rather than in prose the model reads.</li>
+<li><span style="font-weight: 600">Cap the total, not the transaction.</span> Limits are enforced against the order’s remaining value and the session’s running total. Splitting a refund no longer works.</li>
+<li><span style="font-weight: 600">A person approves high-impact combinations.</span> Address changes, large refunds and any flagged pairing of actions route to a human before they execute.</li>
+<li><span style="font-weight: 600">An audit trail that stands up to review.</span> Every decision and action recorded in tamper-evident form, so an incident is reconstructed rather than argued about, and compliance can sign off.</li>
+</ol>
+<p style="margin: 0">The most expensive scenario, acting on someone else’s account, was closed by a single ownership check: does this record belong to the customer in this session? No classifier, no threshold, no prompt. The most effective controls on agents are usually this plain, and plain controls have no false-negative rate.</p>
+</div>
+
+<div style="background: #0E1726; color: #FFFFFF; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #8FB0FF">OUR RECOMMENDATION</div>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #E3E8F1">Before the next release, ask three questions of every tool your agent can call: who is calling, what are they entitled to, and what has already happened in this session? If any answer lives in a prompt, the control is a request, not a guarantee. Keep the filters as defence in depth. Move authorisation into the architecture. A two-week audit is enough to find out which of the six scenarios apply to you and what closing them would take.</p>
+</div>
+
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #5B6678">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across support agents, not a client engagement.</p>
+
+</article>
+
+<aside style="flex: 1 1 280px; min-width: 0; max-width: 340px; display: flex; flex-direction: column; gap: 20px">
+<div style="background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #5B6678">IN THIS NOTE</div>
+<a href="#top" style="font-size: 14px; text-decoration: none; color: #2A3446">The exposure</a>
+<a href="#top" style="font-size: 14px; text-decoration: none; color: #2A3446">Where standard controls fall short</a>
+<a href="#top" style="font-size: 14px; text-decoration: none; color: #2A3446">What we recommend</a>
+<a href="#top" style="font-size: 14px; text-decoration: none; color: #2A3446">Our recommendation</a>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #2B5BFF">WHERE THIS APPLIES</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px">AI Reliability Audit</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #475266">In two to three weeks we run these scenarios and others specific to your tools against your agent, and hand you a severity-ranked report, a permission table, a fix plan and a re-runnable test suite your team owns.</p>
+<a href="index.html#offers" style="font-size: 14px; font-weight: 600; text-decoration: none; color: #2B5BFF">See the engagement →</a>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #5B6678">RELATED NOTES</div>
+<a href="note-refunds-agent.html" style="font-size: 14px; line-height: 1.5; text-decoration: none; color: #2A3446">Guardrails are topology, not prompts</a>
+<a href="note-refunds-agent.html" style="font-size: 14px; line-height: 1.5; text-decoration: none; color: #2A3446">When money is involved, keep the orchestrator deterministic</a>
+<a href="note-refunds-agent.html" style="font-size: 14px; line-height: 1.5; text-decoration: none; color: #2A3446">A fluent answer is not a grounded answer</a>
+</div>
+<div style="background: #EEF2FF; border: 1px solid #D5DDF8; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px">Does your agent have one of these exposures?</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #475266">A 30-minute working session is usually enough to find out.</p>
+<a href="index.html#contact" style="font-size: 14px; font-weight: 600; text-decoration: none; color: #2B5BFF">Book a call →</a>
+</div>
+</aside>
+
+</section>
+
+<footer style="background: #0B1220; color: #A9B5CB">
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; font-size: 13px; line-height: 1.7">
+<span>EonAI Private Limited · CIN U62011TS2025PTC203906 · Hyderabad, India</span>
+<span><a href="mailto:hello@eonai.ai" style="color: #FFFFFF; text-decoration: none">hello@eonai.ai</a> · <a href="index.html" style="color: #A9B5CB; text-decoration: none">Home</a> · <a href="index.html#top" style="color: #A9B5CB; text-decoration: none">Privacy policy</a></span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

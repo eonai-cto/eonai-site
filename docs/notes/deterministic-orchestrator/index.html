@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When money is involved, keep the orchestrator deterministic — EonAI</title>
+<meta name="description" content="How to structure a multi-agent review so every agent shows its evidence, a critic catches contradictions, insufficient evidence never becomes an approval, and your auditors get a complete trail. Illustrated with insurance claims.">
+<link rel="canonical" href="https://eonai.ai/notes/deterministic-orchestrator/">
+<meta property="og:site_name" content="EonAI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When money is involved, keep the orchestrator deterministic — EonAI">
+<meta property="og:description" content="How to structure a multi-agent review so every agent shows its evidence, a critic catches contradictions, insufficient evidence never becomes an approval, and your auditors get a complete trail. Illustrated with insurance claims.">
+<meta property="og:url" content="https://eonai.ai/notes/deterministic-orchestrator/">
+<meta property="og:image" content="https://eonai.ai/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EonAI. AI that works beyond the demo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="When money is involved, keep the orchestrator deterministic — EonAI">
+<meta name="twitter:description" content="How to structure a multi-agent review so every agent shows its evidence, a critic catches contradictions, insufficient evidence never becomes an approval, and your auditors get a complete trail. Illustrated with insurance claims.">
+<meta name="twitter:image" content="https://eonai.ai/assets/og.png">
+<meta name="theme-color" content="#0B1220">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"When money is involved, keep the orchestrator deterministic","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/deterministic-orchestrator/"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="site-header__inner">
+<a class="brand" href="/" aria-label="EonAI home"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg><span class="brand__name">EonAI</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/notes/" aria-current="page">Engineering notes</a>
+<a class="btn btn--primary" href="/#contact">Book a call</a>
+</nav>
+</div>
+</header>
+<main id="main">
+
+<section class="note-hero on-dark">
+<div class="container note-hero__inner">
+<a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
+<div class="eyebrow">MULTI-AGENT SYSTEMS · ADVISORY NOTE · 8 MIN READ</div>
+<h1>When money is involved, keep the orchestrator deterministic</h1>
+<p class="note-hero__lead">How to structure a multi-agent review so every agent shows its evidence, a critic catches contradictions, insufficient evidence never becomes an approval, and your auditors get a complete trail. Illustrated with insurance claims.</p>
+<div class="note-hero__meta"><span>For: CTOs, heads of operations, claims/finance leaders</span><span>Related engagement: Agent MVP, AI Opportunity Sprint</span></div>
+</div>
+</section>
+
+<div class="container note-layout">
+<article class="article">
+
+<section id="exposure">
+<h2>The exposure</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ul>
+<li>Claim and document review is costly and inconsistent when manual, brittle when done by fixed rules; partial evidence is common.</li>
+<li>“Multi-agent” is often three parallel LLM calls with no role boundaries, no evidence contract and no way to explain a decision.</li>
+</ul>
+</section>
+
+<section id="shortfalls">
+<h2>Where standard controls fall short</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
+<table class="scenario">
+<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<tbody>
+<tr><td>One LLM asked to “assess the claim”</td><td>No evidence trail</td><td>Decision cannot be defended</td></tr>
+<tr><td>Parallel calls with no critic</td><td>Contradictions between findings go unnoticed</td><td>Wrong approvals</td></tr>
+<tr><td>LLM as orchestrator</td><td>Retries and routing become unpredictable</td><td>Cost and audit problems</td></tr>
+<tr><td>No quorum rule</td><td>A missing worker result becomes an implicit approval</td><td>Money out on no evidence</td></tr>
+<tr><td>Document inconsistencies (header vs body claim ID, invoice amount vs claim amount)</td><td>Missed unless a worker is tasked with them</td><td>Fraud passes</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="recommend">
+<h2>What we recommend</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ol>
+<li>Specialist workers with explicit responsibilities and output contracts (“risk signal + evidence-backed notes”), each with stated limits (e.g. “never infer risk from frequency alone”).</li>
+<li>Tools accessed through a standard protocol boundary (MCP) so data access is governed and logged.</li>
+<li>A critic that compares findings, flags contradictions and evidence gaps, and may request exactly one retry.</li>
+<li>A deterministic orchestrator (code, not a model) that dispatches, enforces retry caps and applies the verdict.</li>
+<li>A quorum rule: insufficient evidence falls back to deny or to human review, never to approve.</li>
+<li>An append-only audit trail per claim, readable by compliance.</li>
+<li>Human review branch for high-value or contested decisions.</li>
+</ol>
+</section>
+
+<section id="our-recommendation" class="recommend">
+<h2>OUR RECOMMENDATION</h2>
+<p>If the thing deciding which agent runs next is itself a model, you cannot promise your auditor a repeatable process. Keep the orchestrator boring.</p>
+</section>
+
+<p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
+
+</article>
+
+<aside class="sidebar" aria-label="Note details">
+<nav class="side-card" aria-label="In this note">
+<div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
+<a href="#exposure">The exposure</a>
+<a href="#shortfalls">Where standard controls fall short</a>
+<a href="#recommend">What we recommend</a>
+<a href="#our-recommendation">Our recommendation</a>
+</nav>
+<div class="side-card">
+<div class="eyebrow eyebrow--xs">WHERE THIS APPLIES</div>
+<h2>Agent MVP</h2>
+<p>A working agentic AI system on your own data, for startups and innovation teams.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+<h2>AI Opportunity Sprint</h2>
+<p>Use-case discovery, feasibility checks and a prioritised roadmap, for enterprises starting with AI.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+</div>
+<nav class="side-card" aria-label="Related notes">
+<div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
+<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/grounded-answers/">A fluent answer is not a grounded answer</a>
+<a href="/notes/decisions-not-reasoning/">Most of your agent’s model calls are decisions, not reasoning</a>
+</nav>
+<div class="side-card side-card--cta">
+<h2>Does your agent have one of these exposures?</h2>
+<p>A 30-minute working session is usually enough to find out.</p>
+<a class="card__more" href="/#contact">Book a call →</a>
+</div>
+</aside>
+</div>
+
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__brand">
+<span class="site-footer__name">EonAI</span>
+<span>Evaluation-first AI engineering for startups and enterprises.</span>
+<span class="site-footer__legal">EonAI Private Limited · CIN U62011TS2025PTC203906<br>Plot No 4, Doc Bhavan, 4th &amp; 5th Floor, Madhapur, Hyderabad 500081, India</span>
+</div>
+<div class="site-footer__cols">
+<div class="site-footer__col">
+<strong>Company</strong>
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/#about">About</a>
+</div>
+<div class="site-footer__col">
+<strong>Contact</strong>
+<a href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+<!-- TODO: LINKEDIN_COMPANY_URL (src/config.mjs) --><a href="/#contact">LinkedIn</a>
+<a href="/privacy/">Privacy policy</a>
+</div>
+</div>
+</div>
+<div class="site-footer__copy">© 2026 EonAI Private Limited. All rights reserved.</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

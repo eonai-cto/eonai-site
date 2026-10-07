@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>If your agent can issue refunds, a content filter is not protecting you — EonAI</title>
+<meta name="description" content="Most support agents in production rely on injection filters, output scanning and a per-transaction cap. Those controls stop the attacks that look like attacks. The ones that cost money look like ordinary business. This note sets out the exposure, where standard controls fall short, and the seven controls we recommend.">
+<link rel="canonical" href="https://eonai.ai/notes/refunds-agent/">
+<meta property="og:site_name" content="EonAI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="If your agent can issue refunds, a content filter is not protecting you — EonAI">
+<meta property="og:description" content="Most support agents in production rely on injection filters, output scanning and a per-transaction cap. Those controls stop the attacks that look like attacks. The ones that cost money look like ordinary business. This note sets out the exposure, where standard controls fall short, and the seven controls we recommend.">
+<meta property="og:url" content="https://eonai.ai/notes/refunds-agent/">
+<meta property="og:image" content="https://eonai.ai/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EonAI. AI that works beyond the demo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="If your agent can issue refunds, a content filter is not protecting you — EonAI">
+<meta name="twitter:description" content="Most support agents in production rely on injection filters, output scanning and a per-transaction cap. Those controls stop the attacks that look like attacks. The ones that cost money look like ordinary business. This note sets out the exposure, where standard controls fall short, and the seven controls we recommend.">
+<meta name="twitter:image" content="https://eonai.ai/assets/og.png">
+<meta name="theme-color" content="#0B1220">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"If your agent can issue refunds, a content filter is not protecting you","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/refunds-agent/"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="site-header__inner">
+<a class="brand" href="/" aria-label="EonAI home"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg><span class="brand__name">EonAI</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/notes/" aria-current="page">Engineering notes</a>
+<a class="btn btn--primary" href="/#contact">Book a call</a>
+</nav>
+</div>
+</header>
+<main id="main">
+
+<section class="note-hero on-dark">
+<div class="container note-hero__inner">
+<a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
+<div class="eyebrow">SECURITY &amp; GUARDRAILS · ADVISORY NOTE · 8 MIN READ</div>
+<h1>If your agent can issue refunds, a content filter is not protecting you.</h1>
+<p class="note-hero__lead">Most support agents in production rely on injection filters, output scanning and a per-transaction cap. Those controls stop the attacks that look like attacks. The ones that cost money look like ordinary business. This note sets out the exposure, where standard controls fall short, and the seven controls we recommend.</p>
+<div class="note-hero__meta"><span>For: CTOs, heads of customer operations, risk and compliance leads</span><span>Applies to: any agent that can refund, update records or send messages</span><span>Related engagement: AI Reliability Audit</span></div>
+</div>
+</section>
+
+<div class="container note-layout">
+<article class="article">
+
+<section id="exposure">
+<h2>The exposure</h2>
+<p>A chatbot that says the wrong thing produces a bad sentence. An agent that is manipulated into the wrong action produces a refund, a redirected parcel or a disclosed customer record. The liability sits with you, not with the model vendor.</p>
+<p>The controls most teams ship with are designed for an ordinary user who may be rude or careless. They are not designed for a motivated person who has read the defences and is working around them, and that is the person who extracts money. The practical question for your business is not “can the filter catch bad text?” but “can anyone make this agent take an action it should not?”</p>
+</section>
+
+<section id="shortfalls">
+<h2>Where standard controls fall short</h2>
+<p>In our reference build, a support agent protected with the standard controls stopped the textbook injection and then failed six scenarios that read as normal customer traffic. Each one maps to a loss your finance or fraud team would recognise.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Scenarios where standard controls fall short">
+<table class="scenario">
+<thead><tr><th scope="col">SCENARIO</th><th scope="col">EXPOSURE</th><th scope="col">WHY STANDARD CONTROLS MISS IT</th></tr></thead>
+<tbody>
+<tr><td>Injection without keywords</td><td>The same instruction-hijack as the textbook attack, phrased so nothing on the block list appears. The agent follows it.</td><td>The classifier matches appearance, not intent.</td></tr>
+<tr><td>Multi-turn setup</td><td>Four ordinary messages. A false premise is established in the third and acted on in the fourth: a profile change the agent had no way to verify.</td><td>Per-message checks cannot see a sequence.</td></tr>
+<tr><td>Tampered policy document</td><td>Six characters changed in the knowledge base: $250 became $2,500. The agent’s self-service authority increased tenfold, and it quoted the new limit with full confidence.</td><td>Not an injection and not visibly wrong. A human review skims past it.</td></tr>
+<tr><td>Acting on someone else’s account</td><td>A customer requested a refund on another customer’s $1,899 order and received it.</td><td>The agent had no concept of who was asking. Nothing to check ownership against.</td></tr>
+<tr><td>Refund splitting</td><td>Three refunds of $160, $150 and $140, each with a plausible reason, on an order worth $612 that had already been partly refunded. Total paid out exceeded the order value.</td><td>The per-transaction cap was satisfied every time. It limits the wrong thing.</td></tr>
+<tr><td>Two routine actions, one fraud</td><td>An address change followed by a refund on the same order in one session. Individually routine; together, the delivery-interception pattern your own policy probably warns about.</td><td>Per-action checks see one action at a time. The risk only exists across two.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The pattern matters more than any single row. Standard controls are strongest against the scenario that looks most like an attack and weakest against the ones that look like business as usual. If your current protection is a filter and a cap, assume the lower five rows apply to you.</p>
+</section>
+
+<section id="recommend">
+<h2>What we recommend</h2>
+<p>Put authorisation in the architecture, not in the prompt. The model may decide what to propose; it must never decide what is permitted. In practice that is seven controls, in order of dependency. Most teams can implement the first two in days, and they close the most expensive scenarios.</p>
+<ol>
+<li><strong>Know who is asking.</strong> Every session is bound to an identified customer at a known assurance level (unverified, email-verified, MFA). Higher-impact actions require the higher levels. Everything below depends on this.</li>
+<li><strong>A permission table your auditor can read.</strong> Each tool declares what it requires; anything not listed is denied by default. Queries return only the fields a task needs, so a field that was never fetched cannot be leaked.</li>
+<li><strong>Keep the filters, demote them.</strong> Injection scanning stays, extended to retrieved documents, but it flags and logs rather than decides. It becomes your early-warning telemetry.</li>
+<li><strong>Protect the policy source.</strong> Knowledge-base documents are integrity-checked before use, and monetary limits live in code rather than in prose the model reads.</li>
+<li><strong>Cap the total, not the transaction.</strong> Limits are enforced against the order’s remaining value and the session’s running total. Splitting a refund no longer works.</li>
+<li><strong>A person approves high-impact combinations.</strong> Address changes, large refunds and any flagged pairing of actions route to a human before they execute.</li>
+<li><strong>An audit trail that stands up to review.</strong> Every decision and action recorded in tamper-evident form, so an incident is reconstructed rather than argued about, and compliance can sign off.</li>
+</ol>
+<p>The most expensive scenario, acting on someone else’s account, was closed by a single ownership check: does this record belong to the customer in this session? No classifier, no threshold, no prompt. The most effective controls on agents are usually this plain, and plain controls have no false-negative rate.</p>
+</section>
+
+<section id="our-recommendation" class="recommend">
+<h2>OUR RECOMMENDATION</h2>
+<p>Before the next release, ask three questions of every tool your agent can call: who is calling, what are they entitled to, and what has already happened in this session? If any answer lives in a prompt, the control is a request, not a guarantee. Keep the filters as defence in depth. Move authorisation into the architecture. A two-week audit is enough to find out which of the six scenarios apply to you and what closing them would take.</p>
+</section>
+
+<p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across support agents, not a client engagement.</p>
+
+</article>
+
+<aside class="sidebar" aria-label="Note details">
+<nav class="side-card" aria-label="In this note">
+<div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
+<a href="#exposure">The exposure</a>
+<a href="#shortfalls">Where standard controls fall short</a>
+<a href="#recommend">What we recommend</a>
+<a href="#our-recommendation">Our recommendation</a>
+</nav>
+<div class="side-card">
+<div class="eyebrow eyebrow--xs">WHERE THIS APPLIES</div>
+<h2>AI Reliability Audit</h2>
+<p>In two to three weeks we run these scenarios and others specific to your tools against your agent, and hand you a severity-ranked report, a permission table, a fix plan and a re-runnable test suite your team owns.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+</div>
+<nav class="side-card" aria-label="Related notes">
+<div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
+<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/deterministic-orchestrator/">When money is involved, keep the orchestrator deterministic</a>
+<a href="/notes/grounded-answers/">A fluent answer is not a grounded answer</a>
+</nav>
+<div class="side-card side-card--cta">
+<h2>Does your agent have one of these exposures?</h2>
+<p>A 30-minute working session is usually enough to find out.</p>
+<a class="card__more" href="/#contact">Book a call →</a>
+</div>
+</aside>
+</div>
+
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__brand">
+<span class="site-footer__name">EonAI</span>
+<span>Evaluation-first AI engineering for startups and enterprises.</span>
+<span class="site-footer__legal">EonAI Private Limited · CIN U62011TS2025PTC203906<br>Plot No 4, Doc Bhavan, 4th &amp; 5th Floor, Madhapur, Hyderabad 500081, India</span>
+</div>
+<div class="site-footer__cols">
+<div class="site-footer__col">
+<strong>Company</strong>
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/#about">About</a>
+</div>
+<div class="site-footer__col">
+<strong>Contact</strong>
+<a href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+<!-- TODO: LINKEDIN_COMPANY_URL (src/config.mjs) --><a href="/#contact">LinkedIn</a>
+<a href="/privacy/">Privacy policy</a>
+</div>
+</div>
+</div>
+<div class="site-footer__copy">© 2026 EonAI Private Limited. All rights reserved.</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

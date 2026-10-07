@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fairness is a test, not a policy — EonAI</title>
+<meta name="description" content="If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.">
+<link rel="canonical" href="https://eonai.ai/notes/fairness-is-a-test/">
+<meta property="og:site_name" content="EonAI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fairness is a test, not a policy — EonAI">
+<meta property="og:description" content="If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.">
+<meta property="og:url" content="https://eonai.ai/notes/fairness-is-a-test/">
+<meta property="og:image" content="https://eonai.ai/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EonAI. AI that works beyond the demo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fairness is a test, not a policy — EonAI">
+<meta name="twitter:description" content="If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.">
+<meta name="twitter:image" content="https://eonai.ai/assets/og.png">
+<meta name="theme-color" content="#0B1220">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Fairness is a test, not a policy","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/fairness-is-a-test/"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="site-header__inner">
+<a class="brand" href="/" aria-label="EonAI home"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg><span class="brand__name">EonAI</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/notes/" aria-current="page">Engineering notes</a>
+<a class="btn btn--primary" href="/#contact">Book a call</a>
+</nav>
+</div>
+</header>
+<main id="main">
+
+<section class="note-hero on-dark">
+<div class="container note-hero__inner">
+<a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
+<div class="eyebrow">RESPONSIBLE AI · ADVISORY NOTE · 5 MIN READ</div>
+<h1>Fairness is a test, not a policy</h1>
+<p class="note-hero__lead">If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.</p>
+<div class="note-hero__meta"><span>For: HR and talent leaders, compliance, CTOs</span><span>Related engagement: AI Reliability Audit, Transform</span></div>
+</div>
+</section>
+
+<div class="container note-layout">
+<article class="article">
+
+<section id="exposure">
+<h2>The exposure</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ul>
+<li>AI screening (resumes, applications, claims) risks bias, opacity and false confidence; regulators and candidates increasingly ask for evidence, not policy.</li>
+</ul>
+</section>
+
+<section id="shortfalls">
+<h2>Where standard controls fall short</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
+<table class="scenario">
+<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<tbody>
+<tr><td>A written fairness policy</td><td>Says nothing about behaviour</td><td>No evidence</td></tr>
+<tr><td>Removing obvious sensitive fields</td><td>Proxies (address, school, gaps) carry the signal</td><td>Bias persists</td></tr>
+<tr><td>Single-pass scoring</td><td>Unstable scores presented as decisions</td><td>Inconsistent outcomes</td></tr>
+<tr><td>No injection check on documents</td><td>Text hidden in a resume influences the score</td><td>Manipulation</td></tr>
+<tr><td>No audit log</td><td>Decisions cannot be explained after the fact</td><td>Regulatory risk</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="recommend">
+<h2>What we recommend</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ol>
+<li>Injection scrubbing and PII redaction before scoring.</li>
+<li>Scores built from weighted, explained components, not a single opaque number.</li>
+<li>Repeated scoring with abstain-on-uncertainty when runs disagree.</li>
+<li>Matched-pair probes: name swaps and proxy flips must not move the decision.</li>
+<li>Group fairness snapshot across the applicant pool.</li>
+<li>Compact per-decision audit log with the explanation.</li>
+</ol>
+</section>
+
+<section id="our-recommendation" class="recommend">
+<h2>OUR RECOMMENDATION</h2>
+<p>Run the name-swap test before launch and again every time the model or prompt changes. It takes an afternoon and it is the question a regulator will ask first.</p>
+</section>
+
+<p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
+
+</article>
+
+<aside class="sidebar" aria-label="Note details">
+<nav class="side-card" aria-label="In this note">
+<div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
+<a href="#exposure">The exposure</a>
+<a href="#shortfalls">Where standard controls fall short</a>
+<a href="#recommend">What we recommend</a>
+<a href="#our-recommendation">Our recommendation</a>
+</nav>
+<div class="side-card">
+<div class="eyebrow eyebrow--xs">WHERE THIS APPLIES</div>
+<h2>AI Reliability Audit</h2>
+<p>An independent evaluation of an AI product you already run, for teams shipping AI today.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+<h2>Transform</h2>
+<a class="card__more" href="/#services">Read more →</a>
+</div>
+<nav class="side-card" aria-label="Related notes">
+<div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
+<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/measure-before-you-ship/">Before you ship that agent “improvement”, measure it in layers</a>
+<a href="/notes/refunds-agent/">If your agent can issue refunds, a content filter is not protecting you</a>
+</nav>
+<div class="side-card side-card--cta">
+<h2>Does your agent have one of these exposures?</h2>
+<p>A 30-minute working session is usually enough to find out.</p>
+<a class="card__more" href="/#contact">Book a call →</a>
+</div>
+</aside>
+</div>
+
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__brand">
+<span class="site-footer__name">EonAI</span>
+<span>Evaluation-first AI engineering for startups and enterprises.</span>
+<span class="site-footer__legal">EonAI Private Limited · CIN U62011TS2025PTC203906<br>Plot No 4, Doc Bhavan, 4th &amp; 5th Floor, Madhapur, Hyderabad 500081, India</span>
+</div>
+<div class="site-footer__cols">
+<div class="site-footer__col">
+<strong>Company</strong>
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/#about">About</a>
+</div>
+<div class="site-footer__col">
+<strong>Contact</strong>
+<a href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+<!-- TODO: LINKEDIN_COMPANY_URL (src/config.mjs) --><a href="/#contact">LinkedIn</a>
+<a href="/privacy/">Privacy policy</a>
+</div>
+</div>
+</div>
+<div class="site-footer__copy">© 2026 EonAI Private Limited. All rights reserved.</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

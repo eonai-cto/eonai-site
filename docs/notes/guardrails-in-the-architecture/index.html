@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guardrails are topology, not prompts — EonAI</title>
+<meta name="description" content="Safety that lives in a system prompt is a request. Safety that lives in the workflow the agent cannot bypass is a guarantee. What a guardrail architecture looks like, and the failure policy each check needs before launch.">
+<link rel="canonical" href="https://eonai.ai/notes/guardrails-in-the-architecture/">
+<meta property="og:site_name" content="EonAI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guardrails are topology, not prompts — EonAI">
+<meta property="og:description" content="Safety that lives in a system prompt is a request. Safety that lives in the workflow the agent cannot bypass is a guarantee. What a guardrail architecture looks like, and the failure policy each check needs before launch.">
+<meta property="og:url" content="https://eonai.ai/notes/guardrails-in-the-architecture/">
+<meta property="og:image" content="https://eonai.ai/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EonAI. AI that works beyond the demo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guardrails are topology, not prompts — EonAI">
+<meta name="twitter:description" content="Safety that lives in a system prompt is a request. Safety that lives in the workflow the agent cannot bypass is a guarantee. What a guardrail architecture looks like, and the failure policy each check needs before launch.">
+<meta name="twitter:image" content="https://eonai.ai/assets/og.png">
+<meta name="theme-color" content="#0B1220">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Guardrails are topology, not prompts","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/guardrails-in-the-architecture/"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="site-header__inner">
+<a class="brand" href="/" aria-label="EonAI home"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg><span class="brand__name">EonAI</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/notes/" aria-current="page">Engineering notes</a>
+<a class="btn btn--primary" href="/#contact">Book a call</a>
+</nav>
+</div>
+</header>
+<main id="main">
+
+<section class="note-hero on-dark">
+<div class="container note-hero__inner">
+<a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
+<div class="eyebrow">SECURITY &amp; GUARDRAILS · ADVISORY NOTE · 8 MIN READ</div>
+<h1>Guardrails are topology, not prompts</h1>
+<p class="note-hero__lead">Safety that lives in a system prompt is a request. Safety that lives in the workflow the agent cannot bypass is a guarantee. What a guardrail architecture looks like, and the failure policy each check needs before launch.</p>
+<div class="note-hero__meta"><span>For: CTOs, heads of product, trust & safety, legal</span><span>Related engagement: AI Reliability Audit, Agent MVP</span></div>
+</div>
+</section>
+
+<div class="container note-layout">
+<article class="article">
+
+<section id="exposure">
+<h2>The exposure</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ul>
+<li>A returns-and-refunds agent that acts has consequential failures: wrong refund, leaked record, biased decision. Trust & Safety and Legal will ask for a review before launch.</li>
+<li>Model vendors’ built-in safety training catches some attacks some of the time; it is not controllable and cannot be relied on.</li>
+</ul>
+</section>
+
+<section id="shortfalls">
+<h2>Where standard controls fall short</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Scenario, Exposure, Why prompt-based safety misses it">
+<table class="scenario">
+<thead><tr><th scope="col">SCENARIO</th><th scope="col">EXPOSURE</th><th scope="col">WHY PROMPT-BASED SAFETY MISSES IT</th></tr></thead>
+<tbody>
+<tr><td>Direct prompt injection</td><td>Agent ignores policy</td><td>The instruction is in the same channel as the attack</td></tr>
+<tr><td>PII exfiltration request</td><td>Customer record disclosed</td><td>Prompt says “don’t”, attacker says “do”</td></tr>
+<tr><td>Indirect injection via tool output</td><td>Agent acts on text inside a record</td><td>Tool output treated as trusted</td></tr>
+<tr><td>Frustrated legitimate customer</td><td>Wrongly refused or blocked</td><td>A single toxicity threshold cannot tell angry from malicious</td></tr>
+<tr><td>Over-refund attempt</td><td>Money out</td><td>No cap enforced where the action happens</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="recommend">
+<h2>What we recommend</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<p>Guardrails as workflow nodes the agent cannot bypass.</p>
+<ol>
+<li>Input checks run in order before the agent: PII redaction (redact and continue), injection classifier (fail closed), toxicity (route to a person), topic (fail open and log).</li>
+<li>Output check the agent cannot skip: the agent has no path to the customer except through it.</li>
+<li>Refund cap enforced inside the tool on the server, not in the prompt.</li>
+<li>Principle: neural components score, symbolic components decide and enforce.</li>
+<li>Every check has a written failure policy (what happens on error or trigger) agreed with Trust & Safety before launch.</li>
+<li>Fairness tested as behaviour: identical claims with different customer names must produce identical decisions.</li>
+<li>A decision trace that reconstructs which check made which call.</li>
+</ol>
+</section>
+
+<section id="our-recommendation" class="recommend">
+<h2>OUR RECOMMENDATION</h2>
+<p>Ask your team to show you the workflow diagram and point to the node that stops a bad output reaching a customer. If the answer is “the prompt”, you do not yet have a guardrail.</p>
+</section>
+
+<p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
+
+</article>
+
+<aside class="sidebar" aria-label="Note details">
+<nav class="side-card" aria-label="In this note">
+<div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
+<a href="#exposure">The exposure</a>
+<a href="#shortfalls">Where standard controls fall short</a>
+<a href="#recommend">What we recommend</a>
+<a href="#our-recommendation">Our recommendation</a>
+</nav>
+<div class="side-card">
+<div class="eyebrow eyebrow--xs">WHERE THIS APPLIES</div>
+<h2>AI Reliability Audit</h2>
+<p>An independent evaluation of an AI product you already run, for teams shipping AI today.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+<h2>Agent MVP</h2>
+<p>A working agentic AI system on your own data, for startups and innovation teams.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+</div>
+<nav class="side-card" aria-label="Related notes">
+<div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
+<a href="/notes/refunds-agent/">If your agent can issue refunds, a content filter is not protecting you</a>
+<a href="/notes/deterministic-orchestrator/">When money is involved, keep the orchestrator deterministic</a>
+<a href="/notes/fairness-is-a-test/">Fairness is a test, not a policy</a>
+</nav>
+<div class="side-card side-card--cta">
+<h2>Does your agent have one of these exposures?</h2>
+<p>A 30-minute working session is usually enough to find out.</p>
+<a class="card__more" href="/#contact">Book a call →</a>
+</div>
+</aside>
+</div>
+
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__brand">
+<span class="site-footer__name">EonAI</span>
+<span>Evaluation-first AI engineering for startups and enterprises.</span>
+<span class="site-footer__legal">EonAI Private Limited · CIN U62011TS2025PTC203906<br>Plot No 4, Doc Bhavan, 4th &amp; 5th Floor, Madhapur, Hyderabad 500081, India</span>
+</div>
+<div class="site-footer__cols">
+<div class="site-footer__col">
+<strong>Company</strong>
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/#about">About</a>
+</div>
+<div class="site-footer__col">
+<strong>Contact</strong>
+<a href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+<!-- TODO: LINKEDIN_COMPANY_URL (src/config.mjs) --><a href="/#contact">LinkedIn</a>
+<a href="/privacy/">Privacy policy</a>
+</div>
+</div>
+</div>
+<div class="site-footer__copy">© 2026 EonAI Private Limited. All rights reserved.</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

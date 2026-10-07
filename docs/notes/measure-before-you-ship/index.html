@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before you ship that agent “improvement”, measure it in layers — EonAI</title>
+<meta name="description" content="An upgrade to a triage agent improved its decisions and quietly made it slower and less consistent. One accuracy number would have hidden both. How to set up a golden set and layered metrics so your team sees the trade-off before customers do.">
+<link rel="canonical" href="https://eonai.ai/notes/measure-before-you-ship/">
+<meta property="og:site_name" content="EonAI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Before you ship that agent “improvement”, measure it in layers — EonAI">
+<meta property="og:description" content="An upgrade to a triage agent improved its decisions and quietly made it slower and less consistent. One accuracy number would have hidden both. How to set up a golden set and layered metrics so your team sees the trade-off before customers do.">
+<meta property="og:url" content="https://eonai.ai/notes/measure-before-you-ship/">
+<meta property="og:image" content="https://eonai.ai/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EonAI. AI that works beyond the demo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Before you ship that agent “improvement”, measure it in layers — EonAI">
+<meta name="twitter:description" content="An upgrade to a triage agent improved its decisions and quietly made it slower and less consistent. One accuracy number would have hidden both. How to set up a golden set and layered metrics so your team sees the trade-off before customers do.">
+<meta name="twitter:image" content="https://eonai.ai/assets/og.png">
+<meta name="theme-color" content="#0B1220">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Before you ship that agent “improvement”, measure it in layers","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/measure-before-you-ship/"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="site-header__inner">
+<a class="brand" href="/" aria-label="EonAI home"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg><span class="brand__name">EonAI</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/notes/" aria-current="page">Engineering notes</a>
+<a class="btn btn--primary" href="/#contact">Book a call</a>
+</nav>
+</div>
+</header>
+<main id="main">
+
+<section class="note-hero on-dark">
+<div class="container note-hero__inner">
+<a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
+<div class="eyebrow">EVALUATION · ADVISORY NOTE · 7 MIN READ</div>
+<h1>Before you ship that agent “improvement”, measure it in layers</h1>
+<p class="note-hero__lead">An upgrade to a triage agent improved its decisions and quietly made it slower and less consistent. One accuracy number would have hidden both. How to set up a golden set and layered metrics so your team sees the trade-off before customers do.</p>
+<div class="note-hero__meta"><span>For: CTOs, heads of engineering, product leads</span><span>Related engagement: AI Reliability Audit, Managed AI Operations</span></div>
+</div>
+</section>
+
+<div class="container note-layout">
+<article class="article">
+
+<section id="exposure">
+<h2>The exposure</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ul>
+<li>Support triage must be fast, consistent and auditable; a single-pass agent fails in three ways: ambiguous tickets that fit no category, wrong tool choice, badly formed tool arguments.</li>
+<li>Teams typically judge an agent change by one headline accuracy figure, or by eyeballing a few examples.</li>
+</ul>
+</section>
+
+<section id="shortfalls">
+<h2>Where standard controls fall short</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="What teams do, What it hides, Consequence">
+<table class="scenario">
+<thead><tr><th scope="col">WHAT TEAMS DO</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<tbody>
+<tr><td>Single accuracy metric</td><td>Trade-offs between decision quality and efficiency</td><td>Ships a change that is better on hard cases and worse on cost and consistency</td></tr>
+<tr><td>Ad-hoc test prompts that change each time</td><td>Regressions between versions</td><td>“Improvements” that cannot be compared</td></tr>
+<tr><td>One run at temperature 0 treated as truth</td><td>Run-to-run drift of both the agent and the judge</td><td>Decisions made on noise</td></tr>
+<tr><td>Planning metrics read at face value</td><td>A perfect score because no plan text existed to judge</td><td>False confidence</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Evidence from our reference build: adding planning and self-correction raised tool choice and argument quality markedly, cut step efficiency by roughly two-thirds and slightly reduced completion.</li>
+</ul>
+</section>
+
+<section id="recommend">
+<h2>What we recommend</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ol>
+<li>Freeze a golden set of real tickets with agreed correct outcomes before any change.</li>
+<li>Score in layers rather than with one number. A practical set for an agentic workflow: prompts and instructions (does the model follow the constraints set?), planning and reasoning (is the plan sound, are the right tools chosen?), actions (tool-call success, retries, latency, error handling), context and retrieval (quality of retrieved information, grounding, citation accuracy), outcomes (task completion, factuality, safety checks, user satisfaction).</li>
+<li>Map each layer to a business KPI (routing accuracy, escalation quality, operational efficiency, decision consistency) so leadership reads the same report as engineering.</li>
+<li>Run repeatedly and report mean and spread; treat small deltas as noise until they repeat.</li>
+<li>Treat “no planning signal” as a gap, not a pass.</li>
+<li>Re-run the suite on every prompt, model or tool change — this is what Managed AI Operations does monthly.</li>
+</ol>
+</section>
+
+<section id="our-recommendation" class="recommend">
+<h2>OUR RECOMMENDATION</h2>
+<p>If your team cannot show, per layer, what the last change did, you are shipping blind. A golden set and layered scorecard take one to two weeks to stand up and pay for themselves on the first regression they catch.</p>
+</section>
+
+<p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
+
+</article>
+
+<aside class="sidebar" aria-label="Note details">
+<nav class="side-card" aria-label="In this note">
+<div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
+<a href="#exposure">The exposure</a>
+<a href="#shortfalls">Where standard controls fall short</a>
+<a href="#recommend">What we recommend</a>
+<a href="#our-recommendation">Our recommendation</a>
+</nav>
+<div class="side-card">
+<div class="eyebrow eyebrow--xs">WHERE THIS APPLIES</div>
+<h2>AI Reliability Audit</h2>
+<p>An independent evaluation of an AI product you already run, for teams shipping AI today.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+<h2>Managed AI Operations</h2>
+<p>We keep your AI working after launch, for teams who would rather not build an AI operations function yet.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+</div>
+<nav class="side-card" aria-label="Related notes">
+<div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
+<a href="/notes/when-a-high-score-means-nothing/">When a high score means nothing</a>
+<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/build-on-real-data/">Why we build on your real data from week one</a>
+</nav>
+<div class="side-card side-card--cta">
+<h2>Does your agent have one of these exposures?</h2>
+<p>A 30-minute working session is usually enough to find out.</p>
+<a class="card__more" href="/#contact">Book a call →</a>
+</div>
+</aside>
+</div>
+
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__brand">
+<span class="site-footer__name">EonAI</span>
+<span>Evaluation-first AI engineering for startups and enterprises.</span>
+<span class="site-footer__legal">EonAI Private Limited · CIN U62011TS2025PTC203906<br>Plot No 4, Doc Bhavan, 4th &amp; 5th Floor, Madhapur, Hyderabad 500081, India</span>
+</div>
+<div class="site-footer__cols">
+<div class="site-footer__col">
+<strong>Company</strong>
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/#about">About</a>
+</div>
+<div class="site-footer__col">
+<strong>Contact</strong>
+<a href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+<!-- TODO: LINKEDIN_COMPANY_URL (src/config.mjs) --><a href="/#contact">LinkedIn</a>
+<a href="/privacy/">Privacy policy</a>
+</div>
+</div>
+</div>
+<div class="site-footer__copy">© 2026 EonAI Private Limited. All rights reserved.</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

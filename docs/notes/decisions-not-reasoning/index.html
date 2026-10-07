@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Most of your agent’s model calls are decisions, not reasoning — EonAI</title>
+<meta name="description" content="In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.">
+<link rel="canonical" href="https://eonai.ai/notes/decisions-not-reasoning/">
+<meta property="og:site_name" content="EonAI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Most of your agent’s model calls are decisions, not reasoning — EonAI">
+<meta property="og:description" content="In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.">
+<meta property="og:url" content="https://eonai.ai/notes/decisions-not-reasoning/">
+<meta property="og:image" content="https://eonai.ai/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EonAI. AI that works beyond the demo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Most of your agent’s model calls are decisions, not reasoning — EonAI">
+<meta name="twitter:description" content="In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.">
+<meta name="twitter:image" content="https://eonai.ai/assets/og.png">
+<meta name="theme-color" content="#0B1220">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Most of your agent’s model calls are decisions, not reasoning","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/decisions-not-reasoning/"}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="site-header__inner">
+<a class="brand" href="/" aria-label="EonAI home"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg><span class="brand__name">EonAI</span></a>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/notes/" aria-current="page">Engineering notes</a>
+<a class="btn btn--primary" href="/#contact">Book a call</a>
+</nav>
+</div>
+</header>
+<main id="main">
+
+<section class="note-hero on-dark">
+<div class="container note-hero__inner">
+<a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
+<div class="eyebrow">COST &amp; ARCHITECTURE · ADVISORY NOTE · 7 MIN READ</div>
+<h1>Most of your agent’s model calls are decisions, not reasoning</h1>
+<p class="note-hero__lead">In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.</p>
+<div class="note-hero__meta"><span>For: CTOs, heads of engineering, finance leads watching AI spend</span><span>Related engagement: AI Opportunity Sprint, Agent MVP, Managed AI Operations</span></div>
+</div>
+</section>
+
+<div class="container note-layout">
+<article class="article">
+
+<section id="exposure">
+<h2>The exposure</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ul>
+<li>Agent loops make two kinds of calls: reasoning calls (understand context, plan, write a response) and decision calls (route, classify, check, pass/fail). Practitioner estimates put decision calls at the large majority of volume.</li>
+<li>Almost all are served by a frontier model at frontier prices, multiplied by every iteration the agent runs. Cost compounds; latency does too.</li>
+<li>Cheaper, faster classification models (small models, fine-tuned classifiers, and newer calibrated decision models such as TypeSafe’s Jev, one example among several) can take the decision calls, but only if the architecture is set up to use them safely.</li>
+</ul>
+</section>
+
+<section id="shortfalls">
+<h2>Where standard controls fall short</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Practice, Problem, Consequence">
+<table class="scenario">
+<thead><tr><th scope="col">PRACTICE</th><th scope="col">PROBLEM</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<tbody>
+<tr><td>One frontier model for every call</td><td>Paying reasoning prices for yes/no decisions</td><td>Cost and latency scale with every loop iteration</td></tr>
+<tr><td>Bundled questions (“is this ticket a good automation candidate?”)</td><td>The model judges a bundle of three checks as one and returns a plausible but low-confidence score</td><td>Weighting hidden in the prompt rather than in code</td></tr>
+<tr><td>One confidence threshold for every action</td><td>A read-only lookup and an automated refund treated the same</td><td>Either too timid or too dangerous</td></tr>
+<tr><td>Routing accuracy never measured</td><td>Misrouting rarely throws an error, it just produces a worse result</td><td>Drift goes unnoticed</td></tr>
+<tr><td>Classifier as the approver</td><td>Text in context can sway a probability</td><td>A manipulated classification becomes an executed action</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="recommend">
+<h2>What we recommend</h2>
+<p class="draft-flag">Draft — to be completed</p>
+<ol>
+<li>Audit your traces: count reasoning calls versus structured decisions. The split tells you how much cost is movable.</li>
+<li>Route the four decision-heavy places (routing, pre-execution guardrails, output evaluation, triage classification) to a cheap calibrated classifier, with fallback to the frontier model when confidence is low. A wrong decision on the cheap side compounds; an extra frontier call costs cents.</li>
+<li>Keep permission checks in code. The classifier recommends; the code decides. Nothing can talk an if-statement out of its answer.</li>
+<li>Ask single questions and combine the results in code, where the weighting is visible and A/B-testable.</li>
+<li>Match the confidence threshold to the cost of a mistake: a lookup can act at 0.5, an automated refund might need 0.9, below which it goes to a person or a heavier model.</li>
+<li>Measure routing accuracy against a hand-labelled set, continuously; it is classification, and classifiers drift.</li>
+<li>Treat classifier input as untrusted: these models run alongside existing security checks, never instead of them.</li>
+</ol>
+</section>
+
+<section id="our-recommendation" class="recommend">
+<h2>OUR RECOMMENDATION</h2>
+<p>Audit one week of agent traces. If more than half the calls are decisions, you are overpaying for them and probably under-measuring them. The fix is architectural, takes a few weeks, and usually pays for itself within a quarter.</p>
+</section>
+
+<p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
+
+</article>
+
+<aside class="sidebar" aria-label="Note details">
+<nav class="side-card" aria-label="In this note">
+<div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
+<a href="#exposure">The exposure</a>
+<a href="#shortfalls">Where standard controls fall short</a>
+<a href="#recommend">What we recommend</a>
+<a href="#our-recommendation">Our recommendation</a>
+</nav>
+<div class="side-card">
+<div class="eyebrow eyebrow--xs">WHERE THIS APPLIES</div>
+<h2>AI Opportunity Sprint</h2>
+<p>Use-case discovery, feasibility checks and a prioritised roadmap, for enterprises starting with AI.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+<h2>Agent MVP</h2>
+<p>A working agentic AI system on your own data, for startups and innovation teams.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+<h2>Managed AI Operations</h2>
+<p>We keep your AI working after launch, for teams who would rather not build an AI operations function yet.</p>
+<a class="card__more" href="/#offers">See the engagement →</a>
+</div>
+<nav class="side-card" aria-label="Related notes">
+<div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
+<a href="/notes/deterministic-orchestrator/">When money is involved, keep the orchestrator deterministic</a>
+<a href="/notes/measure-before-you-ship/">Before you ship that agent “improvement”, measure it in layers</a>
+<a href="/notes/build-on-real-data/">Why we build on your real data from week one</a>
+</nav>
+<div class="side-card side-card--cta">
+<h2>Does your agent have one of these exposures?</h2>
+<p>A 30-minute working session is usually enough to find out.</p>
+<a class="card__more" href="/#contact">Book a call →</a>
+</div>
+</aside>
+</div>
+
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__brand">
+<span class="site-footer__name">EonAI</span>
+<span>Evaluation-first AI engineering for startups and enterprises.</span>
+<span class="site-footer__legal">EonAI Private Limited · CIN U62011TS2025PTC203906<br>Plot No 4, Doc Bhavan, 4th &amp; 5th Floor, Madhapur, Hyderabad 500081, India</span>
+</div>
+<div class="site-footer__cols">
+<div class="site-footer__col">
+<strong>Company</strong>
+<a href="/#problems">Problems we solve</a>
+<a href="/#services">Services</a>
+<a href="/#approach">How we work</a>
+<a href="/#offers">Engagements</a>
+<a href="/#about">About</a>
+</div>
+<div class="site-footer__col">
+<strong>Contact</strong>
+<a href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+<!-- TODO: LINKEDIN_COMPANY_URL (src/config.mjs) --><a href="/#contact">LinkedIn</a>
+<a href="/privacy/">Privacy policy</a>
+</div>
+</div>
+</div>
+<div class="site-footer__copy">© 2026 EonAI Private Limited. All rights reserved.</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

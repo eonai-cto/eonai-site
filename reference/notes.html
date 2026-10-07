@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EonAI — Engineering notes</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1E3FBF}a:hover{color:#142C8A}
+</style>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0E1726; background: #F5F6F8; min-height: 100vh">
+
+<header style="background: #0B1220; border-bottom: 1px solid #1C2638">
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #FFFFFF">
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#FFFFFF" stroke-width="2"><circle cx="14" cy="14" r="11"></circle><path d="M8 14h12M14 8v12" stroke="#8FB0FF"></path></svg>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em">EonAI</span>
+</a>
+<nav style="display: flex; flex-wrap: wrap; align-items: center; gap: 26px; font-size: 15px">
+<a href="index.html#problems" style="color: #C9D2E3; text-decoration: none">Problems we solve</a>
+<a href="index.html#services" style="color: #C9D2E3; text-decoration: none">Services</a>
+<a href="index.html#offers" style="color: #C9D2E3; text-decoration: none">Engagements</a>
+<a href="notes.html" style="color: #FFFFFF; text-decoration: none; font-weight: 600">Engineering notes</a>
+<a href="index.html#contact" style="color: #FFFFFF; background: #2B5BFF; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: 600">Book a call</a>
+</nav>
+</div>
+</header>
+
+<section style="background: #0B1220; color: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px 72px; display: flex; flex-direction: column; gap: 24px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #8FB0FF">ENGINEERING NOTES</div>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 56px; line-height: 1.06; letter-spacing: -0.025em; max-width: 900px">Practical guidance for teams putting AI agents into production.</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.6; color: #C9D2E3; max-width: 760px">Short advisory notes on the ways agentic systems fail in production and the controls that prevent it. Each one is written for the person accountable for the decision: the exposure, where standard controls fall short, what we recommend, and what it would take.</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #93A1BC; max-width: 760px">Findings are drawn from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not individual engagements.</p>
+</div>
+</section>
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 112px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 32px; font-size: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #5B6678; margin-right: 8px">FILTER</span>
+<span style="border: 1px solid #0E1726; background: #0E1726; color: #FFFFFF; border-radius: 999px; padding: 8px 16px">All</span>
+<span style="border: 1px solid #D3D9E3; background: #FFFFFF; border-radius: 999px; padding: 8px 16px">Evaluation</span>
+<span style="border: 1px solid #D3D9E3; background: #FFFFFF; border-radius: 999px; padding: 8px 16px">Security &amp; guardrails</span>
+<span style="border: 1px solid #D3D9E3; background: #FFFFFF; border-radius: 999px; padding: 8px 16px">Multi-agent systems</span>
+<span style="border: 1px solid #D3D9E3; background: #FFFFFF; border-radius: 999px; padding: 8px 16px">Knowledge assistants</span>
+<span style="border: 1px solid #D3D9E3; background: #FFFFFF; border-radius: 999px; padding: 8px 16px">Responsible AI</span>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px">
+
+<a href="note-refunds-agent.html" style="text-decoration: none; color: inherit; background: #0E1726; color: #FFFFFF; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 14px; grid-column: 1 / -1">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #8FB0FF">SECURITY &amp; GUARDRAILS</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #93A1BC">· 9 MIN READ · FEATURED</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.2; max-width: 820px">If your agent can issue refunds, a content filter is not protecting you</div>
+<div style="font-size: 16px; line-height: 1.6; color: #C9D2E3; max-width: 820px">Six scenarios that read as ordinary customer traffic and cost money, including split refunds under the cap and a six-character edit to a policy document. The seven controls we recommend, and why the two cheapest close the most expensive exposures.</div>
+<div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 6px">Read the note →</div>
+</a>
+
+<a href="note-refunds-agent.html" style="text-decoration: none; color: inherit; background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #2B5BFF">EVALUATION</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678">· 7 MIN READ</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">Before you ship that agent “improvement”, measure it in layers</div>
+<div style="font-size: 15px; line-height: 1.6; color: #475266">Adding planning to a triage agent improved its decisions and quietly made it slower and less consistent. One accuracy number would have hidden both. How to set up a golden set and layered metrics so your team sees the trade-off before customers do.</div>
+<div style="font-size: 14px; font-weight: 600; color: #2B5BFF; margin-top: auto; padding-top: 6px">Read the note →</div>
+</a>
+
+<a href="note-refunds-agent.html" style="text-decoration: none; color: inherit; background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #2B5BFF">SECURITY &amp; GUARDRAILS</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678">· 8 MIN READ</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">Guardrails are topology, not prompts</div>
+<div style="font-size: 15px; line-height: 1.6; color: #475266">Safety that lives in a system prompt is a request. Safety that lives in the workflow the agent cannot bypass is a guarantee. What a guardrail architecture looks like, and the failure policy each check needs before launch.</div>
+<div style="font-size: 14px; font-weight: 600; color: #2B5BFF; margin-top: auto; padding-top: 6px">Read the note →</div>
+</a>
+
+<a href="note-refunds-agent.html" style="text-decoration: none; color: inherit; background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #2B5BFF">MULTI-AGENT SYSTEMS</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678">· 8 MIN READ</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">When money is involved, keep the orchestrator deterministic</div>
+<div style="font-size: 15px; line-height: 1.6; color: #475266">How to structure a multi-agent review so every agent shows its evidence, a critic catches contradictions, insufficient evidence never becomes an approval, and your auditors get a complete trail. Illustrated with insurance claims.</div>
+<div style="font-size: 14px; font-weight: 600; color: #2B5BFF; margin-top: auto; padding-top: 6px">Read the note →</div>
+</a>
+
+<a href="note-refunds-agent.html" style="text-decoration: none; color: inherit; background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #2B5BFF">KNOWLEDGE ASSISTANTS</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678">· 6 MIN READ</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">A fluent answer is not a grounded answer</div>
+<div style="font-size: 15px; line-height: 1.6; color: #475266">A knowledge assistant can pass every task check and still answer from nothing. Why groundedness needs its own measure, why the judge must be independent of the writer, and how confidence routing keeps weak answers away from your clients.</div>
+<div style="font-size: 14px; font-weight: 600; color: #2B5BFF; margin-top: auto; padding-top: 6px">Read the note →</div>
+</a>
+
+<a href="note-refunds-agent.html" style="text-decoration: none; color: inherit; background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #2B5BFF">RESPONSIBLE AI</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678">· 5 MIN READ</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">Fairness is a test, not a policy</div>
+<div style="font-size: 15px; line-height: 1.6; color: #475266">If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.</div>
+<div style="font-size: 14px; font-weight: 600; color: #2B5BFF; margin-top: auto; padding-top: 6px">Read the note →</div>
+</a>
+
+<a href="note-refunds-agent.html" style="text-decoration: none; color: inherit; background: #FFFFFF; border: 1px solid #E1E5EC; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #2B5BFF">METHOD</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678">· 4 MIN READ</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">Why we build on your real data from week one</div>
+<div style="font-size: 15px; line-height: 1.6; color: #475266">An agent that commits to a plan up front breaks the moment reality differs from the plan. One that checks each result and adjusts keeps going. The same is true of projects, which is why we never build on sample data.</div>
+<div style="font-size: 14px; font-weight: 600; color: #2B5BFF; margin-top: auto; padding-top: 6px">Read the note →</div>
+</a>
+
+<a href="https://www.youtube.com/watch?v=xwoiaOAfZRA" style="text-decoration: none; color: inherit; background: #EEF2FF; border: 1px solid #D5DDF8; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #2B5BFF">TALK</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5B6678">· TEST DRIVE PLATFORM · VIDEO</span></div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">The Future of Quality in AI-Generated Software</div>
+<div style="font-size: 15px; line-height: 1.6; color: #475266">A guest talk by EonAI’s CTO on what changes in testing and release practice when a large share of your code is written by AI, and what to do about it.</div>
+<div style="font-size: 14px; font-weight: 600; color: #2B5BFF; margin-top: auto; padding-top: 6px">Watch on YouTube →</div>
+</a>
+
+</div>
+</section>
+
+<footer style="background: #0B1220; color: #A9B5CB">
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; font-size: 13px; line-height: 1.7">
+<span>EonAI Private Limited · CIN U62011TS2025PTC203906 · Hyderabad, India</span>
+<span><a href="mailto:hello@eonai.ai" style="color: #FFFFFF; text-decoration: none">hello@eonai.ai</a> · <a href="index.html" style="color: #A9B5CB; text-decoration: none">Home</a> · <a href="index.html#top" style="color: #A9B5CB; text-decoration: none">Privacy policy</a></span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
