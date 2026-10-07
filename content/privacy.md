@@ -6,7 +6,7 @@
 - **Contact form:** name, work email, your selections (interest, stage), your message, and your consent choices. Submitted to our form provider (Formspree) and delivered to hello@eonai.ai.
 - **Email:** anything you send to an eonai.ai address, processed on Zoho Mail.
 - **Analytics (if enabled):** aggregate, cookieless page statistics via Cloudflare Web Analytics. No personal identifiers.
-- **No cookies** are set by this site for tracking. Google Fonts may be loaded from Google's servers; see Google's privacy policy.
+- **No cookies** are set by this site for tracking. Fonts are served from this site; no third-party font service is used.
 
 ## Why we process it
 - To respond to your enquiry (consent and legitimate interest).

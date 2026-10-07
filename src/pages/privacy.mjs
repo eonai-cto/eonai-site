@@ -17,7 +17,7 @@ const body = `
 <li><strong>Contact form:</strong> name, work email, your selections (interest, stage), your message, and your consent choices. Submitted to our form provider (Formspree) and delivered to hello@eonai.ai.</li>
 <li><strong>Email:</strong> anything you send to an eonai.ai address, processed on Zoho Mail.</li>
 <li><strong>Analytics (if enabled):</strong> aggregate, cookieless page statistics via Cloudflare Web Analytics. No personal identifiers.</li>
-<li><strong>No cookies</strong> are set by this site for tracking. Google Fonts may be loaded from Google’s servers; see Google’s privacy policy.</li>
+<li><strong>No cookies</strong> are set by this site for tracking. Fonts are served from this site; no third-party font service is used.</li>
 </ul>
 
 <h2>Why we process it</h2>
