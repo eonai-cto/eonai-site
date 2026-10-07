@@ -32,7 +32,11 @@ for (const [rel, html] of pages) await write(rel, html);
 await write('404.html', notFound);
 
 await cp(join(root, 'src/assets'), join(out, 'assets'), { recursive: true });
-await cp(join(root, 'src/static'), out, { recursive: true });
+// Brand assets live outside src/ so a rebuild of the site keeps them (CLAUDE.md § Logo, § Performance).
+await cp(join(root, 'brand/logo'), join(out, 'brand'), { recursive: true, filter: (f) => !f.endsWith('favicon.svg') });
+await cp(join(root, 'brand/logo/favicon.svg'), join(out, 'favicon.svg'));
+await cp(join(root, 'brand/fonts'), join(out, 'assets/fonts'), { recursive: true });
+await cp(join(root, 'brand/og/og.png'), join(out, 'assets/og.png'));
 
 const urls = pages.map(([, , path]) => `  <url><loc>${SITE_URL}${path}</loc><lastmod>2026-10-07</lastmod></url>`).join('\n');
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);

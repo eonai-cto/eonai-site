@@ -7,8 +7,8 @@ The logo ("hybrid H2") is the lowercase wordmark "eonai":
   - "ai" in Space Grotesk Bold (700), in the accent colour
   - the dot is the same accent colour as "ai"
 
-Run:  pip install fonttools && python3 src/brand/make-logo.py
-Writes SVGs into src/static/brand/ and src/static/favicon.svg.
+Run:  pip install fonttools && python3 brand/make-logo.py
+Writes the SVGs and favicon.svg into brand/logo/. The constants below are the logo specification.
 """
 import math
 import os
@@ -18,8 +18,8 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FONT = os.path.join(HERE, "SpaceGrotesk[wght].ttf")
-OUT = os.path.join(HERE, "..", "static", "brand")
+FONT = os.path.join(HERE, "source", "SpaceGrotesk[wght].ttf")
+OUT = os.path.join(HERE, "logo")
 
 # Brand colours (see CLAUDE.md, "Logo")
 NAVY, INK, WHITE = "#0B1220", "#0E1726", "#FFFFFF"
@@ -141,6 +141,6 @@ files["eonai-app-icon.svg"] = tile(ACCENT, WHITE, WHITE)
 for name, content in files.items():
     with open(os.path.join(OUT, name), "w") as fh:
         fh.write(content)
-with open(os.path.join(HERE, "..", "static", "favicon.svg"), "w") as fh:
+with open(os.path.join(OUT, "favicon.svg"), "w") as fh:
     fh.write(tile(NAVY, WHITE, ACCENT_LIGHT, inset=0.14, stroke_scale=1.7))
 print("Wrote", ", ".join(sorted(files)), "and favicon.svg")

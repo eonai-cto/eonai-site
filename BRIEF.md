@@ -24,7 +24,7 @@ a proper stylesheet and components; keep every word, section, order and colour.
 
 ## 2a. Logo
 
-The approved logo is the lowercase wordmark **eonai** with the `o` replaced by an open loop and a dot ("hybrid H2", approved 2026-10-07). Light `eon`, bold `ai`; the dot and `ai` are in the accent colour. Final artwork and the generator script are in the repo: `src/static/brand/` and `src/brand/make-logo.py`. Full rules are in `CLAUDE.md` § Logo. Any rebuild of the site must use these files in the header, footer, favicon, Open Graph image and `Organization` JSON-LD.
+The approved logo is the lowercase wordmark **eonai** with the `o` replaced by an open loop and a dot ("hybrid H2", approved 2026-10-07). Light `eon`, bold `ai`; the dot and `ai` are in the accent colour. Final artwork, the Open Graph image, the self-hosted fonts and the logo generator are in `brand/`, which is an input like `reference/` and `content/`: do not recreate it. Full rules are in `CLAUDE.md` § Logo and § Performance. Any rebuild of the site must use these files in the header, footer, favicon, Open Graph image and `Organization` JSON-LD.
 
 ## 3. Site tree
 
@@ -81,7 +81,8 @@ Footer (all pages): company legal line + registered address, Company links, Cont
 - Home meta description: "EonAI builds, tests and runs AI systems that work in production. Agentic AI engineering, AI quality and verifiable assurance, AI transformation and fractional technology leadership."
 - Notes index title: "Engineering notes — EonAI". Note titles: "<note title> — EonAI".
 - JSON-LD: `Organization` (name EonAI Private Limited, url, email hello@eonai.ai, address Madhapur, Hyderabad) on home; `Article` with `headline`, `datePublished` (2026-10-07), `author` {"@type":"Organization","name":"EonAI"} on notes.
-- Open Graph image: one simple on-brand 1200×630 PNG (dark navy, the eonai logo from `src/static/brand/`, tagline). No photos. Source: `src/static/assets/og.svg`.
+- Open Graph image: `brand/og/og.png` (1200×630, navy, eonai logo, tagline). No photos. Source: `brand/og/og.svg`.
+- `Organization` JSON-LD also carries `logo`: `https://eonai.ai/brand/eonai-logo-on-light.png`.
 - `sitemap.xml` listing all pages; `robots.txt` allowing all.
 
 ## 7. Analytics (free, privacy-respecting)
@@ -97,7 +98,8 @@ GitHub Pages from the `main` branch. Static output in `/docs` (chosen; see READM
 Status at launch, 2026-10-07. Open owner items are listed in README → "Owner to-do".
 
 - [x] All pages render correctly at 375 / 768 / 1440 px. _(Checked at 375, 768 and 1440 px; no horizontal scroll.)_
-- [x] Lighthouse mobile: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95. _(Home 99/100/100/100; other pages 100.)_
+- [x] Lighthouse mobile: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95, CLS 0 (see `CLAUDE.md` § Performance). _(Home 99/100/100/100 over six runs; other pages 100.)_
+- [x] Logo per `CLAUDE.md` § Logo in header, footer, favicon, Open Graph image and `Organization.logo`.
 - [x] No phone number, no names, no headcount, no prices anywhere (grep for `+91`, `Rajshiva`, `founder`, `₹`, `$` in copy). _(Remaining hits come from the approved copy: "founder" as a role, and dollar figures in the refunds note scenarios. See README → "Copy issues".)_
 - [x] Every "Book a call" link points to `BOOKING_URL` or `#contact`. _(Currently `/#contact` until the booking link is supplied.)_
 - [x] Contact form posts to `FORMSPREE_ENDPOINT`, required consent enforced, honeypot present, success state shown. _(Endpoint still a placeholder.)_

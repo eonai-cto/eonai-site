@@ -9,9 +9,11 @@ src/config.mjs        owner placeholders (see below)
 src/layout.mjs        header, footer, <head> metadata
 src/pages/            home, notes index, note template, privacy, 404
 src/notes-data.mjs    content of all nine engineering notes
-src/assets/           site.css (single stylesheet), site.js (mobile nav, form), fonts/ (self-hosted woff2)
-src/static/           favicon.svg, brand/ (logo files), assets/og.png (copied to docs/)
-src/brand/            logo generator script and the Space Grotesk font it reads
+src/assets/           site.css (single stylesheet), site.js (mobile nav, form)
+brand/logo/           logo files and favicon (copied to docs/brand/ and docs/favicon.svg)
+brand/fonts/          self-hosted woff2 fonts (copied to docs/assets/fonts/)
+brand/og/             Open Graph image og.png and its source og.svg
+brand/make-logo.py    logo generator; brand/source/ holds the font it reads
 docs/                 build output, committed; do not edit by hand
 reference/, content/  original approved copy
 ```
@@ -52,7 +54,7 @@ Copy was used verbatim, as instructed. These lines in the approved copy conflict
 
 ## Logo
 
-The logo files live in `src/static/brand/` and are published at `https://eonai.ai/brand/`:
+The logo files live in `brand/logo/` and are published at `https://eonai.ai/brand/`:
 
 | File | Use |
 |---|---|
@@ -60,9 +62,9 @@ The logo files live in `src/static/brand/` and are published at `https://eonai.a
 | `eonai-logo-on-light.svg` / `.png` | wordmark on white or light backgrounds (documents, decks, email) |
 | `eonai-mark-on-dark.svg`, `eonai-mark-on-light.svg` | the loop on its own |
 | `eonai-app-icon.svg` | square icon for LinkedIn and social avatars |
-| `../favicon.svg` | browser tab icon |
+| `favicon.svg` | browser tab icon (published at `/favicon.svg`) |
 
-To change the logo, edit the constants at the top of `src/brand/make-logo.py` and run `python3 src/brand/make-logo.py` (needs `pip install fonttools`), then `npm run build`. The rules are in `CLAUDE.md` § Logo. If you change the logo, also re-render `src/static/assets/og.png` from `og.svg` (open it in Chrome and screenshot at 1200×630) and `eonai-logo-on-light.png`.
+To change the logo, edit the constants at the top of `brand/make-logo.py` and run `python3 brand/make-logo.py` (needs `pip install fonttools`), then `npm run build`. Also re-render `brand/og/og.png` from `og.svg` and `brand/logo/eonai-logo-on-light.png` (open in Chrome and screenshot). The rules are in `CLAUDE.md` § Logo.
 
 ## Edit copy
 
@@ -84,7 +86,7 @@ Add an object to the `notes` array in `src/notes-data.mjs` (copy an existing one
 
 ## Fonts
 
-Space Grotesk, IBM Plex Sans and IBM Plex Mono (Google Fonts, SIL OFL) are self-hosted in `src/assets/fonts/` and preloaded. Do not switch back to fonts.googleapis.com: it caused layout shift and dropped Lighthouse performance below 95. See `CLAUDE.md` § Stack.
+Space Grotesk, IBM Plex Sans and IBM Plex Mono (Google Fonts, SIL OFL) are self-hosted from `brand/fonts/` and preloaded. Do not switch back to fonts.googleapis.com: it caused layout shift and dropped Lighthouse performance below 95. All performance rules are in `CLAUDE.md` § Performance.
 
 ## Deploy
 
