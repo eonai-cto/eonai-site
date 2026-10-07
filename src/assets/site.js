@@ -35,8 +35,17 @@
     status.innerHTML = '';
     var strong = document.createElement('strong');
     strong.textContent = title;
+    if (kind === 'ok') {
+      var check = document.createElement('div');
+      check.className = 'form__check';
+      check.setAttribute('aria-hidden', 'true');
+      check.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2B5BFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      status.appendChild(check);
+    }
     status.appendChild(strong);
-    status.appendChild(document.createTextNode(message));
+    var text = document.createElement('span');
+    text.textContent = message;
+    status.appendChild(text);
     status.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
     status.focus({ preventScroll: true });
   }

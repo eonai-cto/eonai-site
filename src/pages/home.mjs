@@ -362,7 +362,7 @@ ${faqs}
 <span>Treated as confidential.</span>
 </div>
 </div>
-<button class="btn btn--outline form__again" type="button" hidden>Send another message</button>
+<button class="form__again" type="button" hidden>Send another message →</button>
 </form>
 </div>
 </section>
