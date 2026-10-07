@@ -1,6 +1,5 @@
 (function () {
   'use strict';
-  document.documentElement.classList.add('js');
 
   // Mobile nav
   var toggle = document.querySelector('.nav-toggle');

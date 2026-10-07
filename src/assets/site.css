@@ -1,4 +1,9 @@
 /* EonAI site stylesheet. Design tokens come from the approved prototype. */
+/* Self-hosted Google Fonts (latin subset, SIL OFL; see assets/fonts/). Preloaded in <head> so they arrive before first paint. */
+@font-face { font-family: 'Space Grotesk'; src: url('fonts/space-grotesk.woff2') format('woff2'); font-weight: 300 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('fonts/plex-sans.woff2') format('woff2'); font-weight: 100 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('fonts/plex-mono-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('fonts/plex-mono-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
 /* Metric-matched fallbacks keep layout stable while the web fonts load. */
 @font-face { font-family: 'Space Grotesk Fallback'; src: local('Arial'), local('Liberation Sans'); size-adjust: 102%; }
 @font-face { font-family: 'IBM Plex Sans Fallback'; src: local('Arial'), local('Liberation Sans'); size-adjust: 101.8%; }

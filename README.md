@@ -7,7 +7,7 @@ src/config.mjs        owner placeholders (see below)
 src/layout.mjs        header, footer, <head> metadata
 src/pages/            home, notes index, note template, privacy, 404
 src/notes-data.mjs    content of all nine engineering notes
-src/assets/           site.css (single stylesheet), site.js (mobile nav, form)
+src/assets/           site.css (single stylesheet), site.js (mobile nav, form), fonts/ (self-hosted woff2)
 src/static/           favicon.svg, brand/ (logo files), assets/og.png (copied to docs/)
 src/brand/            logo generator script and the Space Grotesk font it reads
 docs/                 build output, committed; do not edit by hand

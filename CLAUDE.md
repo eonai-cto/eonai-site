@@ -20,7 +20,8 @@ ship the reference files as-is.
 
 - Plain HTML + CSS (+ minimal vanilla JS only where needed: FAQ accordion fallback, mobile nav, form handling). No frameworks.
 - One shared stylesheet. Move the inline styles from the reference into classes. Keep the design tokens exactly:
-  - Fonts: Space Grotesk (headings), IBM Plex Sans (body), IBM Plex Mono (eyebrows/labels) via Google Fonts, with system fallbacks.
+  - Fonts: Space Grotesk (headings), IBM Plex Sans (body), IBM Plex Mono (eyebrows/labels) — Google Fonts families, **self-hosted** as latin-subset woff2 in `src/assets/fonts/` and preloaded in `<head>`, with metric-matched system fallbacks. Do not load them from fonts.googleapis.com: the late CSS-then-font chain caused layout shift and pushed Lighthouse performance below 95.
+  - Set the `js` class on `<html>` with the inline script in `<head>`, not in `site.js`; setting it later collapses the mobile nav after first paint and causes layout shift.
   - Colours: ink `#0E1726`, navy `#0B1220`, panel `#111A2E`, border-dark `#22304A`, ground `#F5F6F8`, card `#FFFFFF`, border `#E1E5EC`, body-grey `#475266`, caption-grey `#5B6678`, accent `#2B5BFF`, accent-light `#8FB0FF`, link `#1E3FBF`.
 - Responsive: must read well at 375px, 768px and 1440px. Grids collapse to one column on phones; tables scroll horizontally inside their container; nav collapses to a simple menu.
 - Accessibility: semantic HTML, one `h1` per page, real `<button>`/`<a>`/`<label>` elements, visible focus states, 4.5:1 contrast, `aria-label` on icon-only controls. Lighthouse accessibility ≥ 95.
