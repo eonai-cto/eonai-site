@@ -22,13 +22,32 @@
   var form = document.getElementById('contact-form');
   if (!form) return;
   var status = document.getElementById('form-status');
+  var fields = form.querySelector('.form__fields');
+  var again = form.querySelector('.form__again');
   var button = form.querySelector('button[type="submit"]');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function show(kind, message) {
+  // Messages appear at the top of the form box and take focus, so they are seen
+  // (and announced) wherever the visitor is on the page.
+  function show(kind, title, message) {
     status.hidden = false;
     status.className = 'form__status form__status--' + kind;
-    status.textContent = message;
+    status.innerHTML = '';
+    var strong = document.createElement('strong');
+    strong.textContent = title;
+    status.appendChild(strong);
+    status.appendChild(document.createTextNode(message));
+    status.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+    status.focus({ preventScroll: true });
   }
+
+  again.addEventListener('click', function () {
+    status.hidden = true;
+    fields.hidden = false;
+    again.hidden = true;
+    form.classList.remove('form--sent');
+    form.querySelector('input[name="name"]').focus();
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -44,9 +63,12 @@
       });
     }).then(function () {
       form.reset();
-      show('ok', 'Thank you. Your message has been sent. We reply within one business day.');
+      fields.hidden = true;
+      again.hidden = false;
+      form.classList.add('form--sent');
+      show('ok', 'Message sent', 'Thank you. We reply within one business day.');
     }).catch(function () {
-      show('error', 'Your message could not be sent. Please try again, or email hello@eonai.ai.');
+      show('error', 'Your message could not be sent', 'Please try again, or email hello@eonai.ai.');
     }).then(function () {
       button.disabled = false;
     });

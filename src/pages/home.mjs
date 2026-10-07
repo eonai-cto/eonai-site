@@ -343,6 +343,8 @@ ${faqs}
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_next" value="${SITE_URL}/#contact">
+<div id="form-status" class="form__status" role="status" aria-live="polite" tabindex="-1" hidden></div>
+<div class="form__fields">
 <div class="form__row">
 <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
 <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
@@ -359,7 +361,8 @@ ${faqs}
 <button class="btn btn--dark" type="submit">Send message</button>
 <span>Treated as confidential.</span>
 </div>
-<div id="form-status" class="form__status" role="status" aria-live="polite" hidden></div>
+</div>
+<button class="btn btn--outline form__again" type="button" hidden>Send another message</button>
 </form>
 </div>
 </section>

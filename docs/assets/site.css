@@ -112,6 +112,8 @@ ul, ol { margin: 0; }
 .btn--dark { background: var(--ink); color: #fff; }
 .btn--dark:hover { background: var(--panel); color: #fff; }
 .btn--sm { padding: 12px 20px; font-size: 15px; }
+.btn--outline { background: var(--card); color: var(--ink); border-color: var(--input-border); }
+.btn--outline:hover { color: var(--ink); border-color: var(--ink); }
 
 /* Header */
 .site-header { background: var(--navy); border-bottom: 1px solid var(--header-line); }
@@ -307,7 +309,14 @@ ul, ol { margin: 0; }
 .check input { margin-top: 3px; width: 16px; height: 16px; flex: none; }
 .form__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
 .form__actions span { font-size: 13px; color: var(--caption-grey); }
-.form__status { font-size: 15px; line-height: 1.6; padding: 14px 16px; border-radius: 6px; }
+.form__fields { display: flex; flex-direction: column; gap: 18px; }
+.form__fields[hidden], .form__again[hidden] { display: none; }
+.form__status { font-size: 15px; line-height: 1.6; padding: 16px 18px; border-radius: 6px; scroll-margin: 24px; }
+.form__status:focus { outline: none; }
+.form__status:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.form__status strong { display: block; font-family: var(--font-head); font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+.form--sent { justify-content: center; }
+.form__again { align-self: flex-start; }
 .form__status[hidden] { display: none; }
 .form__status--ok { background: var(--tint); border: 1px solid var(--tint-border); color: var(--ink); }
 .form__status--error { background: var(--card); border: 1px solid var(--ink); color: var(--ink); }
