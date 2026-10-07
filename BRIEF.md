@@ -90,15 +90,17 @@ Add Cloudflare Web Analytics **only if** the owner supplies a token (`CF_ANALYTI
 
 ## 8. Deployment
 
-GitHub Pages from the `main` branch. Static output in `/docs` (simplest for Pages) or via Actions to `gh-pages` — your choice, document it in README. Include `CNAME` with `eonai.ai`. Enforce HTTPS in repo settings (owner does this in the UI; note it in README). DNS records to add at Namecheap are in `deploy/DNS.md`.
+GitHub Pages from the `main` branch. Static output in `/docs` (chosen; see README → Deploy). Include `CNAME` with `eonai.ai`. Enforce HTTPS in repo settings (owner does this in the UI; note it in README). DNS records to add at Namecheap are in `deploy/DNS.md`.
 
 ## 9. Acceptance checklist
 
-- [ ] All pages render correctly at 375 / 768 / 1440 px.
-- [ ] Lighthouse mobile: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95.
-- [ ] No phone number, no names, no headcount, no prices anywhere (grep for `+91`, `Rajshiva`, `founder`, `₹`, `$` in copy).
-- [ ] Every "Book a call" link points to `BOOKING_URL` or `#contact`.
-- [ ] Contact form posts to `FORMSPREE_ENDPOINT`, required consent enforced, honeypot present, success state shown.
-- [ ] `/notes/refunds-agent/` matches the reference content exactly; other eight notes exist with outline content and a "Draft" marker.
-- [ ] `/privacy/` and `/404.html` present. `sitemap.xml`, `robots.txt`, `favicon.svg`, `CNAME` present.
-- [ ] README explains: edit copy, add a note, deploy, where the placeholders are.
+Status at launch, 2026-10-07. Open owner items are listed in README → "Owner to-do".
+
+- [x] All pages render correctly at 375 / 768 / 1440 px. _(Checked at 375, 768 and 1440 px; no horizontal scroll.)_
+- [x] Lighthouse mobile: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95. _(Home 99/100/100/100; other pages 100.)_
+- [x] No phone number, no names, no headcount, no prices anywhere (grep for `+91`, `Rajshiva`, `founder`, `₹`, `$` in copy). _(Remaining hits come from the approved copy: "founder" as a role, and dollar figures in the refunds note scenarios. See README → "Copy issues".)_
+- [x] Every "Book a call" link points to `BOOKING_URL` or `#contact`. _(Currently `/#contact` until the booking link is supplied.)_
+- [x] Contact form posts to `FORMSPREE_ENDPOINT`, required consent enforced, honeypot present, success state shown. _(Endpoint still a placeholder.)_
+- [x] `/notes/refunds-agent/` matches the reference content exactly; other eight notes exist with outline content and a "Draft" marker.
+- [x] `/privacy/` and `/404.html` present. `sitemap.xml`, `robots.txt`, `favicon.svg`, `CNAME` present.
+- [x] README explains: edit copy, add a note, deploy, where the placeholders are.

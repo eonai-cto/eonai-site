@@ -1,5 +1,7 @@
 # DNS and go-live steps (Namecheap → GitHub Pages)
 
+**Status: done, 2026-10-07.** eonai.ai is live on GitHub Pages with HTTPS enforced. The steps below are kept as the record of what was set up and for any future rebuild.
+
 **Do not modify any existing record.** The MX, TXT (SPF, DKIM at `zmail._domainkey`, DMARC at `_dmarc`, zoho-verification) records carry live company email.
 
 ## 1. In the GitHub repo
@@ -20,9 +22,15 @@ Add these records:
 | A | `@` | `185.199.109.153` | Automatic |
 | A | `@` | `185.199.110.153` | Automatic |
 | A | `@` | `185.199.111.153` | Automatic |
-| CNAME | `www` | `<github-username>.github.io.` | Automatic |
+| CNAME | `www` | `eonai-cto.github.io.` | Automatic |
 
-Replace `<github-username>` with the GitHub account or organisation that owns the repo.
+`eonai-cto` is the GitHub account that owns the repo.
+
+Also added, and must stay in place permanently (GitHub re-checks it):
+
+| Type | Host | Value |
+|---|---|---|
+| TXT | `_github-pages-challenge-eonai-cto` | the code shown in GitHub → Settings → Pages → Verified domains |
 
 ## 3. Verify
 - `https://eonai.ai` and `https://www.eonai.ai` both load with a valid certificate (can take up to an hour after DNS).
@@ -30,6 +38,8 @@ Replace `<github-username>` with the GitHub account or organisation that owns th
 - Check `https://eonai.ai/sitemap.xml` loads, then submit the site in Google Search Console (free).
 
 ## 4. Placeholders to fill before launch
+
+See README → "Owner to-do" for the current list.
 - `BOOKING_URL` (Zoho Bookings or Calendly link)
 - `FORMSPREE_ENDPOINT` (create a free form at formspree.io, send to hello@eonai.ai)
 - `LINKEDIN_COMPANY_URL`
