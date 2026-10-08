@@ -1,6 +1,6 @@
 # Privacy policy (draft for owner review)
 
-**EonAI Private Limited** ("EonAI", "we") operates eonai.ai. This policy explains what we collect, why, and your rights. It is drafted to meet India's Digital Personal Data Protection Act, 2023 and the EU/UK GDPR. It is a draft; the owner should review it with their advisor before publication.
+**EonAI Private Limited** ("EonAI", "we") operates eonai.ai. This policy explains what we collect, why, and your rights. It is drafted to meet India's Digital Personal Data Protection Act, 2023 and the EU/UK GDPR.
 
 ## What we collect
 - **Contact form:** name, work email, your selections (interest, stage), your message, and your consent choices. Submitted to our form provider (FormSubmit) and delivered to hello@eonai.ai.
@@ -26,4 +26,4 @@ Access, correction, erasure, withdrawal of consent, and grievance redressal. Wri
 ## Contact
 EonAI Private Limited, Plot No 4, Doc Bhavan, 4th & 5th Floor, Madhapur, Hyderabad 500081, India. hello@eonai.ai.
 
-_Last updated: [DATE]_
+_Last updated: 8 October 2026_

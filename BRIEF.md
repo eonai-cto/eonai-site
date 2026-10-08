@@ -95,6 +95,8 @@ GitHub Pages from the `main` branch. Static output in `/docs` (chosen; see READM
 
 ## 9. Acceptance checklist
 
+_Copy note (2026-10-08): an owner-approved editorial pass revised some reference copy and finished notes 2–9 as prose; `src/` is now the source of truth for copy._
+
 Status at launch, 2026-10-07. Open owner items are listed in README → "Owner to-do".
 
 - [x] All pages render correctly at 375 / 768 / 1440 px. _(Checked at 375, 768 and 1440 px; no horizontal scroll.)_
@@ -103,6 +105,6 @@ Status at launch, 2026-10-07. Open owner items are listed in README → "Owner t
 - [x] No phone number, no names, no headcount, no prices anywhere (grep for `+91`, `Rajshiva`, `founder`, `₹`, `$` in copy). _(Remaining hits come from the approved copy: "founder" as a role, and dollar figures in the refunds note scenarios. See README → "Copy issues".)_
 - [x] Every "Book a call" link points to `BOOKING_URL` or `#contact`. _(Zoho Bookings link set 2026-10-08.)_
 - [x] Contact form posts to FormSubmit via `FORM_TARGET`, required consent enforced, honeypot present, success state shown. _(Activated 2026-10-07; tested end to end.)_
-- [x] `/notes/refunds-agent/` matches the reference content exactly; other eight notes exist with outline content and a "Draft" marker.
+- [x] `/notes/refunds-agent/` matches the reference content exactly; other eight notes exist with outline content and a "Draft" marker. _(Superseded 2026-10-08: the eight notes are now finished prose.)_
 - [x] `/privacy/` and `/404.html` present. `sitemap.xml`, `robots.txt`, `favicon.svg`, `CNAME` present.
 - [x] README explains: edit copy, add a note, deploy, where the placeholders are.

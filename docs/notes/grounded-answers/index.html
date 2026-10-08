@@ -40,7 +40,7 @@
 <a href="/#approach">How we work</a>
 <a href="/#offers">Engagements</a>
 <a href="/notes/" aria-current="page">Engineering notes</a>
-<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call</a>
+<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call<span class="visually-hidden"> (opens in a new tab)</span></a>
 </nav>
 </div>
 </header>
@@ -61,17 +61,13 @@
 
 <section id="exposure">
 <h2>The exposure</h2>
-<p class="draft-flag">Draft — to be completed</p>
-<ul>
-<li>A tourism website published AI-generated content describing hot springs that do not exist, and visitors travelled to find them. The business lost credibility in a single news cycle. Hallucinations are not a theoretical problem; they are preventable with evaluation before publication.</li>
-<li>Assistants answering from documents (legal, research, policy) are trusted because they sound right. A confident wrong answer in a client deliverable is a reputational and regulatory event.</li>
-<li>Early “paste the documents into an LLM” pilots are fast and become liabilities for exactly this reason.</li>
-</ul>
+<p>A tourism website published AI-generated descriptions of hot springs that do not exist, and visitors travelled to look for them. The business lost its credibility in a single news cycle. A proper evaluation before publication would have caught the problem.</p>
+<p>Assistants that answer from legal, research or policy documents are trusted because they sound authoritative. A confident wrong answer in a client deliverable damages your reputation and, in regulated work, can become a compliance matter. The quick pilots that paste documents into a model are fast to build, and they are where this tends to happen.</p>
 </section>
 
 <section id="shortfalls">
 <h2>Where standard controls fall short</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<p>One assistant we tested answered an out-of-scope question fluently, without retrieving anything, and its task checks still scored it highly. These are the gaps that let that through.</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
 <table class="scenario">
 <thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
@@ -88,14 +84,14 @@
 
 <section id="recommend">
 <h2>What we recommend</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<p>Groundedness has to be measured on its own, by a judge that didn’t write the answer, with somewhere to send the answers that fall short.</p>
 <ol>
-<li>Scope guard that returns “out of scope” before any retrieval.</li>
-<li>Answer-only-from-context contract: say “I don’t know” when the documents don’t support an answer.</li>
-<li>Independent judge model scoring groundedness and citation precision against a gold set.</li>
-<li>Confidence-routed outputs: low confidence goes to a person, never silently to a client.</li>
-<li>Prompt improvement driven by failure feedback and validated on held-out questions.</li>
-<li>Groundedness and relevance tracked over time; drift triggers review.</li>
+<li>A scope guard that returns “out of scope” before any retrieval runs.</li>
+<li>An answer-only-from-context rule: when the documents don’t support an answer, the assistant says it doesn’t know.</li>
+<li>An independent judge model that scores groundedness and citation precision against a gold set.</li>
+<li>Confidence-based routing, so that low-confidence answers go to a person and never reach a client unchecked.</li>
+<li>Prompt changes driven by failure feedback and validated on held-out questions.</li>
+<li>Groundedness and relevance tracked over time, with any drift triggering a review.</li>
 </ol>
 </section>
 
@@ -134,7 +130,7 @@
 <div class="side-card side-card--cta">
 <h2>Does your agent have one of these exposures?</h2>
 <p>A 30-minute working session is usually enough to find out.</p>
-<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →</a>
+<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →<span class="visually-hidden"> (opens in a new tab)</span></a>
 </div>
 </aside>
 </div>

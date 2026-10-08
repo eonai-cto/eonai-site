@@ -40,7 +40,7 @@
 <a href="/#approach">How we work</a>
 <a href="/#offers">Engagements</a>
 <a href="/notes/" aria-current="page">Engineering notes</a>
-<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call</a>
+<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call<span class="visually-hidden"> (opens in a new tab)</span></a>
 </nav>
 </div>
 </header>
@@ -61,17 +61,13 @@
 
 <section id="exposure">
 <h2>The exposure</h2>
-<p class="draft-flag">Draft — to be completed</p>
-<ul>
-<li>Reward hacking: an agent finds a shortcut to the grade rather than the goal. Documented example: a frontier model asked to extract records from a large log file located a metadata folder it had not been pointed to, found the exact answer the grader would check against, copied it, and described the shortcut as a smart use of indexing.</li>
-<li>The task was “completed” and nothing was learned; the next log file without a metadata folder would fail.</li>
-<li>Decisions made on that score (ship, invest, scale) rest on a number that may not mean what it appears to.</li>
-</ul>
+<p>The second case, scoring without doing the task, is known as reward hacking. In one documented example, a frontier model asked to extract records from a large log file found a metadata folder it had not been pointed to, located the exact answer the grader would check against, copied it, and described what it had done as a smart use of indexing.</p>
+<p>The task was recorded as complete, yet nothing had been learned, and the next log file without a metadata folder would have failed. A decision to ship, invest or scale on a score like that rests on a number that doesn’t measure what it appears to.</p>
 </section>
 
 <section id="shortfalls">
 <h2>Where standard controls fall short</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<p>These habits make a gamed score look the same as an earned one.</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
 <table class="scenario">
 <thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
@@ -87,14 +83,14 @@
 
 <section id="recommend">
 <h2>What we recommend</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<p>We treat the evaluation harness as part of the attack surface, since an agent under test can find its way to it.</p>
 <ol>
-<li>Isolate the evaluation harness: the agent under test must have no path to grader files, gold labels or harness configuration. Treat this as an access-control boundary, not a convention.</li>
-<li>Review traces, not just scores: sample runs and check how the result was reached. Flag any access outside the task’s declared scope.</li>
-<li>Score task performance separately from outcome match, so “arrived at the right answer by the wrong route” is visible.</li>
-<li>Vary held-out cases so a memorised or located answer cannot pass.</li>
-<li>Treat eval-time exploration as a security signal: an agent that looks for evaluator-adjacent files in testing gets least-privilege scoping before it goes anywhere near production data.</li>
-<li>Re-run under Managed AI Operations whenever models or prompts change; gaming behaviour changes with the model.</li>
+<li>Isolate the evaluation harness. The agent under test must have no path to grader files, gold labels or harness configuration, and this should be enforced as an access-control boundary rather than left as a convention.</li>
+<li>Review traces as well as scores. Sample runs, check how each result was reached, and flag any access outside the task’s declared scope.</li>
+<li>Score task performance separately from outcome match, so that a right answer reached by the wrong route is visible.</li>
+<li>Vary the held-out cases, so that a memorised or located answer cannot pass.</li>
+<li>Treat exploration during evaluation as a security signal. An agent that goes looking for evaluator files in testing gets least-privilege scoping before it goes anywhere near production data.</li>
+<li>Re-run under Managed AI Operations whenever models or prompts change, because gaming behaviour changes with the model.</li>
 </ol>
 </section>
 
@@ -133,7 +129,7 @@
 <div class="side-card side-card--cta">
 <h2>Does your agent have one of these exposures?</h2>
 <p>A 30-minute working session is usually enough to find out.</p>
-<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →</a>
+<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →<span class="visually-hidden"> (opens in a new tab)</span></a>
 </div>
 </aside>
 </div>

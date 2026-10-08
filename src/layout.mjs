@@ -8,6 +8,7 @@ export const MAILTO = 'mailto:hello@eonai.ai?subject=Enquiry%20from%20eonai.ai';
 const copyIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>';
 export const emailWithCopy = (linkClass) => `<span class="email-row"><a class="${linkClass}" href="${MAILTO}">hello@eonai.ai</a><button class="copy-email" type="button" data-copy="hello@eonai.ai" aria-label="Copy email address">${copyIcon}<span class="copy-email__label">Copy</span></button></span>`;
 export const BOOK_ATTRS = BOOKING_URL ? ' target="_blank" rel="noopener"' : '';
+export const BOOK_SR = BOOKING_URL ? '<span class="visually-hidden"> (opens in a new tab)</span>' : '';
 export const LINKEDIN = LINKEDIN_COMPANY_URL || '/#contact';
 
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -36,7 +37,7 @@ function header(current) {
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
 <nav class="nav" id="site-nav" aria-label="Main">
 ${links}
-<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call${BOOK_SR}</a>
 </nav>
 </div>
 </header>`;

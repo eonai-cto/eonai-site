@@ -38,19 +38,14 @@ After setting a value, run `npm run build`, then commit and push.
 - [x] `BOOKING_URL`: Zoho Bookings "30-minute working session" (free plan, Zoho Meeting link, Zoho Calendar sync), set 2026-10-08. Managed in the Zoho Bookings admin account; notifications go to hello@eonai.ai.
 - [x] Contact form (FormSubmit): activated 2026-10-07; enquiries arrive at hello@eonai.ai. Activation is one-time; it is needed again only if `FORM_TARGET` changes to a new address or the form moves to another domain. Optional: paste FormSubmit's random alias into `FORM_TARGET` to keep the address out of the HTML.
 - [ ] `LINKEDIN_COMPANY_URL` (src/config.mjs)
-- [ ] Privacy policy: review with your advisor, set the date (`[DATE]`), and remove the "It is a draft…" sentence. Edit both `src/pages/privacy.mjs` (what is published) and `content/privacy.md` (the source draft).
-- [ ] Engineering notes 2 to 9 carry a visible "Draft — to be completed" marker; finish the prose in `src/notes-data.mjs` and remove `draft: true`.
+- [ ] Privacy policy: published (dated 8 October 2026). Optional: have an advisor review it; edit both `src/pages/privacy.mjs` (published) and `content/privacy.md` (source draft).
+- [x] Engineering notes 2 to 9 written up as prose from the outline (2026-10-08). The owner may refine them in `src/notes-data.mjs`.
 - [ ] Optional: `CF_ANALYTICS_TOKEN` for Cloudflare Web Analytics (cookieless, free).
 - [ ] Send a test email to hello@eonai.ai to confirm mail still works after the DNS change.
 
-## Copy issues carried over from the approved reference
+## Editorial pass (2026-10-08)
 
-Copy was used verbatim, as instructed. These lines in the approved copy conflict with BRIEF § 4 and need an owner decision:
-
-- "twenty years" (home hero) and "two decades" (About) read as years-of-experience headline numbers.
-- The refunds note contains dollar amounts ($250, $2,500, $1,899, ...). They are scenario figures, not prices, but a literal grep for `$` will flag them.
-- The refunds note is labelled 9 min on the index cards and 8 min on its own page.
-- The "measure before you ship" lede differs between the notes index card ("Adding planning to...") and the note page ("An upgrade to...").
+An independent review removed lines that broke BRIEF § 4 ("twenty years", "two decades", "EonAI's CTO"), fixed mismatched read times and ledes, finished notes 2 to 9 as prose using only facts from `content/notes-outline.md`, and rewrote phrasing that read as AI-generated. `src/` is now the source of truth for copy (see `CLAUDE.md`). Still for the owner: the refunds note's dollar figures are scenario amounts, not prices, but a literal grep for `$` will flag them; the BCG estimate and the QuantumBlack quotation on the home page are the only third-party figures, so confirm their wording against the sources once.
 
 ## Logo
 
@@ -79,7 +74,7 @@ To change the logo, edit the constants at the top of `brand/make-logo.py` and ru
 | 404 page | `src/pages/not-found.mjs` |
 | Styles | `src/assets/site.css` (design tokens at the top) |
 
-Copy is final: change it only on the owner's instruction. Then `npm run build`.
+Copy is final: change it only on the owner's instruction, and follow the house style in `CLAUDE.md`. Then `npm run build`.
 
 ## Add a note
 

@@ -40,7 +40,7 @@
 <a href="/#approach">How we work</a>
 <a href="/#offers">Engagements</a>
 <a href="/notes/" aria-current="page">Engineering notes</a>
-<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call</a>
+<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call<span class="visually-hidden"> (opens in a new tab)</span></a>
 </nav>
 </div>
 </header>
@@ -61,17 +61,13 @@
 
 <section id="exposure">
 <h2>The exposure</h2>
-<p class="draft-flag">Draft — to be completed</p>
-<ul>
-<li>Agent loops make two kinds of calls: reasoning calls (understand context, plan, write a response) and decision calls (route, classify, check, pass/fail). Practitioner estimates put decision calls at the large majority of volume.</li>
-<li>Almost all are served by a frontier model at frontier prices, multiplied by every iteration the agent runs. Cost compounds; latency does too.</li>
-<li>Cheaper, faster classification models (small models, fine-tuned classifiers, and newer calibrated decision models such as TypeSafe’s Jev, one example among several) can take the decision calls, but only if the architecture is set up to use them safely.</li>
-</ul>
+<p>An agent loop makes two kinds of model call. Reasoning calls work through context, plan and write a response. Decision calls route a request, classify a ticket, check whether a tool call is safe or decide whether an output passes. Practitioner estimates put decision calls at the large majority of the volume.</p>
+<p>Most teams send nearly all of these calls to a frontier model at frontier prices, and the cost repeats on every iteration of the loop, as does the latency. Cheaper and faster classification models can handle the decision calls, including small models, fine-tuned classifiers and newer calibrated decision models such as TypeSafe’s Jev, one example among several. That only works safely if the architecture is designed for it.</p>
 </section>
 
 <section id="shortfalls">
-<h2>Where standard controls fall short</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<h2>Where the usual setup falls short</h2>
+<p>The practices below keep costs high and leave the decisions unmeasured.</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Practice, Problem, Consequence">
 <table class="scenario">
 <thead><tr><th scope="col">PRACTICE</th><th scope="col">PROBLEM</th><th scope="col">CONSEQUENCE</th></tr></thead>
@@ -79,7 +75,7 @@
 <tr><td>One frontier model for every call</td><td>Paying reasoning prices for yes/no decisions</td><td>Cost and latency scale with every loop iteration</td></tr>
 <tr><td>Bundled questions (“is this ticket a good automation candidate?”)</td><td>The model judges a bundle of three checks as one and returns a plausible but low-confidence score</td><td>Weighting hidden in the prompt rather than in code</td></tr>
 <tr><td>One confidence threshold for every action</td><td>A read-only lookup and an automated refund treated the same</td><td>Either too timid or too dangerous</td></tr>
-<tr><td>Routing accuracy never measured</td><td>Misrouting rarely throws an error, it just produces a worse result</td><td>Drift goes unnoticed</td></tr>
+<tr><td>Routing accuracy never measured</td><td>Misrouting rarely throws an error, just a worse result</td><td>Drift goes unnoticed</td></tr>
 <tr><td>Classifier as the approver</td><td>Text in context can sway a probability</td><td>A manipulated classification becomes an executed action</td></tr>
 </tbody>
 </table>
@@ -88,15 +84,15 @@
 
 <section id="recommend">
 <h2>What we recommend</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<p>We recommend separating the two kinds of call, routing them differently, and keeping the decisions that carry risk in code.</p>
 <ol>
-<li>Audit your traces: count reasoning calls versus structured decisions. The split tells you how much cost is movable.</li>
-<li>Route the four decision-heavy places (routing, pre-execution guardrails, output evaluation, triage classification) to a cheap calibrated classifier, with fallback to the frontier model when confidence is low. A wrong decision on the cheap side compounds; an extra frontier call costs cents.</li>
-<li>Keep permission checks in code. The classifier recommends; the code decides. Nothing can talk an if-statement out of its answer.</li>
-<li>Ask single questions and combine the results in code, where the weighting is visible and A/B-testable.</li>
-<li>Match the confidence threshold to the cost of a mistake: a lookup can act at 0.5, an automated refund might need 0.9, below which it goes to a person or a heavier model.</li>
-<li>Measure routing accuracy against a hand-labelled set, continuously; it is classification, and classifiers drift.</li>
-<li>Treat classifier input as untrusted: these models run alongside existing security checks, never instead of them.</li>
+<li>Audit your traces and count reasoning calls against structured decisions. The split tells you how much of the cost can move.</li>
+<li>Send the four decision-heavy points (routing, pre-execution guardrails, output evaluation, triage classification) to a cheap calibrated classifier, falling back to the frontier model when confidence is low. A wrong decision on the cheap side compounds, while an extra frontier call costs cents.</li>
+<li>Keep permission checks in code. The classifier recommends and the code decides, and no amount of persuasive text in the context will change what an if-statement returns.</li>
+<li>Ask single questions and combine the answers in code, where the weighting is visible and can be tested.</li>
+<li>Match the confidence threshold to the cost of a mistake. A lookup can act at 0.5; an automated refund might need 0.9, and anything below that goes to a person or a heavier model.</li>
+<li>Measure routing accuracy continuously against a hand-labelled set. Routing is classification, and classifiers drift.</li>
+<li>Treat the classifier’s input as untrusted. These models run alongside your existing security checks, never in place of them.</li>
 </ol>
 </section>
 
@@ -113,7 +109,7 @@
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
 <a href="#exposure">The exposure</a>
-<a href="#shortfalls">Where standard controls fall short</a>
+<a href="#shortfalls">Where the usual setup falls short</a>
 <a href="#recommend">What we recommend</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
@@ -136,9 +132,9 @@
 <a href="/notes/build-on-real-data/">Why we build on your real data from week one</a>
 </nav>
 <div class="side-card side-card--cta">
-<h2>Does your agent have one of these exposures?</h2>
-<p>A 30-minute working session is usually enough to find out.</p>
-<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →</a>
+<h2>Paying frontier prices for every call?</h2>
+<p>A 30-minute working session is usually enough to see how much of that cost can move.</p>
+<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →<span class="visually-hidden"> (opens in a new tab)</span></a>
 </div>
 </aside>
 </div>

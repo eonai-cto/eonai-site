@@ -1,4 +1,4 @@
-import { page, BOOK, BOOK_ATTRS, esc } from '../layout.mjs';
+import { page, BOOK, BOOK_ATTRS, BOOK_SR, esc } from '../layout.mjs';
 import { SITE_URL } from '../config.mjs';
 import { bySlug, ENGAGEMENTS, PROVENANCE } from '../notes-data.mjs';
 
@@ -29,7 +29,7 @@ ${t.rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`).join('
 export function notePage(n) {
   const sections = n.sections.map((s) => `<section id="${s.id}">
 <h2>${s.h}</h2>
-${s.draft ? '<p class="draft-flag">Draft — to be completed</p>\n' : ''}${s.blocks.map(block).join('\n')}
+${s.blocks.map(block).join('\n')}
 </section>`).join('\n\n');
 
   const toc = [...n.sections.map((s) => [s.id, s.h]), ['our-recommendation', 'Our recommendation']]
@@ -89,9 +89,9 @@ ${applies}
 ${related}
 </nav>
 <div class="side-card side-card--cta">
-<h2>Does your agent have one of these exposures?</h2>
-<p>A 30-minute working session is usually enough to find out.</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a call →</a>
+<h2>${n.ctaTitle || 'Does your agent have one of these exposures?'}</h2>
+<p>${n.ctaText || 'A 30-minute working session is usually enough to find out.'}</p>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a call →${BOOK_SR}</a>
 </div>
 </aside>
 </div>
@@ -99,7 +99,7 @@ ${related}
 
   const plain = (s) => s.replace(/<[^>]+>/g, '');
   return page({
-    title: `${plain(n.title.replace(/\.$/, ''))} — EonAI`,
+    title: `${plain(n.title)} — EonAI`,
     description: plain(n.lede),
     path: `/notes/${n.slug}/`,
     current: 'notes',
@@ -107,7 +107,7 @@ ${related}
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: plain(n.title.replace(/\.$/, '')),
+      headline: plain(n.title),
       datePublished: '2026-10-07',
       author: { '@type': 'Organization', name: 'EonAI' },
       mainEntityOfPage: `${SITE_URL}/notes/${n.slug}/`,

@@ -11,7 +11,7 @@ const body = `
 
 <div class="container">
 <div class="prose">
-<p><strong>EonAI Private Limited</strong> (“EonAI”, “we”) operates eonai.ai. This policy explains what we collect, why, and your rights. It is drafted to meet India’s Digital Personal Data Protection Act, 2023 and the EU/UK GDPR. It is a draft; the owner should review it with their advisor before publication.</p>
+<p><strong>EonAI Private Limited</strong> (“EonAI”, “we”) operates eonai.ai. This policy explains what we collect, why, and your rights. It is drafted to meet India’s Digital Personal Data Protection Act, 2023 and the EU/UK GDPR.</p>
 
 <h2>What we collect</h2>
 <ul>
@@ -40,7 +40,7 @@ ${BOOKING_URL ? '<li><strong>Bookings:</strong> if you book a call, your name, e
 <h2>Contact</h2>
 <p>EonAI Private Limited, Plot No 4, Doc Bhavan, 4th &amp; 5th Floor, Madhapur, Hyderabad 500081, India. hello@eonai.ai.</p>
 
-<p><em>Last updated: <span class="todo">[DATE]</span></em></p>
+<p><em>Last updated: 8 October 2026</em></p>
 </div>
 </div>
 `;

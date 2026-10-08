@@ -14,7 +14,8 @@ can be rebuilt; nothing in `brand/` should be regenerated except with `brand/mak
 - Static site. No CMS, no server, no build step more complex than a single `npm run build`.
 - Hosting: GitHub Pages from this repo (see `deploy/`). Must work at `https://eonai.ai` and `https://www.eonai.ai`.
 - Zero recurring cost: no paid services, no paid fonts, no paid form backends beyond free tiers.
-- Copy is final. Use it verbatim from `reference/`. Do not add, reword or "improve" content. Fix typos only.
+- Copy is final. As of 2026-10-08 the **source of truth for copy is `src/`** (`src/pages/*.mjs`, `src/notes-data.mjs`), not `reference/`: the owner approved an editorial pass that removed rule-breaking lines (years-of-experience figures, role references), finished the eight notes as prose, and rewrote AI-sounding phrasing. Where `src/` and `reference/` differ, `src/` wins. Do not add, reword or "improve" content without the owner's instruction. Fix typos only.
+- House style for any new text: write like a person, not a model. Avoid "X, not Y" antithesis and slogan-style paragraph endings, rule-of-three lists used for rhythm, filler such as "quietly", "seamless", "leverage", "journey", and repeating the same point in consecutive sentences. Use British spelling, no em dashes in running copy, and concrete facts over abstractions.
 - No phone number anywhere on the site. No founder names, bios, photos, or headcount anywhere on the site.
 - No prices anywhere on the site.
 - Tone of any text you must write yourself (alt text, meta descriptions, 404 page): plain, direct, professional. No exclamation marks, no marketing superlatives, no emoji.

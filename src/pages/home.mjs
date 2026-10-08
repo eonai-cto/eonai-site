@@ -1,4 +1,4 @@
-import { page, BOOK, BOOK_ATTRS, esc, emailWithCopy } from '../layout.mjs';
+import { page, BOOK, BOOK_ATTRS, BOOK_SR, esc, emailWithCopy } from '../layout.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
@@ -8,7 +8,7 @@ const problems = [
   ['USUALLY RAISED BY AN ENGINEERING LEAD', '“We changed a prompt or a model and can’t tell whether things got worse.”', 'We build an evaluation suite that runs on every change, so a drop in accuracy, safety or cost shows up before your customers notice it.', 'AI RELIABILITY AUDIT · MANAGED AI OPERATIONS'],
   ['USUALLY RAISED BY A HEAD OF RISK OR COMPLIANCE', '“Risk and compliance won’t sign off on anything with AI in it.”', 'We design the controls, audit trails and human checkpoints regulated teams expect, and document them in the language your reviewers use.', 'AI OPPORTUNITY SPRINT · TRANSFORM'],
   ['USUALLY RAISED BY A COO OR HEAD OF OPERATIONS', '“Our support and back-office queues keep growing.”', 'We automate the classification, triage and first responses, with AI that knows when to hand off to a person, and we measure the cost it takes out.', 'AGENT MVP · BUILD'],
-  ['USUALLY RAISED BY A VP ENGINEERING OR HEAD OF QA', '“AI writes half our code now. Our testing hasn’t caught up.”', 'We bring your quality process up to speed for AI-generated code: automated test generation, risk-based coverage and release gates that protect velocity without the outages.', 'QE HEALTH CHECK · ASSURE'],
+  ['USUALLY RAISED BY A VP ENGINEERING OR HEAD OF QA', '“AI writes half our code now. Our testing hasn’t caught up.”', 'We bring your quality process up to speed for AI-generated code: automated test generation, risk-based coverage and release gates that keep you shipping quickly without causing outages.', 'QE HEALTH CHECK · ASSURE'],
   ['USUALLY RAISED BY A FOUNDER OR CEO', '“We need senior technical leadership, but a full-time CTO isn’t realistic yet.”', 'A fractional CTO who owns architecture, hiring, delivery and AI strategy for the days a week you actually need.', 'FRACTIONAL CTO · SCALE'],
 ].map(([who, quote, body, tag]) => `<article class="card">
 <div class="eyebrow eyebrow--xs eyebrow--grey">${who}</div>
@@ -21,7 +21,7 @@ const services = [
   ['01 — BUILD', 'Agentic AI &amp; GenAI Engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
   ['02 — ASSURE', 'AI Quality &amp; Verifiable Assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
   ['03 — TRANSFORM', 'AI &amp; Engineering Transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance and ISO/IEC 42001 readiness', 'Release and quality engineering'], false],
-  ['04 — SCALE', 'Fractional Leadership &amp; Capability Centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. Large firms do this for large companies; we do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
+  ['04 — SCALE', 'Fractional Leadership &amp; Capability Centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. The big providers do this for big companies. We do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
 ].map(([num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
 <div class="card__num">${num}</div>
 <h3 class="card__title">${title}</h3>
@@ -47,7 +47,7 @@ const steps = [
   ['Define success', 'Choose the use case, agree the business metric and build the test set the system has to pass. The job description.'],
   ['Build on real data', 'A working version on your data within weeks, using whichever model handles each task best on accuracy and cost.'],
   ['Test it properly', 'Measure accuracy, safety and cost. Try to break it. Add guardrails until it clears the bar you set. The probation period.'],
-  ['Run it, then hand over', 'Deploy with monitoring and train your team, so the momentum stays with you after we leave. Code, prompts, tests and documentation are all yours.'],
+  ['Run it, then hand over', 'Deploy with monitoring and train your team, so the work carries on after we leave. Code, prompts, tests and documentation are all yours.'],
 ].map(([t, b], i) => `<li class="step"><div class="step__num" aria-hidden="true">${i + 1}</div><h3>${t}</h3><p class="card__text">${b}</p></li>`).join('\n');
 
 const offers = [
@@ -70,7 +70,7 @@ const trust = [
   ['<rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path>', 'Your data stays in your environment', 'We build inside your cloud or on your infrastructure. Where a third-party model is used, it is accessed under business terms that exclude training on your data, or replaced with a self-hosted model where your policy requires it.'],
   ['<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M9 14l2 2 4-4"></path>', 'You own what we build', 'Code, prompts, evaluation suites and documentation are yours on delivery. We sign a mutual NDA before any detailed discussion.'],
   ['<circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.3 11l7.4-3.8M8.3 13l7.4 3.8"></path>', 'No model or cloud lock-in', 'OpenAI, Anthropic, Google, Llama, Mistral or open-source models; AWS, Azure, Google Cloud, OCI or on-premise. Chosen per task on accuracy, cost and your data policy.'],
-  ['<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"></path>', 'Designed to recognised frameworks', 'Audit trails, access controls and human checkpoints built in from the start, designed to the NIST AI Risk Management Framework, ISO/IEC 42001, the EU AI Act’s risk tiers, India’s DPDP Act and GDPR.'],
+  ['<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"></path>', 'Designed around recognised frameworks', 'Audit trails, access controls and human checkpoints built in from the start, designed to the NIST AI Risk Management Framework, ISO/IEC 42001, the EU AI Act’s risk tiers, India’s DPDP Act and GDPR.'],
 ].map(([svg, t, b]) => `<div class="card card--lg">
 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2B5BFF" stroke-width="1.8" aria-hidden="true">${svg}</svg>
 <h3 class="card__title card__title--xs">${t}</h3>
@@ -81,12 +81,12 @@ const sectors = ['Financial services', 'Mobility &amp; logistics', 'Gaming', 'En
   .map((s) => `<li class="pill">${s}</li>`).join('');
 
 const faqs = [
-  ['How quickly can EonAI start on a new engagement?', 'Usually within one to two weeks of a first conversation. Fixed-scope engagements such as the AI Opportunity Sprint or the AI Reliability Audit begin with a short kickoff, access to the relevant data or systems, and a signed statement of work. The people who scope the engagement are the people who deliver it, so there is no hand-off between a sales team and a delivery team.'],
+  ['How quickly can EonAI start on a new engagement?', 'Usually within one to two weeks of a first conversation. Fixed-scope engagements such as the AI Opportunity Sprint or the AI Reliability Audit begin with a short kickoff, access to the relevant data or systems, and a signed statement of work. There is no hand-off from a sales team to a delivery team.'],
   ['Do you work with clients outside India?', 'Yes. We work remotely with teams in the United States, the United Kingdom, Europe and Asia-Pacific, and arrange working hours to overlap with yours. Contracts can be under Indian or your local jurisdiction, and we invoice in INR, USD or GBP. For longer programmes we can travel for kickoffs and key milestones.'],
   ['Which AI models and cloud platforms do you use?', 'Whatever fits your constraints. We are not tied to any model provider and routinely work with OpenAI, Anthropic, Google, Llama and Mistral models, choosing per task on accuracy, cost and your data policy. We deploy on AWS, Azure, Google Cloud, OCI or on-premise, and we can use self-hosted models where data must not leave your environment.'],
-  ['How do you make sure an AI system is safe to put in front of customers?', 'By agreeing what “good” looks like before we build, then measuring against it. Every system ships with an evaluation suite that scores accuracy, safety and cost on your real data, adversarial tests that try to make it fail, guardrails for the failure modes we find, and human checkpoints where the stakes are high. You see the results, not just a demo.'],
+  ['How do you make sure an AI system is safe to put in front of customers?', 'By agreeing what “good” looks like before we build, then measuring against it. Every system ships with an evaluation suite that scores accuracy, safety and cost on your real data, adversarial tests that try to make it fail, guardrails for the failure modes we find, and human checkpoints where the stakes are high.'],
   ['What if we already have an AI product in production?', 'Start with an AI Reliability Audit. In two to three weeks we measure how the system actually performs, find where it fails, and give you a prioritised fix plan plus a re-runnable test suite your team owns. If you then want someone to keep it healthy as models and prompts change, Managed AI Operations covers that on a monthly basis.'],
-  ['Should we build AI capability in-house or work with EonAI?', 'Both, usually. Our goal is to leave your team able to run and extend what we build, not to make you dependent on us. Every engagement includes knowledge transfer, documentation and the evaluation tooling in your hands. Many clients use us to get the first system into production quickly, then hire against a working example rather than a blank job description.'],
+  ['Should we build AI capability in-house or work with EonAI?', 'Both, usually. We want to leave your team able to run and extend what we build without depending on us. Every engagement includes knowledge transfer, documentation and the evaluation tooling in your hands. Many clients use us to get the first system into production quickly, then hire against a working example rather than a blank job description.'],
   ['Can you help us set up an engineering or QE team in India?', 'Yes. We have built engineering and quality organisations in India from scratch for global companies, including hiring, onboarding, tooling and the operating cadence that keeps a remote team aligned with headquarters. We focus on teams of 5 to 50 for startups and mid-market companies, a segment the large capability-centre providers generally don’t serve.'],
   ['How does EonAI charge for its work?', 'A fixed price for defined engagements such as the Sprint, the Audit and the Health Check; a monthly retainer for Managed AI Operations and Fractional CTO work; and time and materials for longer builds and programmes. We quote after a short scoping conversation, and the quote includes what you will walk away with and when.'],
 ].map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('\n');
@@ -97,15 +97,15 @@ const body = `
 <div class="container hero__inner">
 <div class="eyebrow">EVALUATION-FIRST AI ENGINEERING</div>
 <h1>AI that works beyond the demo.</h1>
-<p class="hero__lead">Plenty of AI pilots look good in a meeting and quietly stall afterwards. We help startups and enterprises get past that point: building, testing and running AI systems their customers, engineers and auditors can rely on.</p>
-<p class="hero__sub">EonAI’s engineers spent twenty years keeping software reliable for millions of users before turning that discipline to AI. Hands-on, direct, and honest about what AI can and can’t do yet.</p>
+<p class="hero__lead">Plenty of AI pilots look good in a meeting and stall afterwards. We help startups and enterprises get past that point: building, testing and running AI systems their customers, engineers and auditors can rely on.</p>
+<p class="hero__sub">EonAI’s engineers kept software reliable for millions of users before turning that discipline to AI. We work hands-on, speak plainly and are honest about what AI can and can’t do yet.</p>
 <div class="hero__actions">
-<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 <a class="btn btn--ghost" href="#problems">See what we solve</a>
 </div>
 <ul class="hero__checks">
 <li>${check}<div><strong>Working software in weeks.</strong> We build on your data from the first sprint.</div></li>
-<li>${check}<div><strong>Evidence, not assurances.</strong> You get the test results along with the system.</div></li>
+<li>${check}<div><strong>Evidence you can check.</strong> You get the test results along with the system.</div></li>
 <li>${check}<div><strong>Everything stays yours.</strong> Your environment, your code, your IP.</div></li>
 </ul>
 </div>
@@ -118,13 +118,13 @@ const body = `
 <div class="eyebrow eyebrow--sm">FOR STARTUPS</div>
 <h2 class="card__title">Ship a credible AI product before the runway runs out.</h2>
 <p class="card__text">A working agent in weeks, senior technical leadership for the days you need it, and the evaluation evidence investors and first customers ask for.</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a working session →</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a working session →${BOOK_SR}</a>
 </div>
 <div class="card card--lg">
 <div class="eyebrow eyebrow--sm">FOR ENTERPRISES</div>
 <h2 class="card__title">Move AI from pilot to production, safely.</h2>
 <p class="card__text">A clear view of where AI pays off, governance your risk and compliance teams will sign off on, and delivery that fits how your engineers already work.</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Request an AI readiness workshop →</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Request an AI readiness workshop →${BOOK_SR}</a>
 </div>
 </div>
 </section>
@@ -180,7 +180,7 @@ ${usecases}
 </div>
 <div class="usecases__foot">
 <p>*Results achieved by EonAI’s leadership in prior roles at a global mobility platform, a gaming company, a fintech and a national data programme. Your results will depend on your data, scope and starting point.</p>
-<a href="${BOOK}"${BOOK_ATTRS}>Describe your problem →</a>
+<a href="#contact">Describe your problem →</a>
 </div>
 </div>
 </section>
@@ -207,14 +207,14 @@ ${steps}
 <h2 class="h2">Start small, see the results, then decide.</h2>
 <p class="lede">Most relationships begin with a short, fixed-scope engagement. Each one ends with something concrete you keep.</p>
 </div>
-<a class="link-strong" href="${BOOK}"${BOOK_ATTRS}>Not sure which fits? Ask us →</a>
+<a class="link-strong" href="#contact">Not sure which fits? Ask us →</a>
 </div>
 <div class="grid grid--engage">
 ${offers}
 <article class="card card--highlight card--center">
 <h3 class="card__title card__title--eng">Larger programmes</h3>
 <p class="card__text">Full builds, multi-quarter transformations and India capability centres are scoped individually after a short discovery phase.</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a conversation →</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a conversation →${BOOK_SR}</a>
 </article>
 </div>
 <figure class="pullquote">
@@ -244,7 +244,7 @@ ${sectors}
 <div class="band-dark__title">
 <div class="eyebrow">EONAI LABS</div>
 <h2>The IP we bring to every engagement</h2>
-<p>We don’t start from a blank page. Two pieces of our own work shorten engagements and raise reliability, and you can use them without being locked into them.</p>
+<p>Two pieces of our own work shorten engagements and improve reliability. You can use them without being locked into them.</p>
 </div>
 <div class="labs-grid">
 <div class="ucard"><h3>Multi-model orchestration engine</h3><p>Routes each task to the best-fit model for accuracy and cost, with a compliance trail for every decision. Patent application filed in India, 2025.</p></div>
@@ -259,8 +259,8 @@ ${sectors}
 <div class="about">
 <div class="eyebrow">ABOUT EONAI</div>
 <h2 class="h2 h2--md">An AI engineering firm with a quality engineering background.</h2>
-<p>EonAI is an India-registered firm serving clients worldwide. Its leadership spent two decades keeping software reliable for millions of users at global technology companies before turning that discipline to AI. The firm is senior-led and hands-on: the people who scope an engagement are the people who deliver it.</p>
-<p>We are not an outsourcing firm. We are the people you call when the AI has to work.</p>
+<p>EonAI is an India-registered firm serving clients worldwide. Its leadership kept software reliable for millions of users at global technology companies and now applies the same discipline to AI. The firm is senior-led and hands-on. The people who scope an engagement are the people who deliver it.</p>
+<p>We are not an outsourcing firm. We’re the people you call when the AI has to work.</p>
 </div>
 </div>
 </section>
@@ -277,7 +277,7 @@ ${sectors}
 </div>
 <div class="grid grid--2">
 <a class="note-card note-card--dark" href="/notes/refunds-agent/">
-<div class="eyebrow eyebrow--xs">SECURITY &amp; GUARDRAILS · 9 MIN</div>
+<div class="eyebrow eyebrow--xs">SECURITY &amp; GUARDRAILS · 8 MIN</div>
 <h3>If your agent can issue refunds, a content filter is not protecting you</h3>
 <p>Six scenarios that read as ordinary customer traffic and cost money, and the seven controls we recommend.</p>
 <span class="note-card__cta">Read →</span>
@@ -285,7 +285,7 @@ ${sectors}
 <a class="note-card" href="/notes/measure-before-you-ship/">
 <div class="eyebrow eyebrow--xs">EVALUATION · 7 MIN</div>
 <h3>Before you ship that agent “improvement”, measure it in layers</h3>
-<p>An upgrade that improved decisions and quietly made the agent slower and less consistent. One accuracy number would have hidden both.</p>
+<p>An upgrade that improved decisions and also made the agent slower and less consistent. One accuracy number would have hidden both.</p>
 <span class="note-card__cta">Read →</span>
 </a>
 <a class="note-card" href="/notes/grounded-answers/">
@@ -297,7 +297,7 @@ ${sectors}
 <a class="note-card note-card--talk" href="${TALK_URL}" target="_blank" rel="noopener">
 <div class="eyebrow eyebrow--xs">TALK · TEST DRIVE PLATFORM</div>
 <h3>${TALK_TITLE}</h3>
-<p>A guest talk by EonAI’s CTO on what changes in testing and release practice when much of your code is written by AI.</p>
+<p>A guest talk from EonAI on what changes in testing and release practice when much of your code is written by AI, and what to do about it.</p>
 <span class="note-card__cta">Watch on YouTube →<span class="visually-hidden"> (opens in a new tab)</span></span>
 </a>
 </div>
@@ -324,7 +324,7 @@ ${faqs}
 <h2 class="h2">Tell us about the problem. We’ll tell you honestly whether we can help.</h2>
 <p class="lede">If you’d rather talk, book a 30-minute call with a senior engineer. It’s a working session on your problem, not a sales pitch.</p>
 <div class="contact__actions">
-<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call${BOOK_SR}</a>
 ${emailWithCopy('contact__mail')}
 </div>
 <div class="next">
@@ -350,7 +350,7 @@ ${emailWithCopy('contact__mail')}
 </div>
 <div class="form__row">
 <div class="field"><label for="f-interest">I’m interested in</label><select id="f-interest" name="interest"><option>Building an AI product or agent</option><option>Testing or auditing an AI system</option><option>Keeping an AI system running well</option><option>AI strategy and governance</option><option>Fractional CTO or India team</option><option>A team workshop</option><option>Something else</option></select></div>
-<div class="field"><label for="f-stage">Where are you in your AI journey?</label><select id="f-stage" name="stage"><option>Exploring what’s possible</option><option>Have a use case, no build yet</option><option>Have a pilot or prototype</option><option>Have something in production</option></select></div>
+<div class="field"><label for="f-stage">Where are you with AI?</label><select id="f-stage" name="stage"><option>Exploring what’s possible</option><option>Have a use case, no build yet</option><option>Have a pilot or prototype</option><option>Have something in production</option></select></div>
 </div>
 <div class="field"><label for="f-message">What problem are you trying to solve?</label><textarea id="f-message" name="message" rows="4"></textarea></div>
 <div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this field empty</label><input id="f-gotcha" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>

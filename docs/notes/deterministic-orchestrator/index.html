@@ -40,7 +40,7 @@
 <a href="/#approach">How we work</a>
 <a href="/#offers">Engagements</a>
 <a href="/notes/" aria-current="page">Engineering notes</a>
-<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call</a>
+<a class="btn btn--primary" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call<span class="visually-hidden"> (opens in a new tab)</span></a>
 </nav>
 </div>
 </header>
@@ -61,16 +61,13 @@
 
 <section id="exposure">
 <h2>The exposure</h2>
-<p class="draft-flag">Draft — to be completed</p>
-<ul>
-<li>Claim and document review is costly and inconsistent when manual, brittle when done by fixed rules; partial evidence is common.</li>
-<li>“Multi-agent” is often three parallel LLM calls with no role boundaries, no evidence contract and no way to explain a decision.</li>
-</ul>
+<p>Reviewing claims and their documents by hand is slow, costly and inconsistent. Fixed rules are faster but break as soon as a case doesn’t fit them, and most claims arrive with partial evidence: a document missing, a figure that doesn’t match, no obvious answer.</p>
+<p>A multi-agent design is the usual next step. Often it turns out to be three model calls running in parallel, with no defined roles, no agreement on what evidence each one must produce, and no record of how the final decision was reached. That is hard to defend once money has been paid out on the result.</p>
 </section>
 
 <section id="shortfalls">
 <h2>Where standard controls fall short</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<p>These are common in first multi-agent builds, and each one leaves a question an auditor will ask.</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
 <table class="scenario">
 <thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
@@ -87,21 +84,21 @@
 
 <section id="recommend">
 <h2>What we recommend</h2>
-<p class="draft-flag">Draft — to be completed</p>
+<p>We recommend giving each component a single job, making the evidence explicit, and keeping the decision about what runs next in code.</p>
 <ol>
-<li>Specialist workers with explicit responsibilities and output contracts (“risk signal + evidence-backed notes”), each with stated limits (e.g. “never infer risk from frequency alone”).</li>
-<li>Tools accessed through a standard protocol boundary (MCP) so data access is governed and logged.</li>
-<li>A critic that compares findings, flags contradictions and evidence gaps, and may request exactly one retry.</li>
-<li>A deterministic orchestrator (code, not a model) that dispatches, enforces retry caps and applies the verdict.</li>
-<li>A quorum rule: insufficient evidence falls back to deny or to human review, never to approve.</li>
-<li>An append-only audit trail per claim, readable by compliance.</li>
-<li>Human review branch for high-value or contested decisions.</li>
+<li>Specialist workers with explicit responsibilities and an output contract (a risk signal plus evidence-backed notes), each with stated limits, for example “never infer risk from frequency alone”.</li>
+<li>Tools reached through a standard protocol boundary (MCP), so data access is governed and logged.</li>
+<li>A critic that compares the findings, flags contradictions and evidence gaps, and may request exactly one retry.</li>
+<li>A deterministic orchestrator, written as code rather than run by a model, that dispatches the work, enforces retry caps and applies the verdict.</li>
+<li>A quorum rule: if the evidence is insufficient, the claim falls back to a denial or to human review, never to an approval.</li>
+<li>An append-only audit trail for each claim, readable by compliance.</li>
+<li>A human review branch for high-value or contested decisions.</li>
 </ol>
 </section>
 
 <section id="our-recommendation" class="recommend">
 <h2>OUR RECOMMENDATION</h2>
-<p>If the thing deciding which agent runs next is itself a model, you cannot promise your auditor a repeatable process. Keep the orchestrator boring.</p>
+<p>If the thing deciding which agent runs next is itself a model, you cannot promise your auditor a repeatable process. Write the orchestrator as ordinary code.</p>
 </section>
 
 <p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
@@ -134,7 +131,7 @@
 <div class="side-card side-card--cta">
 <h2>Does your agent have one of these exposures?</h2>
 <p>A 30-minute working session is usually enough to find out.</p>
-<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →</a>
+<a class="card__more" href="https://eonaiai.zohobookings.in/487872000000029049" target="_blank" rel="noopener">Book a call →<span class="visually-hidden"> (opens in a new tab)</span></a>
 </div>
 </aside>
 </div>
