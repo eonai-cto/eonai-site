@@ -1,4 +1,4 @@
-import { page, BOOK, esc } from '../layout.mjs';
+import { page, BOOK, BOOK_ATTRS, esc } from '../layout.mjs';
 import { SITE_URL } from '../config.mjs';
 import { bySlug, ENGAGEMENTS, PROVENANCE } from '../notes-data.mjs';
 
@@ -91,7 +91,7 @@ ${related}
 <div class="side-card side-card--cta">
 <h2>Does your agent have one of these exposures?</h2>
 <p>A 30-minute working session is usually enough to find out.</p>
-<a class="card__more" href="${BOOK}">Book a call →</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a call →</a>
 </div>
 </aside>
 </div>

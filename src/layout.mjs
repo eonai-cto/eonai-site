@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { SITE_URL, BOOKING_URL, LINKEDIN_COMPANY_URL, CF_ANALYTICS_TOKEN } from './config.mjs';
 
 export const BOOK = BOOKING_URL || '/#contact';
+// Booking links open the external Zoho Bookings page in a new tab; until BOOKING_URL is set they jump to the contact form.
+export const BOOK_ATTRS = BOOKING_URL ? ' target="_blank" rel="noopener"' : '';
 export const LINKEDIN = LINKEDIN_COMPANY_URL || '/#contact';
 
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -30,7 +32,7 @@ function header(current) {
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
 <nav class="nav" id="site-nav" aria-label="Main">
 ${links}
-<a class="btn btn--primary" href="${BOOK}">Book a call</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call</a>
 </nav>
 </div>
 </header>`;

@@ -1,7 +1,9 @@
 // Owner-supplied values. Replace the placeholders, then run `npm run build`.
 export const SITE_URL = 'https://eonai.ai';
 
-// Booking link (Zoho Bookings or Calendly). While null, every "Book a call" link points to #contact.
+// Booking link: the Zoho Bookings share link for the "30-minute working session" event (free plan).
+// While null, every "Book a call" link points to #contact. When set, booking links open it in a new tab
+// and the privacy policy lists Zoho Bookings.
 export const BOOKING_URL = null; // TODO: BOOKING_URL
 
 // Contact form delivery via FormSubmit (formsubmit.co: free, no account, no published submission limit).

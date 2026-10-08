@@ -1,4 +1,4 @@
-import { page, BOOK, esc } from '../layout.mjs';
+import { page, BOOK, BOOK_ATTRS, esc } from '../layout.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_THUMB, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
@@ -100,7 +100,7 @@ const body = `
 <p class="hero__lead">Plenty of AI pilots look good in a meeting and quietly stall afterwards. We help startups and enterprises get past that point: building, testing and running AI systems their customers, engineers and auditors can rely on.</p>
 <p class="hero__sub">EonAI’s engineers spent twenty years keeping software reliable for millions of users before turning that discipline to AI. Hands-on, direct, and honest about what AI can and can’t do yet.</p>
 <div class="hero__actions">
-<a class="btn btn--primary" href="${BOOK}">Book a 30-minute working session</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session</a>
 <a class="btn btn--ghost" href="#problems">See what we solve</a>
 </div>
 <ul class="hero__checks">
@@ -118,13 +118,13 @@ const body = `
 <div class="eyebrow eyebrow--sm">FOR STARTUPS</div>
 <h2 class="card__title">Ship a credible AI product before the runway runs out.</h2>
 <p class="card__text">A working agent in weeks, senior technical leadership for the days you need it, and the evaluation evidence investors and first customers ask for.</p>
-<a class="card__more" href="${BOOK}">Book a working session →</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a working session →</a>
 </div>
 <div class="card card--lg">
 <div class="eyebrow eyebrow--sm">FOR ENTERPRISES</div>
 <h2 class="card__title">Move AI from pilot to production, safely.</h2>
 <p class="card__text">A clear view of where AI pays off, governance your risk and compliance teams will sign off on, and delivery that fits how your engineers already work.</p>
-<a class="card__more" href="${BOOK}">Request an AI readiness workshop →</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Request an AI readiness workshop →</a>
 </div>
 </div>
 </section>
@@ -180,7 +180,7 @@ ${usecases}
 </div>
 <div class="usecases__foot">
 <p>*Results achieved by EonAI’s leadership in prior roles at a global mobility platform, a gaming company, a fintech and a national data programme. Your results will depend on your data, scope and starting point.</p>
-<a href="${BOOK}">Describe your problem →</a>
+<a href="${BOOK}"${BOOK_ATTRS}>Describe your problem →</a>
 </div>
 </div>
 </section>
@@ -207,14 +207,14 @@ ${steps}
 <h2 class="h2">Start small, see the results, then decide.</h2>
 <p class="lede">Most relationships begin with a short, fixed-scope engagement. Each one ends with something concrete you keep.</p>
 </div>
-<a class="link-strong" href="${BOOK}">Not sure which fits? Ask us →</a>
+<a class="link-strong" href="${BOOK}"${BOOK_ATTRS}>Not sure which fits? Ask us →</a>
 </div>
 <div class="grid grid--engage">
 ${offers}
 <article class="card card--highlight card--center">
 <h3 class="card__title card__title--eng">Larger programmes</h3>
 <p class="card__text">Full builds, multi-quarter transformations and India capability centres are scoped individually after a short discovery phase.</p>
-<a class="card__more" href="${BOOK}">Start with a conversation →</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a conversation →</a>
 </article>
 </div>
 <figure class="pullquote">
@@ -325,7 +325,7 @@ ${faqs}
 <h2 class="h2">Tell us about the problem. We’ll tell you honestly whether we can help.</h2>
 <p class="lede">If you’d rather talk, book a 30-minute call with a senior engineer. It’s a working session on your problem, not a sales pitch.</p>
 <div class="contact__actions">
-<a class="btn btn--primary" href="${BOOK}">Book a call</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call</a>
 <a class="contact__mail" href="mailto:hello@eonai.ai">hello@eonai.ai</a>
 </div>
 <div class="next">
