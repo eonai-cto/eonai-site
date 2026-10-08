@@ -137,7 +137,7 @@ files = {
 for name, (fg, ac) in {"eonai-mark-on-dark.svg": (WHITE, ACCENT_LIGHT), "eonai-mark-on-light.svg": (INK, ACCENT)}.items():
     (l, t, s), body = mark(fg, ac)
     files[name] = svg(f"{l:.0f} {t:.0f} {s:.0f} {s:.0f}", body)
-files["eonai-app-icon.svg"] = tile(ACCENT, WHITE, WHITE)
+files["eonai-app-icon.svg"] = tile(ACCENT, WHITE, WHITE, stroke_scale=1.05)
 for name, content in files.items():
     with open(os.path.join(OUT, name), "w") as fh:
         fh.write(content)

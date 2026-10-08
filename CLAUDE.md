@@ -50,7 +50,8 @@ The logo is final. Use the files in `brand/logo/` as they are. Never redraw it b
 | `eonai-logo-on-dark.svg` | white; dot and `ai` `#8FB0FF` | site header and footer, any dark background |
 | `eonai-logo-on-light.svg`, `.png` | ink `#0E1726`; dot and `ai` `#2B5BFF` | light backgrounds, documents, `Organization.logo` (PNG) |
 | `eonai-mark-on-dark.svg`, `eonai-mark-on-light.svg` | as above | the loop and dot alone |
-| `eonai-app-icon.svg` | white loop on `#2B5BFF` square | LinkedIn and social avatars |
+| `eonai-app-icon.svg`, `.png` (512×512) | white loop on `#2B5BFF` rounded square | LinkedIn and social avatars |
+| `eonai-logo-square.png` (512×512) | light wordmark centred on white | square logo slots such as the Zoho Bookings business logo |
 | `favicon.svg` | white loop, `#8FB0FF` dot, navy rounded square | browser tab → `docs/favicon.svg` |
 
 **Placement on the site**

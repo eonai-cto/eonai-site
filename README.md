@@ -61,7 +61,8 @@ The logo files live in `brand/logo/` and are published at `https://eonai.ai/bran
 | `eonai-logo-on-dark.svg` | wordmark on navy or dark backgrounds (site header and footer) |
 | `eonai-logo-on-light.svg` / `.png` | wordmark on white or light backgrounds (documents, decks, email) |
 | `eonai-mark-on-dark.svg`, `eonai-mark-on-light.svg` | the loop on its own |
-| `eonai-app-icon.svg` | square icon for LinkedIn and social avatars |
+| `eonai-app-icon.svg` / `.png` | square icon for LinkedIn and social avatars |
+| `eonai-logo-square.png` | wordmark on a white square, for square logo slots (e.g. Zoho Bookings) |
 | `favicon.svg` | browser tab icon (published at `/favicon.svg`) |
 
 To change the logo, edit the constants at the top of `brand/make-logo.py` and run `python3 brand/make-logo.py` (needs `pip install fonttools`), then `npm run build`. Also re-render `brand/og/og.png` from `og.svg` and `brand/logo/eonai-logo-on-light.png` (open in Chrome and screenshot). The rules are in `CLAUDE.md` § Logo.
