@@ -17,6 +17,48 @@
     });
   }
 
+  // Copy-email buttons: copy the address and confirm for two seconds.
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(function () { return legacyCopy(text); });
+    }
+    return legacyCopy(text);
+  }
+  function legacyCopy(text) {
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) { resolve(); } else { reject(new Error('copy failed')); }
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.copy-email'), function (btn) {
+    var label = btn.querySelector('.copy-email__label');
+    var timer;
+    btn.addEventListener('click', function () {
+      copyText(btn.getAttribute('data-copy')).then(function () {
+        label.textContent = 'Copied';
+        btn.classList.add('is-copied');
+        btn.setAttribute('aria-label', 'Email address copied');
+      }, function () {
+        label.textContent = 'Copy failed';
+      });
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        label.textContent = 'Copy';
+        btn.classList.remove('is-copied');
+        btn.setAttribute('aria-label', 'Copy email address');
+      }, 2000);
+    });
+  });
+
   // Contact form (FormSubmit). The AJAX endpoint is set at build time from src/config.mjs.
   // Without JS the form still posts to the action URL and FormSubmit redirects back.
   var form = document.getElementById('contact-form');

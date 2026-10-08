@@ -3,6 +3,10 @@ import { SITE_URL, BOOKING_URL, LINKEDIN_COMPANY_URL, CF_ANALYTICS_TOKEN } from 
 
 export const BOOK = BOOKING_URL || '/#contact';
 // Booking links open the external Zoho Bookings page in a new tab; until BOOKING_URL is set they jump to the contact form.
+// Email link (subject prefilled) plus a Copy button for visitors without a mail app. The button is shown only with JS (site.js).
+export const MAILTO = 'mailto:hello@eonai.ai?subject=Enquiry%20from%20eonai.ai';
+const copyIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>';
+export const emailWithCopy = (linkClass) => `<span class="email-row"><a class="${linkClass}" href="${MAILTO}">hello@eonai.ai</a><button class="copy-email" type="button" data-copy="hello@eonai.ai" aria-label="Copy email address">${copyIcon}<span class="copy-email__label">Copy</span></button></span>`;
 export const BOOK_ATTRS = BOOKING_URL ? ' target="_blank" rel="noopener"' : '';
 export const LINKEDIN = LINKEDIN_COMPANY_URL || '/#contact';
 
@@ -58,7 +62,7 @@ function footer() {
 </div>
 <div class="site-footer__col">
 <strong>Contact</strong>
-<a href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+${emailWithCopy('site-footer__mail')}
 ${todo}<a href="${LINKEDIN}">LinkedIn</a>
 <a href="/privacy/">Privacy policy</a>
 </div>

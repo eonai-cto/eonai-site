@@ -1,4 +1,4 @@
-import { page, BOOK, BOOK_ATTRS, esc } from '../layout.mjs';
+import { page, BOOK, BOOK_ATTRS, esc, emailWithCopy } from '../layout.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
@@ -325,7 +325,7 @@ ${faqs}
 <p class="lede">If you’d rather talk, book a 30-minute call with a senior engineer. It’s a working session on your problem, not a sales pitch.</p>
 <div class="contact__actions">
 <a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call</a>
-<a class="contact__mail" href="mailto:hello@eonai.ai">hello@eonai.ai</a>
+${emailWithCopy('contact__mail')}
 </div>
 <div class="next">
 <div class="eyebrow eyebrow--sm eyebrow--grey">WHAT HAPPENS NEXT</div>
