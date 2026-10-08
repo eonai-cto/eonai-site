@@ -1,5 +1,5 @@
-import { page, esc } from '../layout.mjs';
-import { TALK_URL, TALK_THUMB, TALK_TITLE } from '../config.mjs';
+import { page } from '../layout.mjs';
+import { TALK_URL, TALK_TITLE } from '../config.mjs';
 import { notes } from '../notes-data.mjs';
 
 const upper = (s) => s.toUpperCase().replace(/&/g, '&amp;');
@@ -38,12 +38,11 @@ ${pills}
 </ul>
 <div class="grid grid--3">
 ${cards}
-<a class="note-card note-card--talk" href="${TALK_URL}">
-<img class="note-card__thumb" src="${TALK_THUMB}" width="480" height="360" loading="lazy" alt="Video thumbnail for the talk ${esc(TALK_TITLE)}">
+<a class="note-card note-card--talk" href="${TALK_URL}" target="_blank" rel="noopener">
 <div class="note-card__meta"><span class="eyebrow eyebrow--xs">TALK</span><span class="eyebrow eyebrow--xs eyebrow--grey">· TEST DRIVE PLATFORM · VIDEO</span></div>
 <h2>${TALK_TITLE}</h2>
 <p>A guest talk by EonAI’s CTO on what changes in testing and release practice when a large share of your code is written by AI, and what to do about it.</p>
-<span class="note-card__cta">Watch on YouTube →</span>
+<span class="note-card__cta">Watch on YouTube →<span class="visually-hidden"> (opens in a new tab)</span></span>
 </a>
 </div>
 </section>

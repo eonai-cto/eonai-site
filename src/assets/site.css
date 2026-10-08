@@ -365,7 +365,6 @@ ul, ol { margin: 0; }
 .note-card--dark .note-card__cta { color: #fff; }
 .note-card--talk { background: var(--tint); border-color: var(--tint-border); }
 .note-card--talk:hover { border-color: var(--accent); }
-.note-card__thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; background: var(--ink); }
 .notes-home h3 { font-size: 20px; }
 .notes-home p { font-size: 14px; }
 

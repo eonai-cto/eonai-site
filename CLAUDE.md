@@ -31,7 +31,9 @@ can be rebuilt; nothing in `brand/` should be regenerated except with `brand/mak
   - Accent `#2B5BFF` fails contrast on ink/navy/panel. On any dark surface (dark cards, dark bands, hero, use cases) eyebrows and links use accent-light `#8FB0FF` or white.
   - Headings must not skip levels: card titles directly under the page `h1` (notes index) are `h2`; under a section `h2` they are `h3`.
   - Grid columns use `minmax(min(100%, Npx), 1fr)` so nothing overflows at 375px.
-- Performance: no images except the logo/favicon files in `brand/`, the Open Graph PNG and the YouTube thumbnail; Lighthouse performance ≥ 95 on mobile. Follow § Performance exactly.
+- Performance: no images except the logo/favicon files in `brand/` and the Open Graph PNG; Lighthouse performance ≥ 95 on mobile. Follow § Performance exactly.
+- **No YouTube thumbnail.** The talk's thumbnail shows a person's name, photo and title, which breaks the no-names/no-photos rule; the talk card is text only (decided 2026-10-08).
+- External links (the YouTube talk, the Zoho Bookings page) open in a new tab with `target="_blank" rel="noopener"`; the talk card adds visually hidden text "(opens in a new tab)".
 
 ## Logo (approved 2026-10-07 — "hybrid H2")
 
@@ -71,7 +73,7 @@ These rules come from measured failures. Each one was needed to get from 88 to 9
 - **Preload** `plex-sans.woff2`, `space-grotesk.woff2` and `plex-mono-400.woff2` in `<head>` with `<link rel="preload" as="font" type="font/woff2" crossorigin>`, before the stylesheet.
 - **Metric-matched fallbacks** to keep text from reflowing when the fonts arrive: in `site.css`, declare `'Space Grotesk Fallback'` (`local('Arial')`, `size-adjust: 102%`), `'IBM Plex Sans Fallback'` (`local('Arial')`, `size-adjust: 101.8%`) and `'IBM Plex Mono Fallback'` (`local('Courier New')`), and list each straight after its web font in the font stacks.
 - **Set `html.js` inline in `<head>`**: `<script>document.documentElement.classList.add('js')</script>` straight after the viewport meta. The mobile nav is hidden only under `.js`; adding the class from the deferred `site.js` collapsed the nav after first paint and shifted the whole page (CLS 0.16, intermittent).
-- **No other third-party requests** on page load. The only external resource is the YouTube thumbnail: `loading="lazy"`, explicit `width`/`height`, CSS `aspect-ratio: 16 / 9`.
+- **No third-party requests** on page load: no external images, fonts, scripts or embeds (unless `CF_ANALYTICS_TOKEN` is set).
 - One stylesheet (`/assets/site.css`) and one deferred script (`/assets/site.js`). No frameworks, no analytics unless `CF_ANALYTICS_TOKEN` is set.
 - **Verify** with Lighthouse mobile at least three times on the home page (layout shift was intermittent) and once on every other page. Every run must be ≥ 95 with CLS 0.
 

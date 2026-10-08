@@ -1,5 +1,5 @@
 import { page, BOOK, BOOK_ATTRS, esc } from '../layout.mjs';
-import { SITE_URL, FORM_TARGET, TALK_URL, TALK_THUMB, TALK_TITLE } from '../config.mjs';
+import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
 
@@ -294,12 +294,11 @@ ${sectors}
 <p>A knowledge assistant can pass every task check and still answer from nothing. What to measure before it reaches your clients.</p>
 <span class="note-card__cta">Read →</span>
 </a>
-<a class="note-card note-card--talk" href="${TALK_URL}">
-<img class="note-card__thumb" src="${TALK_THUMB}" width="480" height="360" loading="lazy" alt="Video thumbnail for the talk ${esc(TALK_TITLE)}">
+<a class="note-card note-card--talk" href="${TALK_URL}" target="_blank" rel="noopener">
 <div class="eyebrow eyebrow--xs">TALK · TEST DRIVE PLATFORM</div>
 <h3>${TALK_TITLE}</h3>
 <p>A guest talk by EonAI’s CTO on what changes in testing and release practice when much of your code is written by AI.</p>
-<span class="note-card__cta">Watch on YouTube →</span>
+<span class="note-card__cta">Watch on YouTube →<span class="visually-hidden"> (opens in a new tab)</span></span>
 </a>
 </div>
 </section>

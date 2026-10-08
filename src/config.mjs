@@ -18,5 +18,5 @@ export const LINKEDIN_COMPANY_URL = null; // TODO: LINKEDIN_COMPANY_URL
 export const CF_ANALYTICS_TOKEN = null; // TODO: CF_ANALYTICS_TOKEN (optional)
 
 export const TALK_URL = 'https://www.youtube.com/watch?v=xwoiaOAfZRA';
-export const TALK_THUMB = 'https://img.youtube.com/vi/xwoiaOAfZRA/hqdefault.jpg';
+// No thumbnail: the video's thumbnail shows a person's name and photo, which the site must not (CLAUDE.md).
 export const TALK_TITLE = 'The Future of Quality in AI-Generated Software';

@@ -51,8 +51,8 @@ Footer (all pages): company legal line + registered address, Company links, Cont
   headline number, or prices. The About block is a company statement only.
 - "Seen before" figures on use-case cards stay, with their footnote. No other numbers may be added.
 - The talk link is `https://www.youtube.com/watch?v=xwoiaOAfZRA`, title
-  "The Future of Quality in AI-Generated Software". Link out; do not embed the player. You may
-  show the YouTube thumbnail (`https://img.youtube.com/vi/xwoiaOAfZRA/hqdefault.jpg`) as the card image.
+  "The Future of Quality in AI-Generated Software". Link out in a new tab; do not embed the player.
+  Do not show the YouTube thumbnail: it carries a person's name and photo (decided 2026-10-08). The card is text only.
 - Placeholders that stay as visible TODOs until the owner supplies them:
   - `BOOKING_URL` — every "Book a call" / "Book a 30-minute working session" / "Request an AI readiness workshop" link. Set 2026-10-08 to the Zoho Bookings event page (free plan); links open in a new tab. If unset, point them to `#contact`.
   - `FORM_TARGET` — contact form delivery via FormSubmit (formsubmit.co). Set to `hello@eonai.ai`; optionally replace with the random alias FormSubmit sends after activation. (Replaced Formspree, which caps free submissions.)
