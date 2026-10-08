@@ -4,7 +4,7 @@ export const SITE_URL = 'https://eonai.ai';
 // Booking link: the Zoho Bookings share link for the "30-minute working session" event (free plan).
 // While null, every "Book a call" link points to #contact. When set, booking links open it in a new tab
 // and the privacy policy lists Zoho Bookings.
-export const BOOKING_URL = null; // TODO: BOOKING_URL
+export const BOOKING_URL = 'https://eonaiai.zohobookings.in/487872000000029049'; // Zoho Bookings, "30-minute working session" (free plan, set up 2026-10-08)
 
 // Contact form delivery via FormSubmit (formsubmit.co: free, no account, no published submission limit).
 // The form posts to https://formsubmit.co/ajax/<FORM_TARGET>. Use the email address until FormSubmit's

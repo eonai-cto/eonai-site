@@ -4,6 +4,7 @@
 
 ## What we collect
 - **Contact form:** name, work email, your selections (interest, stage), your message, and your consent choices. Submitted to our form provider (FormSubmit) and delivered to hello@eonai.ai.
+- **Bookings:** if you book a call, your name, email and anything you add to the booking form, processed by Zoho Bookings and delivered to hello@eonai.ai.
 - **Email:** anything you send to an eonai.ai address, processed on Zoho Mail.
 - **Analytics (if enabled):** aggregate, cookieless page statistics via Cloudflare Web Analytics. No personal identifiers.
 - **No cookies** are set by this site for tracking. Fonts are served from this site; no third-party font service is used.
@@ -17,7 +18,7 @@
 Enquiries are kept for as long as needed to respond and for up to 24 months thereafter unless an engagement follows. Marketing consent is kept until withdrawn.
 
 ## Sharing
-We do not sell personal data. Processors: FormSubmit (form delivery), Zoho (email), Cloudflare (analytics, if enabled), GitHub (hosting). Each processes data under its own terms.
+We do not sell personal data. Processors: FormSubmit (form delivery), Zoho (email and bookings), Cloudflare (analytics, if enabled), GitHub (hosting). Each processes data under its own terms.
 
 ## Your rights
 Access, correction, erasure, withdrawal of consent, and grievance redressal. Write to hello@eonai.ai. Under the DPDP Act you may also nominate a representative. We respond within 30 days.
