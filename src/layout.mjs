@@ -100,7 +100,7 @@ export function page(opts, body) {
 <meta property="og:image" content="${SITE_URL}/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="eonai logo. AI that works beyond the demo.">
+<meta property="og:image:alt" content="eonai logo. AI that works beyond the demo">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(opts.title)}">
 <meta name="twitter:description" content="${esc(opts.description)}">

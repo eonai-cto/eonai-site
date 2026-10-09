@@ -62,7 +62,7 @@ The logo is final. Use the files in `brand/logo/` as they are. Never redraw it b
 **Placement on the site**
 - Header: inline the contents of `eonai-logo-on-dark.svg` (not an `<img>`) at 36px tall, `aria-hidden="true"` on the SVG, inside `<a href="/" aria-label="EonAI home">`. Inlining avoids an extra request and a layout shift.
 - Footer: same file, 30px tall, also linked home.
-- Open Graph / Twitter image: `brand/og/og.png` (1200×630: logo, tagline, eyebrow on navy; source `brand/og/og.svg`). `og:image:alt` is "eonai logo. AI that works beyond the demo."
+- Open Graph / Twitter image: `brand/og/og.png` (1200×630: logo, tagline, eyebrow on navy; source `brand/og/og.svg`). `og:image:alt` is "eonai logo. AI that works beyond the demo" (the headline has no full stop anywhere: hero, OG image, LinkedIn cover)
 - Home JSON-LD `Organization.logo`: `https://eonai.ai/brand/eonai-logo-on-light.png`.
 - In running text the company is always "EonAI" / "EonAI Private Limited". The lowercase form is for the logo only.
 
@@ -92,6 +92,8 @@ The site uses diagrams and pictograms instead of photos or stock imagery (no peo
 - Use cases: only the original seven from the reference (Support and complaint handling, Knowledge assistants, Document processing, AI-assisted testing, Data matching and identity resolution, Compliance and review workflows, Multi-model orchestration). **Defect and incident triage is removed.** No "Seen before" figures and no results footnote in this section. The eighth grid slot is a dashed "Something else?" card linking to the contact form.
 - No third-party quotations (the QuantumBlack / McKinsey pull quote is removed). Do not add quotes from other firms.
 - Avoid "honest"/"honestly" in copy; it reads as defensive on a corporate site.
+- **Results figures are permanently out** (300K→12K backlog, 92%, 93%+, 80%, and the "prior roles" footnote). They describe work at the owner's former employers and may be confidential to those companies. Never re-add them anywhere: site, notes, OG image, LinkedIn assets or `reference/`.
+- Headings are sentence case everywhere, including service titles ("Agentic AI & GenAI engineering"). Engagement names (AI Reliability Audit, Agent MVP…) are product names and keep their capitals.
 
 ## Pages and URLs
 

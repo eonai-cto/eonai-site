@@ -20,10 +20,10 @@ const problems = [
 </article>`).join('\n');
 
 const services = [
-  ['build', '01 — BUILD', 'Agentic AI &amp; GenAI Engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
-  ['assure', '02 — ASSURE', 'AI Quality &amp; Verifiable Assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
-  ['transform', '03 — TRANSFORM', 'AI &amp; Engineering Transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance and ISO/IEC 42001 readiness', 'Release and quality engineering'], false],
-  ['scale', '04 — SCALE', 'Fractional Leadership &amp; Capability Centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. The big providers do this for big companies. We do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
+  ['build', '01 — BUILD', 'Agentic AI &amp; GenAI engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
+  ['assure', '02 — ASSURE', 'AI quality &amp; verifiable assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
+  ['transform', '03 — TRANSFORM', 'AI &amp; engineering transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance and ISO/IEC 42001 readiness', 'Release and quality engineering'], false],
+  ['scale', '04 — SCALE', 'Fractional leadership &amp; capability centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. The big providers do this for big companies. We do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
 ].map(([ic, num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
 <div class="card__top">${icon(ic)}<div class="card__num">${num}</div></div>
 <h3 class="card__title">${title}</h3>
@@ -114,7 +114,7 @@ const body = `
 <section class="hero on-dark" id="top">
 <div class="container hero__inner">
 <div class="eyebrow">EVALUATION-FIRST AI ENGINEERING</div>
-<h1>AI that works beyond the demo.</h1>
+<h1>AI that works beyond the demo</h1>
 <p class="hero__lead">Plenty of AI pilots look good in a meeting and stall afterwards. We help startups and enterprises get past that point: building, testing and running AI systems their customers, engineers and auditors can rely on.</p>
 <p class="hero__sub">EonAI’s engineers kept software reliable for millions of users before turning that discipline to AI. We work hands-on, speak plainly and are clear about what AI can and can’t do yet.</p>
 <div class="hero__actions">
@@ -281,7 +281,7 @@ ${sectors}
 <div class="eyebrow">ABOUT EONAI</div>
 <h2 class="h2 h2--md">An AI engineering firm with a quality engineering background.</h2>
 <p>EonAI is an India-registered firm serving clients worldwide. Its leadership kept software reliable for millions of users at global technology companies and now applies the same discipline to AI. The firm is senior-led and hands-on. The people who scope an engagement are the people who deliver it.</p>
-<p>We are not an outsourcing firm. We’re the people you call when the AI has to work.</p>
+<p>We do the engineering ourselves and stay until the system is running and your team can own it.</p>
 </div>
 </div>
 </section>
