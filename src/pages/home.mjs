@@ -1,4 +1,6 @@
 import { page, BOOK, BOOK_ATTRS, BOOK_SR, esc, emailWithCopy } from '../layout.mjs';
+import { icon } from '../icons.mjs';
+import { explainer } from '../explainer.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
@@ -18,29 +20,29 @@ const problems = [
 </article>`).join('\n');
 
 const services = [
-  ['01 — BUILD', 'Agentic AI &amp; GenAI Engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
-  ['02 — ASSURE', 'AI Quality &amp; Verifiable Assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
-  ['03 — TRANSFORM', 'AI &amp; Engineering Transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance and ISO/IEC 42001 readiness', 'Release and quality engineering'], false],
-  ['04 — SCALE', 'Fractional Leadership &amp; Capability Centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. The big providers do this for big companies. We do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
-].map(([num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
-<div class="card__num">${num}</div>
+  ['build', '01 — BUILD', 'Agentic AI &amp; GenAI Engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
+  ['assure', '02 — ASSURE', 'AI Quality &amp; Verifiable Assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
+  ['transform', '03 — TRANSFORM', 'AI &amp; Engineering Transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance and ISO/IEC 42001 readiness', 'Release and quality engineering'], false],
+  ['scale', '04 — SCALE', 'Fractional Leadership &amp; Capability Centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. The big providers do this for big companies. We do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
+].map(([ic, num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
+<div class="card__top">${icon(ic)}<div class="card__num">${num}</div></div>
 <h3 class="card__title">${title}</h3>
 <p class="card__text">${body}</p>
 <ul class="card__list">${items.map((i) => `<li>${i}</li>`).join('')}</ul>
 </article>`).join('\n');
 
-const uc = (title, body, foot) => `<div class="ucard"><h3>${title}</h3><p>${body}</p>${foot}</div>`;
+const uc = (ic, title, body, foot) => `<div class="ucard">${icon(ic)}<h3>${title}</h3><p>${body}</p>${foot}</div>`;
 const seen = (t) => `<div class="ucard__seen">${t}</div>`;
 const note = (slug, t) => `<a class="ucard__note" href="/notes/${slug}/">${t}</a>`;
 const usecases = [
-  uc('Support and complaint handling', 'Classify, route and draft replies to tickets and complaints, with a person in the loop for the difficult ones.', seen('Seen before: 80% lower support-operations cost*') + note('measure-before-you-ship', 'Advisory note: measure the change before you ship it →')),
-  uc('Knowledge assistants', 'Answer staff or customer questions from policies, contracts and manuals, citing the source every time.', note('grounded-answers', 'Advisory note: a fluent answer is not a grounded answer →')),
-  uc('Document processing', 'Extract, check and reconcile data from invoices, KYC files, claims and forms at volume.', note('deterministic-orchestrator', 'Advisory note: keep the orchestrator deterministic →')),
-  uc('Defect and incident triage', 'Deduplicate, prioritise and route bugs, alerts and test failures to the right team without manual sorting.', seen('Seen before: 300K-bug backlog cut to 12K in a year*')),
-  uc('AI-assisted testing', 'Generate and maintain tests, flag risky changes and shorten regression cycles in fast-moving codebases.', seen('Seen before: 92% fewer field defects*')),
-  uc('Data matching and identity resolution', 'Link records across messy datasets, including Indian-language names, into one trusted view.', seen('Seen before: 93%+ match accuracy on national datasets*')),
-  uc('Compliance and review workflows', 'Pre-screen documents and decisions against policy, flag exceptions and keep a full audit trail.', note('guardrails-in-the-architecture', 'Advisory note: guardrails belong in the architecture →')),
-  uc('Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', seen('Built on our patent-pending engine')),
+  uc('support', 'Support and complaint handling', 'Classify, route and draft replies to tickets and complaints, with a person in the loop for the difficult ones.', seen('Seen before: 80% lower support-operations cost*') + note('measure-before-you-ship', 'Advisory note: measure the change before you ship it →')),
+  uc('knowledge', 'Knowledge assistants', 'Answer staff or customer questions from policies, contracts and manuals, citing the source every time.', note('grounded-answers', 'Advisory note: a fluent answer is not a grounded answer →')),
+  uc('documents', 'Document processing', 'Extract, check and reconcile data from invoices, KYC files, claims and forms at volume.', note('deterministic-orchestrator', 'Advisory note: keep the orchestrator deterministic →')),
+  uc('triage', 'Defect and incident triage', 'Deduplicate, prioritise and route bugs, alerts and test failures to the right team without manual sorting.', seen('Seen before: 300K-bug backlog cut to 12K in a year*')),
+  uc('testing', 'AI-assisted testing', 'Generate and maintain tests, flag risky changes and shorten regression cycles in fast-moving codebases.', seen('Seen before: 92% fewer field defects*')),
+  uc('matching', 'Data matching and identity resolution', 'Link records across messy datasets, including Indian-language names, into one trusted view.', seen('Seen before: 93%+ match accuracy on national datasets*')),
+  uc('compliance', 'Compliance and review workflows', 'Pre-screen documents and decisions against policy, flag exceptions and keep a full audit trail.', note('guardrails-in-the-architecture', 'Advisory note: guardrails belong in the architecture →')),
+  uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', seen('Built on our patent-pending engine')),
 ].join('\n');
 
 const steps = [
@@ -65,6 +67,24 @@ const offers = [
 <ul class="card__list card__list--eng">${items.map((i) => `<li>${i}</li>`).join('')}</ul>
 <div class="card__foot">${foot}</div>
 </article>`).join('\n');
+
+
+const chip = (name, len, cls = '') => `<li class="path__step${cls}"><span class="path__name">${name}</span><span class="path__len">${len}</span></li>`;
+const paths = `<div class="paths">
+<div class="paths__label">WHERE CLIENTS USUALLY START</div>
+<div class="path">
+<div class="path__who"><strong>Starting with AI</strong><span>Enterprises</span></div>
+<ol class="path__steps">${chip('AI Opportunity Sprint', '2 weeks')}${chip('Agent MVP', '4–6 weeks')}${chip('Managed AI Operations', 'Monthly', ' path__step--ongoing')}</ol>
+</div>
+<div class="path">
+<div class="path__who"><strong>Already running AI</strong><span>Teams shipping AI today</span></div>
+<ol class="path__steps">${chip('AI Reliability Audit', '2–3 weeks')}${chip('Managed AI Operations', 'Monthly', ' path__step--ongoing')}</ol>
+</div>
+<div class="path">
+<div class="path__who"><strong>Startups</strong><span>Seed to Series A</span></div>
+<ol class="path__steps path__steps--plus">${chip('Agent MVP', '4–6 weeks')}${chip('Fractional CTO', 'Alongside, ongoing', ' path__step--alongside')}</ol>
+</div>
+</div>`;
 
 const trust = [
   ['<rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path>', 'Your data stays in your environment', 'We build inside your cloud or on your infrastructure. Where a third-party model is used, it is accessed under business terms that exclude training on your data, or replaced with a self-hosted model where your policy requires it.'],
@@ -145,6 +165,15 @@ const body = `
 </div>
 </section>
 
+<!-- EXPLAINER -->
+<section class="container section--tall" id="explainer">
+<div class="section-head">
+<div class="eyebrow">HOW IT WORKS · SIX SCENES</div>
+<h2 class="h2">From demo to production</h2>
+</div>
+${explainer()}
+</section>
+
 <!-- PROBLEMS -->
 <section class="container section--tall" id="problems">
 <div class="section-head">
@@ -209,6 +238,7 @@ ${steps}
 </div>
 <a class="link-strong" href="#contact">Not sure which fits? Ask us →</a>
 </div>
+${paths}
 <div class="grid grid--engage">
 ${offers}
 <article class="card card--highlight card--center">

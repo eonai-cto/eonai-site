@@ -32,7 +32,7 @@ can be rebuilt; nothing in `brand/` should be regenerated except with `brand/mak
   - Accent `#2B5BFF` fails contrast on ink/navy/panel. On any dark surface (dark cards, dark bands, hero, use cases) eyebrows and links use accent-light `#8FB0FF` or white.
   - Headings must not skip levels: card titles directly under the page `h1` (notes index) are `h2`; under a section `h2` they are `h3`.
   - Grid columns use `minmax(min(100%, Npx), 1fr)` so nothing overflows at 375px.
-- Performance: no images except the logo/favicon files in `brand/` and the Open Graph PNG; Lighthouse performance ≥ 95 on mobile. Follow § Performance exactly.
+- Performance: no raster images except the logo/favicon files in `brand/` and the Open Graph PNG; Lighthouse performance ≥ 95 on mobile. Follow § Performance exactly. Illustrations are inline SVG (see § Visuals).
 - **No YouTube thumbnail.** The talk's thumbnail shows a person's name, photo and title, which breaks the no-names/no-photos rule; the talk card is text only (decided 2026-10-08).
 - External links (the YouTube talk, the Zoho Bookings page) open in a new tab with `target="_blank" rel="noopener"`; the talk card adds visually hidden text "(opens in a new tab)".
 
@@ -79,6 +79,14 @@ These rules come from measured failures. Each one was needed to get from 88 to 9
 - **No third-party requests** on page load: no external images, fonts, scripts or embeds (unless `CF_ANALYTICS_TOKEN` is set).
 - One stylesheet (`/assets/site.css`) and one deferred script (`/assets/site.js`). No frameworks, no analytics unless `CF_ANALYTICS_TOKEN` is set.
 - **Verify** with Lighthouse mobile at least three times on the home page (layout shift was intermittent) and once on every other page. Every run must be ≥ 95 with CLS 0.
+
+## Visuals (added 2026-10-09, owner-approved)
+
+The site uses diagrams and pictograms instead of photos or stock imagery (no people may appear). All are inline SVG or HTML/CSS: no image files, no icon fonts, no third-party players.
+
+- **Line icons** (`src/icons.mjs`): one style, 32px grid, 1.75 stroke, round caps, `currentColor`. Used on the four service cards (`build`, `assure`, `transform`, `scale`) and the eight use-case cards. Tinted tile on light cards, panel tile with `#8FB0FF` stroke on dark cards. New icons follow the same grid and stroke.
+- **Where clients usually start** (`paths` in `src/pages/home.mjs`, top of § Engagements): three routes as HTML chips joined by arrows. Starting with AI: Sprint → Agent MVP → Managed AI Operations. Already running AI: Reliability Audit → Managed AI Operations. Startups: Agent MVP + Fractional CTO alongside. Routes come from the FAQ and the who-we-serve copy. On phones each route stacks vertically with downward arrows.
+- **Explainer, "From demo to production"** (`src/explainer.mjs`, section `#explainer` after "Why pilots stall"): six animated scenes with captions, click to play (7 s per scene), progress dots that double as scene buttons, a polite live region for the caption. Animations are CSS keyframes on the active scene only; elements rest in their final state, so without JS the six scenes show as a static grid, and `prefers-reduced-motion` switches the motion off. No video file. If a produced MP4 replaces it later, it must be self-hosted and load only on click.
 
 ## Pages and URLs
 

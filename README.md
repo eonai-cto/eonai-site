@@ -65,6 +65,10 @@ The logo files live in `brand/logo/` and are published at `https://eonai.ai/bran
 
 To change the logo, edit the constants at the top of `brand/make-logo.py` and run `python3 brand/make-logo.py` (needs `pip install fonttools`), then `npm run build`. Also re-render `brand/og/og.png` from `og.svg` and `brand/logo/eonai-logo-on-light.png` (open in Chrome and screenshot). The rules are in `CLAUDE.md` § Logo.
 
+## Visuals
+
+Icons: `src/icons.mjs`. Engagement routes: `paths` in `src/pages/home.mjs`. Explainer scenes and captions: `src/explainer.mjs` (each scene is a small inline SVG; animation classes `a-rise`, `a-grow`, `a-pop`, `a-fade`, `a-draw`, `a-spin` are defined in `site.css`). Rules in `CLAUDE.md` § Visuals.
+
 ## Edit copy
 
 | What | File |
