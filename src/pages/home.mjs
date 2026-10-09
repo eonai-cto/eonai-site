@@ -32,17 +32,15 @@ const services = [
 </article>`).join('\n');
 
 const uc = (ic, title, body, foot) => `<div class="ucard">${icon(ic)}<h3>${title}</h3><p>${body}</p>${foot}</div>`;
-const seen = (t) => `<div class="ucard__seen">${t}</div>`;
 const note = (slug, t) => `<a class="ucard__note" href="/notes/${slug}/">${t}</a>`;
 const usecases = [
-  uc('support', 'Support and complaint handling', 'Classify, route and draft replies to tickets and complaints, with a person in the loop for the difficult ones.', seen('Seen before: 80% lower support-operations cost*') + note('measure-before-you-ship', 'Advisory note: measure the change before you ship it →')),
+  uc('support', 'Support and complaint handling', 'Classify, route and draft replies to tickets and complaints, with a person in the loop for the difficult ones.',note('measure-before-you-ship', 'Advisory note: measure the change before you ship it →')),
   uc('knowledge', 'Knowledge assistants', 'Answer staff or customer questions from policies, contracts and manuals, citing the source every time.', note('grounded-answers', 'Advisory note: a fluent answer is not a grounded answer →')),
   uc('documents', 'Document processing', 'Extract, check and reconcile data from invoices, KYC files, claims and forms at volume.', note('deterministic-orchestrator', 'Advisory note: keep the orchestrator deterministic →')),
-  uc('triage', 'Defect and incident triage', 'Deduplicate, prioritise and route bugs, alerts and test failures to the right team without manual sorting.', seen('Seen before: 300K-bug backlog cut to 12K in a year*')),
-  uc('testing', 'AI-assisted testing', 'Generate and maintain tests, flag risky changes and shorten regression cycles in fast-moving codebases.', seen('Seen before: 92% fewer field defects*')),
-  uc('matching', 'Data matching and identity resolution', 'Link records across messy datasets, including Indian-language names, into one trusted view.', seen('Seen before: 93%+ match accuracy on national datasets*')),
+  uc('testing', 'AI-assisted testing', 'Generate and maintain tests, flag risky changes and shorten regression cycles in fast-moving codebases.', ''),
+  uc('matching', 'Data matching and identity resolution', 'Link records across messy datasets, including Indian-language names, into one trusted view.', ''),
   uc('compliance', 'Compliance and review workflows', 'Pre-screen documents and decisions against policy, flag exceptions and keep a full audit trail.', note('guardrails-in-the-architecture', 'Advisory note: guardrails belong in the architecture →')),
-  uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', seen('Built on our patent-pending engine')),
+  uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', `<div class="ucard__meta">Built on our patent-pending engine</div>`),
 ].join('\n');
 
 const steps = [
@@ -118,7 +116,7 @@ const body = `
 <div class="eyebrow">EVALUATION-FIRST AI ENGINEERING</div>
 <h1>AI that works beyond the demo.</h1>
 <p class="hero__lead">Plenty of AI pilots look good in a meeting and stall afterwards. We help startups and enterprises get past that point: building, testing and running AI systems their customers, engineers and auditors can rely on.</p>
-<p class="hero__sub">EonAI’s engineers kept software reliable for millions of users before turning that discipline to AI. We work hands-on, speak plainly and are honest about what AI can and can’t do yet.</p>
+<p class="hero__sub">EonAI’s engineers kept software reliable for millions of users before turning that discipline to AI. We work hands-on, speak plainly and are clear about what AI can and can’t do yet.</p>
 <div class="hero__actions">
 <a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 <a class="btn btn--ghost" href="#problems">See what we solve</a>
@@ -168,7 +166,7 @@ const body = `
 <!-- EXPLAINER -->
 <section class="container section--tall" id="explainer">
 <div class="section-head">
-<div class="eyebrow">HOW IT WORKS · SIX SCENES</div>
+<div class="eyebrow">HOW IT WORKS</div>
 <h2 class="h2">From demo to production</h2>
 </div>
 ${explainer()}
@@ -206,10 +204,7 @@ ${services}
 </div>
 <div class="grid grid--dark">
 ${usecases}
-</div>
-<div class="usecases__foot">
-<p>*Results achieved by EonAI’s leadership in prior roles at a global mobility platform, a gaming company, a fintech and a national data programme. Your results will depend on your data, scope and starting point.</p>
-<a href="#contact">Describe your problem →</a>
+<a class="ucard ucard--cta" href="#contact"><h3>Something else?</h3><p>Tell us what you are working on.</p><span class="ucard__note">Describe your problem →</span></a>
 </div>
 </div>
 </section>
@@ -247,10 +242,6 @@ ${offers}
 <a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a conversation →${BOOK_SR}</a>
 </article>
 </div>
-<figure class="pullquote">
-<p>“AI projects are successful only if they keep working after they are deployed.”</p>
-<p>QuantumBlack, AI by McKinsey, on the AI operations challenge. It is why Managed AI Operations is on this list.</p>
-</figure>
 </section>
 
 <!-- TRUST -->
@@ -351,7 +342,7 @@ ${faqs}
 <div class="container contact__inner">
 <div class="contact__copy">
 <div class="eyebrow">CONTACT</div>
-<h2 class="h2">Tell us about the problem. We’ll tell you honestly whether we can help.</h2>
+<h2 class="h2">Tell us about the problem. We’ll tell you whether we can help.</h2>
 <p class="lede">If you’d rather talk, book a 30-minute call with a senior engineer. It’s a working session on your problem, not a sales pitch.</p>
 <div class="contact__actions">
 <a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call${BOOK_SR}</a>

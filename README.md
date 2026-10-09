@@ -45,7 +45,7 @@ After setting a value, run `npm run build`, then commit and push.
 
 ## Editorial pass (2026-10-08)
 
-An independent review removed lines that broke BRIEF § 4 ("twenty years", "two decades", "EonAI's CTO"), fixed mismatched read times and ledes, finished notes 2 to 9 as prose using only facts from `content/notes-outline.md`, and rewrote phrasing that read as AI-generated. `src/` is now the source of truth for copy (see `CLAUDE.md`). Still for the owner: the refunds note's dollar figures are scenario amounts, not prices, but a literal grep for `$` will flag them; the BCG estimate and the QuantumBlack quotation on the home page are the only third-party figures, so confirm their wording against the sources once.
+An independent review removed lines that broke BRIEF § 4 ("twenty years", "two decades", "EonAI's CTO"), fixed mismatched read times and ledes, finished notes 2 to 9 as prose using only facts from `content/notes-outline.md`, and rewrote phrasing that read as AI-generated. `src/` is now the source of truth for copy (see `CLAUDE.md`). Still for the owner: the refunds note's dollar figures are scenario amounts, not prices, but a literal grep for `$` will flag them; the BCG estimate in the Transform service is the only third-party figure left on the site (the QuantumBlack quotation was removed on 2026-10-09), so confirm its wording against the source once.
 
 ## Logo
 

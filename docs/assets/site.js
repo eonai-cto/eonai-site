@@ -59,55 +59,6 @@
     });
   });
 
-  // Explainer player: click to play; each scene shows for SCENE_MS, then the next.
-  var player = document.querySelector('[data-player]');
-  if (player) {
-    var SCENE_MS = 7000;
-    var scenes = player.querySelectorAll('.scene');
-    var dots = player.querySelectorAll('.player__dot');
-    var playBtn = player.querySelector('.player__play');
-    var playLabel = player.querySelector('.player__play-label');
-    var live = player.querySelector('[data-player-live]');
-    var idx = 0, timer = null;
-    player.style.setProperty('--scene-ms', SCENE_MS + 'ms');
-
-    var showScene = function (i) {
-      idx = i;
-      Array.prototype.forEach.call(scenes, function (s, n) { s.classList.toggle('is-active', n === i); });
-      Array.prototype.forEach.call(dots, function (d, n) {
-        d.classList.toggle('is-active', n === i);
-        d.classList.toggle('is-done', n < i);
-        if (n === i) { d.setAttribute('aria-current', 'true'); } else { d.removeAttribute('aria-current'); }
-      });
-      live.textContent = scenes[i].querySelector('.scene__caption').textContent;
-    };
-    var setPlaying = function (on, label) {
-      player.classList.toggle('is-playing', on);
-      playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      playLabel.textContent = label;
-    };
-    var tick = function () {
-      if (idx < scenes.length - 1) {
-        showScene(idx + 1);
-        timer = setTimeout(tick, SCENE_MS);
-      } else {
-        clearTimeout(timer);
-        setPlaying(false, 'Replay');
-      }
-    };
-    var pause = function (label) { clearTimeout(timer); timer = null; setPlaying(false, label || 'Play'); };
-    playBtn.addEventListener('click', function () {
-      if (player.classList.contains('is-playing')) { pause('Play'); return; }
-      if (playLabel.textContent === 'Replay') { showScene(0); }
-      else { showScene(idx); }
-      setPlaying(true, 'Pause');
-      timer = setTimeout(tick, SCENE_MS);
-    });
-    Array.prototype.forEach.call(dots, function (d) {
-      d.addEventListener('click', function () { pause('Play'); showScene(parseInt(d.getAttribute('data-go'), 10)); });
-    });
-  }
-
   // Contact form (FormSubmit). The AJAX endpoint is set at build time from src/config.mjs.
   // Without JS the form still posts to the action URL and FormSubmit redirects back.
   var form = document.getElementById('contact-form');

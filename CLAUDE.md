@@ -86,7 +86,12 @@ The site uses diagrams and pictograms instead of photos or stock imagery (no peo
 
 - **Line icons** (`src/icons.mjs`): one style, 32px grid, 1.75 stroke, round caps, `currentColor`. Used on the four service cards (`build`, `assure`, `transform`, `scale`) and the eight use-case cards. Tinted tile on light cards, panel tile with `#8FB0FF` stroke on dark cards. New icons follow the same grid and stroke.
 - **Where clients usually start** (`paths` in `src/pages/home.mjs`, top of § Engagements): three routes as HTML chips joined by arrows. Starting with AI: Sprint → Agent MVP → Managed AI Operations. Already running AI: Reliability Audit → Managed AI Operations. Startups: Agent MVP + Fractional CTO alongside. Routes come from the FAQ and the who-we-serve copy. On phones each route stacks vertically with downward arrows.
-- **Explainer, "From demo to production"** (`src/explainer.mjs`, section `#explainer` after "Why pilots stall"): six animated scenes with captions, click to play (7 s per scene), progress dots that double as scene buttons, a polite live region for the caption. Animations are CSS keyframes on the active scene only; elements rest in their final state, so without JS the six scenes show as a static grid, and `prefers-reduced-motion` switches the motion off. No video file. If a produced MP4 replaces it later, it must be self-hosted and load only on click.
+- **"From demo to production"** (`src/explainer.mjs`, section `#explainer` after "Why pilots stall"): six **static** numbered panels in a grid (3 across on desktop), each a small inline SVG on navy with a one-line caption below. The owner rejected an animated, click-to-play version on 2026-10-09 as distracting: do not add motion, autoplay or a player. If a produced video is ever added, it must be self-hosted and load only on click.
+
+**Content decisions (2026-10-09, owner)**
+- Use cases: only the original seven from the reference (Support and complaint handling, Knowledge assistants, Document processing, AI-assisted testing, Data matching and identity resolution, Compliance and review workflows, Multi-model orchestration). **Defect and incident triage is removed.** No "Seen before" figures and no results footnote in this section. The eighth grid slot is a dashed "Something else?" card linking to the contact form.
+- No third-party quotations (the QuantumBlack / McKinsey pull quote is removed). Do not add quotes from other firms.
+- Avoid "honest"/"honestly" in copy; it reads as defensive on a corporate site.
 
 ## Pages and URLs
 

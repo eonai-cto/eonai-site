@@ -8,7 +8,6 @@ const paths = {
   support: '<path d="M5 6 H27 V21 H14 L8 26 V21 H5 Z"/><path d="M10 12 H22"/><path d="M10 16 H18"/>',
   knowledge: '<path d="M3 7 H13 C15 7 16 8 16 10 V26 C16 25 15 24 13 24 H3 Z"/><path d="M29 7 H19 C17 7 16 8 16 10 V26 C16 25 17 24 19 24 H29 Z"/>',
   documents: '<path d="M8 3 H19 L25 9 V29 H8 Z"/><path d="M19 3 V9 H25"/><path d="M12 19 L15 22 L21 15"/>',
-  triage: '<ellipse cx="16" cy="19" rx="7" ry="9"/><path d="M16 10 V28"/><path d="M9 15 L4 13"/><path d="M9 21 H4"/><path d="M10 26 L6 29"/><path d="M23 15 L28 13"/><path d="M23 21 H28"/><path d="M22 26 L26 29"/><path d="M12 11 L10 6"/><path d="M20 11 L22 6"/>',
   testing: '<path d="M11 4 H21"/><path d="M13 4 V13 L6 25 C5 27 6 29 8 29 H24 C26 29 27 27 26 25 L19 13 V4"/><path d="M9 21 H23"/>',
   matching: '<circle cx="8" cy="9" r="4"/><circle cx="24" cy="9" r="4"/><circle cx="16" cy="24" r="4"/><path d="M12 9 H20"/><path d="M10 12.5 L14 20.5"/><path d="M22 12.5 L18 20.5"/>',
   compliance: '<path d="M11 4 H21 V8 H11 Z"/><path d="M11 6 H6 V29 H26 V6 H21"/><path d="M11 18 L15 22 L22 14"/>',

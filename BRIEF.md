@@ -49,7 +49,7 @@ Footer (all pages): company legal line + registered address, Company links, Cont
 
 - Nothing on the site states or implies headcount, founder identities, years of experience as a
   headline number, or prices. The About block is a company statement only.
-- "Seen before" figures on use-case cards stay, with their footnote. No other numbers may be added.
+- "Seen before" figures were removed from the use-case cards on 2026-10-09 (owner decision), along with their footnote and the Defect and incident triage card. No other numbers may be added.
 - The talk link is `https://www.youtube.com/watch?v=xwoiaOAfZRA`, title
   "The Future of Quality in AI-Generated Software". Link out in a new tab; do not embed the player.
   Do not show the YouTube thumbnail: it carries a person's name and photo (decided 2026-10-08). The card is text only.
