@@ -419,6 +419,19 @@ ul, ol { margin: 0; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
+/* Services: "How we deliver it" links to engagement cards */
+.card__deliver { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--row-line); display: flex; flex-direction: column; gap: 10px; }
+.card__deliver-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; color: var(--caption-grey); }
+.card__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.svc-chip { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--link); text-decoration: none; background: var(--card); }
+.svc-chip:hover { border-color: var(--accent); color: var(--link-hover); }
+.card--dark .card__deliver { border-top-color: var(--border-dark); }
+.card--dark .card__deliver-label { color: var(--on-dark-quiet); }
+.card--dark .svc-chip { background: transparent; border-color: var(--ghost-line); color: #fff; }
+.card--dark .svc-chip:hover { border-color: var(--accent-light); color: #fff; }
+.card--eng { scroll-margin-top: 24px; }
+.card--eng:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--tint-border); }
+
 /* Line icons (src/icons.mjs) */
 .icon-tile { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 10px; background: var(--tint); color: var(--accent); flex: none; }
 .icon { display: block; }

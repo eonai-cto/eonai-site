@@ -19,16 +19,20 @@ const problems = [
 <div class="card__tag">→ ${tag}</div>
 </article>`).join('\n');
 
+// Anchor id for an engagement card, used by the services' "How we deliver it" links.
+const engId = (name) => 'eng-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '');
+
 const services = [
-  ['build', '01 — BUILD', 'Agentic AI &amp; GenAI engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
-  ['assure', '02 — ASSURE', 'AI quality &amp; verifiable assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
-  ['transform', '03 — TRANSFORM', 'AI &amp; engineering transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance', 'Release and quality engineering'], false],
-  ['scale', '04 — SCALE', 'Fractional leadership &amp; capability centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. The big providers do this for big companies. We do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
-].map(([ic, num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
+  ['build', ['Agent MVP', 'Larger programmes'], '01 — BUILD', 'Agentic AI &amp; GenAI engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
+  ['assure', ['AI Reliability Audit', 'QE Health Check', 'Managed AI Operations'], '02 — ASSURE', 'AI quality &amp; verifiable assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
+  ['transform', ['AI Opportunity Sprint', 'Team Workshops'], '03 — TRANSFORM', 'AI &amp; engineering transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance', 'Release and quality engineering'], false],
+  ['scale', ['Fractional CTO', 'Larger programmes'], '04 — SCALE', 'Fractional leadership &amp; capability centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India. The big providers do this for big companies. We do it for startups and mid-market teams of 5 to 50.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
+].map(([ic, via, num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
 <div class="card__top">${icon(ic)}<div class="card__num">${num}</div></div>
 <h3 class="card__title">${title}</h3>
 <p class="card__text">${body}</p>
 <ul class="card__list">${items.map((i) => `<li>${i}</li>`).join('')}</ul>
+<div class="card__deliver"><div class="card__deliver-label">HOW WE DELIVER IT</div><div class="card__chips">${via.map((e) => `<a class="svc-chip" href="#${engId(e)}">${e}</a>`).join('')}</div></div>
 </article>`).join('\n');
 
 const uc = (ic, title, body, foot) => `<div class="ucard">${icon(ic)}<h3>${title}</h3><p>${body}</p>${foot}</div>`;
@@ -58,7 +62,7 @@ const offers = [
   ['Managed AI Operations', 'MONTHLY', 'We keep your AI working after launch, for teams who would rather not build an AI operations function yet.', 'You walk away with, every month', ['Evaluations re-run on every prompt, model or data change', 'Monitoring of accuracy, cost and drift, with a report you can show your board', 'Prompts and models under release control, with guardrails kept current'], 'How it runs: a monthly retainer sized to the systems in scope, cancellable with notice'],
   ['Fractional CTO', 'ONGOING', 'Senior technology leadership on a retainer, for seed to Series A startups.', 'You walk away with', ['Architecture and technology decisions you can defend to investors', 'Hiring plans, interviews and onboarding for your first engineers', 'A delivery cadence and AI strategy owned by someone accountable'], 'How it runs: one to three days a week, with a defined hand-over when you hire full-time'],
   ['Team Workshops', '1–2 DAYS', 'Hands-on sessions for engineering and product teams, in person or remote.', 'Current workshops', ['Evaluating LLM applications and agents', 'Quality engineering for AI-generated code', 'AI governance for product and risk teams'], 'How it runs: tailored to your stack, with exercises on your own systems where possible'],
-].map(([t, m, d, lab, items, foot]) => `<article class="card">
+].map(([t, m, d, lab, items, foot]) => `<article class="card card--eng" id="${engId(t)}">
 <div class="card__head"><h3 class="card__title card__title--eng">${t}</h3><span class="card__meta">${m}</span></div>
 <p class="card__text">${d}</p>
 <div class="card__label">${lab}</div>
@@ -236,7 +240,7 @@ ${steps}
 ${paths}
 <div class="grid grid--engage">
 ${offers}
-<article class="card card--highlight card--center">
+<article class="card card--highlight card--center card--eng" id="${engId('Larger programmes')}">
 <h3 class="card__title card__title--eng">Larger programmes</h3>
 <p class="card__text">Full builds, multi-quarter transformations and India capability centres are scoped individually after a short discovery phase.</p>
 <a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a conversation →${BOOK_SR}</a>
