@@ -124,4 +124,52 @@
       button.disabled = false;
     });
   });
+  // Hero demo: replay the editor/terminal timeline rendered by src/hero-demo.mjs.
+  var demo = document.querySelector('.demo');
+  if (demo) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var steps = [].slice.call(demo.querySelectorAll('[data-at]'));
+    var scroller = demo.querySelector('.demo__scroll');
+    var termLines = [].slice.call(scroller.querySelectorAll('.dl'));
+    var view = +scroller.getAttribute('data-view');
+    var end = +demo.getAttribute('data-end');
+    var btn = demo.querySelector('.demo__toggle');
+    var timers = [], paused = false, inView = true;
+    var stop = function () { timers.forEach(clearTimeout); timers = []; };
+    var showFinal = function () { stop(); scroller.style.removeProperty('--s'); demo.classList.add('demo--static'); };
+    var play = function () {
+      stop();
+      steps.forEach(function (el) { el.classList.remove('on'); });
+      scroller.style.setProperty('--s', 0);
+      demo.classList.remove('demo--static');
+      void demo.offsetWidth;
+      steps.forEach(function (el) {
+        timers.push(setTimeout(function () {
+          el.classList.add('on');
+          var i = termLines.indexOf(el);
+          if (i >= view) scroller.style.setProperty('--s', i - view + 1);
+        }, +el.getAttribute('data-at')));
+      });
+      timers.push(setTimeout(function () { if (inView && !document.hidden) play(); else showFinal(); }, end));
+    };
+    var resume = function () { if (!paused && inView && !document.hidden && !timers.length) play(); };
+    if (reduce) {
+      demo.classList.add('demo--static');
+    } else {
+      btn.addEventListener('click', function () {
+        paused = !paused;
+        btn.textContent = paused ? 'Play' : 'Pause';
+        btn.setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation');
+        if (paused) showFinal(); else play();
+      });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          inView = entries[0].isIntersecting;
+          if (inView) resume();
+        }).observe(demo);
+      }
+      document.addEventListener('visibilitychange', resume);
+      play();
+    }
+  }
 })();

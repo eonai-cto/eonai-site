@@ -2,6 +2,7 @@ import { page, BOOK, BOOK_ATTRS, BOOK_SR, esc, emailWithCopy } from '../layout.m
 import { icon } from '../icons.mjs';
 import { explainer } from '../explainer.mjs';
 import { heroBg } from '../hero-bg.mjs';
+import { heroDemo } from '../hero-demo.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
@@ -119,6 +120,7 @@ const body = `
 <section class="hero on-dark" id="top">
 ${heroBg()}
 <div class="container hero__inner">
+<div class="hero__copy">
 <div class="eyebrow">EVALUATION-FIRST AI ENGINEERING</div>
 <h1>AI that works beyond the demo</h1>
 <p class="hero__lead">Plenty of AI pilots look good in a meeting and stall afterwards. We help startups and enterprises get past that point: building, testing and running AI systems their customers, engineers and auditors can rely on.</p>
@@ -127,6 +129,8 @@ ${heroBg()}
 <a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 <a class="btn btn--ghost" href="#problems">See what we solve</a>
 </div>
+</div>
+${heroDemo()}
 <ul class="hero__checks">
 <li>${check}<div><strong>Working software in weeks.</strong> We build on your data from the first sprint.</div></li>
 <li>${check}<div><strong>Evidence you can check.</strong> You get the test results along with the system.</div></li>
