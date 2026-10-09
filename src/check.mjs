@@ -34,9 +34,11 @@ const files = [];
       if (h === '#' || h === '#top' && url !== '/') fail(`${url}: placeholder href ${h}`);
     }
     if ((t.match(/<h1[ >]/g) || []).length !== 1) fail(`${url}: h1 count`);
+    // "founder" is allowed only where it names the client's role ("raised by a founder or CEO").
+    const text = t.replace(/<script[\s\S]*?<\/script>/g, '').replace(/BY A FOUNDER OR CEO/g, '');
     for (const re of [/\+91/, /Rajshiva/i, /founder/i, /₹/, /\btel:/]) {
-      const m = t.replace(/<script[\s\S]*?<\/script>/g, '').match(re);
-      if (m) console.log(`NOTE ${url}: matches ${re} -> "${t.slice(Math.max(0, m.index - 40), m.index + 40).replace(/\n/g, ' ')}"`);
+      const m = text.match(re);
+      if (m) console.log(`NOTE ${url}: matches ${re} -> "${text.slice(Math.max(0, m.index - 40), m.index + 40).replace(/\n/g, ' ')}"`);
     }
   }
   for (const f of ['robots.txt', 'sitemap.xml', '404.html', 'favicon.svg', 'CNAME', 'assets/og.png']) {
