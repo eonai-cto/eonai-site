@@ -156,6 +156,35 @@ ul, ol { margin: 0; }
 .hero__checks svg { flex: none; margin-top: 2px; }
 .hero__checks strong { color: #fff; font-weight: 600; }
 
+/* Hero background (src/hero-bg.mjs): turning open loops, dot grid, soft glow */
+.hero { position: relative; overflow: hidden; isolation: isolate; }
+.hero__inner { position: relative; z-index: 1; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero-bg__grid {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(143, 176, 255, 0.16) 1px, transparent 1.2px); background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 78% 45%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 70% at 78% 45%, #000 0%, transparent 75%);
+}
+.hero-bg__glow {
+  position: absolute; width: 760px; height: 760px; right: -180px; top: 50%; margin-top: -380px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(43, 91, 255, 0.28) 0%, rgba(43, 91, 255, 0) 65%);
+  animation: hero-breathe 9s ease-in-out infinite alternate;
+}
+.hero-bg__rings { position: absolute; width: 820px; height: 820px; right: -200px; top: 50%; margin-top: -410px; }
+.hero-bg__rings circle { fill: none; stroke: var(--accent-light); stroke-width: 2; stroke-linecap: round; }
+.hero-bg__ring { opacity: var(--o); transform-origin: 400px 400px; animation: hero-turn var(--t) linear infinite var(--d); }
+.hero-bg__rings .hero-bg__dot { fill: var(--accent-light); stroke: none; }
+.hero-bg__rings .hero-bg__pulse { stroke: #fff; stroke-width: 2.5; animation: hero-turn 7s linear infinite; transform-origin: 400px 400px; }
+@keyframes hero-turn { to { transform: rotate(360deg); } }
+@keyframes hero-breathe { from { opacity: 0.55; transform: scale(0.94); } to { opacity: 1; transform: scale(1.04); } }
+@media (max-width: 900px) {
+  .hero-bg__rings { width: 560px; height: 560px; right: -260px; top: 0; margin-top: -120px; opacity: 0.6; }
+  .hero-bg__glow { width: 520px; height: 520px; right: -260px; top: 0; margin-top: -160px; }
+  .hero-bg__grid { -webkit-mask-image: radial-gradient(ellipse 80% 45% at 90% 10%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 80% 45% at 90% 10%, #000 0%, transparent 75%); }
+}
+@media (prefers-reduced-motion: reduce) { .hero-bg__ring, .hero-bg__pulse, .hero-bg__glow { animation: none; } }
+
 /* Page title band (notes index, privacy, 404) */
 .page-title__inner { padding-block: clamp(56px, 8vw, 88px) clamp(48px, 6vw, 72px); display: flex; flex-direction: column; gap: 24px; }
 .page-title h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.06; max-width: 900px; }

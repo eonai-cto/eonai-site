@@ -1,6 +1,7 @@
 import { page, BOOK, BOOK_ATTRS, BOOK_SR, esc, emailWithCopy } from '../layout.mjs';
 import { icon } from '../icons.mjs';
 import { explainer } from '../explainer.mjs';
+import { heroBg } from '../hero-bg.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
@@ -116,6 +117,7 @@ const faqs = [
 const body = `
 <!-- HERO -->
 <section class="hero on-dark" id="top">
+${heroBg()}
 <div class="container hero__inner">
 <div class="eyebrow">EVALUATION-FIRST AI ENGINEERING</div>
 <h1>AI that works beyond the demo</h1>
