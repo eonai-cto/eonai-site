@@ -57,7 +57,8 @@ The logo files live in `brand/logo/` and are published at `https://eonai.ai/bran
 | `eonai-logo-on-light.svg` / `.png` | wordmark on white or light backgrounds (documents, decks, email) |
 | `eonai-mark-on-dark.svg`, `eonai-mark-on-light.svg` | the loop on its own |
 | `eonai-app-icon.svg` / `.png` | square icon for LinkedIn and social avatars |
-| `eonai-icon-square.png` | full-bleed square icon: use this for the LinkedIn company logo |
+| `eonai-icon-square-dark.png` | full-bleed navy square icon (favicon colours): the LinkedIn company logo |
+| `eonai-icon-square.png` | full-bleed blue square icon (alternative) |
 | `eonai-logo-square.png` | wordmark on a white square, for square logo slots (e.g. Zoho Bookings) |
 | `favicon.svg` | browser tab icon (published at `/favicon.svg`) |
 | `brand/social/linkedin-cover.png` (1128×191) and `@2x` | LinkedIn company page cover; source `linkedin-cover.html` (open in Chrome headless at 1128×191 to re-render) |

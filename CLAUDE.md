@@ -54,7 +54,8 @@ The logo is final. Use the files in `brand/logo/` as they are. Never redraw it b
 | `eonai-logo-on-light.svg`, `.png` | ink `#0E1726`; dot and `ai` `#2B5BFF` | light backgrounds, documents, `Organization.logo` (PNG) |
 | `eonai-mark-on-dark.svg`, `eonai-mark-on-light.svg` | as above | the loop and dot alone |
 | `eonai-app-icon.svg`, `.png` (512×512) | white loop on `#2B5BFF` rounded square | LinkedIn and social avatars |
-| `eonai-icon-square.svg`, `.png` (400×400) | white loop on a full-bleed `#2B5BFF` square, no rounded corners | LinkedIn company logo and any platform that adds its own frame (rounded corners would show white through the frame) |
+| `eonai-icon-square-dark.svg`, `.png` (400×400) | favicon colours on a full-bleed navy square: white loop, `#8FB0FF` dot, no rounded corners | **LinkedIn company logo** (chosen 2026-10-09) and any platform that adds its own frame |
+| `eonai-icon-square.svg`, `.png` (400×400) | white loop on a full-bleed `#2B5BFF` square, no rounded corners | alternative square icon |
 | `eonai-logo-square.png` (512×512) | light wordmark centred on white | square logo slots such as the Zoho Bookings business logo |
 | `favicon.svg` | white loop, `#8FB0FF` dot, navy rounded square | browser tab → `docs/favicon.svg` |
 
