@@ -138,6 +138,8 @@ for name, (fg, ac) in {"eonai-mark-on-dark.svg": (WHITE, ACCENT_LIGHT), "eonai-m
     (l, t, s), body = mark(fg, ac)
     files[name] = svg(f"{l:.0f} {t:.0f} {s:.0f} {s:.0f}", body)
 files["eonai-app-icon.svg"] = tile(ACCENT, WHITE, WHITE, stroke_scale=1.05)
+# Full-bleed square (no rounded corners) for platforms that frame the logo themselves, e.g. LinkedIn.
+files["eonai-icon-square.svg"] = tile(ACCENT, WHITE, WHITE, radius=0, stroke_scale=1.05)
 for name, content in files.items():
     with open(os.path.join(OUT, name), "w") as fh:
         fh.write(content)
