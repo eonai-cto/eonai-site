@@ -124,21 +124,40 @@
       button.disabled = false;
     });
   });
-  // Hero demo: replay the editor/terminal timeline rendered by src/hero-demo.mjs.
+  // Hero demo: play the scenes rendered by src/hero-demo.mjs one after another, in a fresh random order
+  // each visit (no scene repeats until all have played, and never twice in a row).
   var demo = document.querySelector('.demo');
   if (demo) {
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var steps = [].slice.call(demo.querySelectorAll('[data-at]'));
-    var scroller = demo.querySelector('.demo__scroll');
-    var termLines = [].slice.call(scroller.querySelectorAll('.dl'));
-    var view = +scroller.getAttribute('data-view');
-    var end = +demo.getAttribute('data-end');
+    var scenes = [].slice.call(demo.querySelectorAll('.demo__scene'));
+    var title = demo.querySelector('.demo__title');
     var btn = demo.querySelector('.demo__toggle');
+    var view = +demo.getAttribute('data-view');
+    var shuffle = function (last) {
+      var a = scenes.slice();
+      for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; }
+      if (a.length > 1 && a[0] === last) { a.push(a.shift()); }
+      return a;
+    };
+    var order = shuffle(null), pos = 0, current = null;
     var timers = [], paused = false, inView = true;
     var stop = function () { timers.forEach(clearTimeout); timers = []; };
-    var showFinal = function () { stop(); scroller.style.removeProperty('--s'); demo.classList.add('demo--static'); };
-    var play = function () {
+    var show = function (sc) {
+      scenes.forEach(function (s) { s.classList.toggle('is-active', s === sc); s.classList.remove('is-leaving'); });
+      title.textContent = sc.getAttribute('data-title');
+      current = sc;
+    };
+    var showFinal = function () {
       stop();
+      if (current) { current.classList.remove('is-leaving'); current.querySelector('.demo__scroll').style.removeProperty('--s'); }
+      demo.classList.add('demo--static');
+    };
+    var play = function (sc) {
+      stop();
+      show(sc);
+      var steps = [].slice.call(sc.querySelectorAll('[data-at]'));
+      var scroller = sc.querySelector('.demo__scroll');
+      var termLines = [].slice.call(scroller.querySelectorAll('.dl'));
       steps.forEach(function (el) { el.classList.remove('on'); });
       scroller.style.setProperty('--s', 0);
       demo.classList.remove('demo--static');
@@ -150,9 +169,17 @@
           if (i >= view) scroller.style.setProperty('--s', i - view + 1);
         }, +el.getAttribute('data-at')));
       });
-      timers.push(setTimeout(function () { if (inView && !document.hidden) play(); else showFinal(); }, end));
+      var end = +sc.getAttribute('data-end');
+      timers.push(setTimeout(function () { sc.classList.add('is-leaving'); }, end - 300));
+      timers.push(setTimeout(function () {
+        if (!inView || document.hidden) { showFinal(); return; }
+        pos++;
+        if (pos >= order.length) { order = shuffle(sc); pos = 0; }
+        play(order[pos]);
+      }, end));
     };
-    var resume = function () { if (!paused && inView && !document.hidden && !timers.length) play(); };
+    var resume = function () { if (!paused && inView && !document.hidden && !timers.length) play(order[pos]); };
+    show(order[0]);
     if (reduce) {
       demo.classList.add('demo--static');
     } else {
@@ -160,7 +187,7 @@
         paused = !paused;
         btn.textContent = paused ? 'Play' : 'Pause';
         btn.setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation');
-        if (paused) showFinal(); else play();
+        if (paused) showFinal(); else play(order[pos]);
       });
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (entries) {
@@ -169,7 +196,7 @@
         }).observe(demo);
       }
       document.addEventListener('visibilitychange', resume);
-      play();
+      play(order[0]);
     }
   }
 })();

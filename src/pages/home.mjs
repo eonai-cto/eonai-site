@@ -46,7 +46,7 @@ const usecases = [
   uc('testing', 'AI-assisted testing', 'Generate and maintain tests, flag risky changes and shorten regression cycles in fast-moving codebases.', ''),
   uc('matching', 'Data matching and identity resolution', 'Link records across messy datasets, including Indian-language names, into one trusted view.', ''),
   uc('compliance', 'Compliance and review workflows', 'Pre-screen documents and decisions against policy, flag exceptions and keep a full audit trail.', note('guardrails-in-the-architecture', 'Advisory note: guardrails belong in the architecture →')),
-  uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', `<div class="ucard__meta">Built on our patent-pending engine</div>`),
+  uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', `<div class="ucard__meta"><span class="ucard__badge">Patent pending</span></div>`),
 ].join('\n');
 
 const steps = [
