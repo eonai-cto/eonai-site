@@ -23,10 +23,10 @@ const problems = [
 const engId = (name) => 'eng-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '');
 
 const services = [
-  ['build', ['Agent MVP', 'Larger programmes'], '01 — BUILD', 'Agentic AI &amp; GenAI engineering', 'AI agents that complete real tasks, assistants that answer from your own documents and data, and automation for support and operations.', ['AI agents and workflow automation', 'Knowledge assistants on your data', 'Fine-tuning and multi-model routing'], false],
-  ['assure', ['AI Reliability Audit', 'QE Health Check', 'Managed AI Operations'], '02 — ASSURE', 'AI quality &amp; verifiable assurance', 'Find out how your AI really performs before your customers do. We measure accuracy, safety and cost, look for the ways it fails, and keep it dependable in production.', ['Evaluation suites for LLMs and agents', 'Adversarial testing and guardrails', 'Quality for AI-generated code'], true],
-  ['transform', ['AI Opportunity Sprint', 'Team Workshops'], '03 — TRANSFORM', 'AI &amp; engineering transformation', 'The technology is the easy part. BCG estimates only about 10% of the value from AI comes from the model, 20% from data and technology, and 70% from how work, governance and teams change around it. That 70% is what we help with.', ['AI readiness and roadmap', 'AI governance', 'Release and quality engineering'], false],
-  ['scale', ['Fractional CTO', 'Larger programmes'], '04 — SCALE', 'Fractional leadership &amp; capability centres', 'Senior technology leadership without the full-time hire, and engineering or QE teams set up for you in India.', ['Fractional CTO or Head of Engineering', 'India capability centre setup', 'Managed delivery teams'], false],
+  ['build', ['Agent MVP', 'Larger programmes'], '01 — BUILD', 'Agentic AI &amp; GenAI engineering', 'Agents that complete real tasks, assistants that answer from your own data, and automation for support and operations.', ['Agents and workflow automation', 'Knowledge assistants', 'Fine-tuning and model routing'], false],
+  ['assure', ['AI Reliability Audit', 'QE Health Check', 'Managed AI Operations'], '02 — ASSURE', 'AI quality &amp; verifiable assurance', 'Know how your AI performs before your customers do. We measure accuracy, safety and cost, find where it fails and keep it dependable.', ['Evaluation suites', 'Adversarial testing and guardrails', 'Quality for AI-written code'], true],
+  ['transform', ['AI Opportunity Sprint', 'Team Workshops'], '03 — TRANSFORM', 'AI &amp; engineering transformation', 'BCG estimates about 10% of AI’s value comes from the model, 20% from data and technology, and 70% from how work, governance and teams change. We work on the 70%.', ['AI readiness and roadmap', 'AI governance', 'Release and quality engineering'], false],
+  ['scale', ['Fractional CTO', 'Larger programmes'], '04 — SCALE', 'Fractional leadership &amp; capability centres', 'Senior technology leadership without a full-time hire, and engineering or QE teams set up for you in India.', ['Fractional CTO or Head of Engineering', 'India capability centres', 'Managed delivery teams'], false],
 ].map(([ic, via, num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
 <div class="card__top">${icon(ic)}<div class="card__num">${num}</div></div>
 <h3 class="card__title">${title}</h3>
@@ -203,8 +203,8 @@ ${services}
 <div class="container usecases__inner">
 <div class="section-head">
 <div class="eyebrow">USE CASES</div>
-<h2 class="h2">Where we tend to add the most value</h2>
-<p class="lede">Problems we have built for, tested or led before, so we start with a working pattern rather than a blank page.</p>
+<h2 class="h2">Examples of the work we take on</h2>
+<p class="lede">A selection of problems we have built for, tested or led before. Yours does not need to be on the list.</p>
 </div>
 <div class="grid grid--dark">
 ${usecases}
