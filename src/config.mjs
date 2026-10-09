@@ -12,7 +12,7 @@ export const BOOKING_URL = 'https://eonaiai.zohobookings.in/487872000000029049';
 export const FORM_TARGET = 'hello@eonai.ai'; // TODO (optional): replace with the FormSubmit alias
 
 // Footer LinkedIn link. While null, the link points to #contact.
-export const LINKEDIN_COMPANY_URL = null; // TODO: LINKEDIN_COMPANY_URL
+export const LINKEDIN_COMPANY_URL = 'https://www.linkedin.com/company/eonai-ai/'; // set 2026-10-09 (linkedin.com/company/eonai belongs to an unrelated company)
 
 // Cloudflare Web Analytics token. Optional; leave null to omit the beacon.
 export const CF_ANALYTICS_TOKEN = null; // TODO: CF_ANALYTICS_TOKEN (optional)

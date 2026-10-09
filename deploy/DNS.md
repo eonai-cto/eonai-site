@@ -42,5 +42,5 @@ Also added, and must stay in place permanently (GitHub re-checks it):
 See README → "Owner to-do" for the current list.
 - `BOOKING_URL` (Zoho Bookings or Calendly link)
 - Contact form: FormSubmit, no DNS change needed. Activate it once from the email FormSubmit sends to hello@eonai.ai.
-- `LINKEDIN_COMPANY_URL`
+- `LINKEDIN_COMPANY_URL`: done (linkedin.com/company/eonai-ai)
 - Optional: `CF_ANALYTICS_TOKEN` (Cloudflare Web Analytics, free, no DNS change needed)

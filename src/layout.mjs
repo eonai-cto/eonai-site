@@ -64,7 +64,7 @@ function footer() {
 <div class="site-footer__col">
 <strong>Contact</strong>
 ${emailWithCopy('site-footer__mail')}
-${todo}<a href="${LINKEDIN}">LinkedIn</a>
+${todo}<a href="${LINKEDIN}"${LINKEDIN_COMPANY_URL ? ' target="_blank" rel="noopener"' : ''}>LinkedIn${LINKEDIN_COMPANY_URL ? '<span class="visually-hidden"> (opens in a new tab)</span>' : ''}</a>
 <a href="/privacy/">Privacy policy</a>
 </div>
 </div>

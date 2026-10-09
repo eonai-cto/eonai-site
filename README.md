@@ -28,7 +28,7 @@ Typical change: edit a file in `src/`, run `npm run build && npm run check`, pre
 |---|---|
 | `BOOKING_URL` | set (Zoho Bookings, free plan). Booking links open it in a new tab; if set to `null`, they fall back to `/#contact` and the privacy policy drops the Bookings line |
 | `FORM_TARGET` | set to `hello@eonai.ai`; the form works once FormSubmit is activated. Optionally replace with FormSubmit's random alias to keep the address out of the HTML |
-| `LINKEDIN_COMPANY_URL` | footer LinkedIn link points to `/#contact` |
+| `LINKEDIN_COMPANY_URL` | set to linkedin.com/company/eonai-ai (opens in a new tab). Note: `/company/eonai` belongs to an unrelated company |
 | `CF_ANALYTICS_TOKEN` | no analytics beacon (optional) |
 
 After setting a value, run `npm run build`, then commit and push.
@@ -37,7 +37,7 @@ After setting a value, run `npm run build`, then commit and push.
 
 - [x] `BOOKING_URL`: Zoho Bookings "30-minute working session" (free plan, Zoho Meeting link, Zoho Calendar sync), set 2026-10-08. Managed in the Zoho Bookings admin account; notifications go to hello@eonai.ai.
 - [x] Contact form (FormSubmit): activated 2026-10-07; enquiries arrive at hello@eonai.ai. Activation is one-time; it is needed again only if `FORM_TARGET` changes to a new address or the form moves to another domain. Optional: paste FormSubmit's random alias into `FORM_TARGET` to keep the address out of the HTML.
-- [ ] `LINKEDIN_COMPANY_URL` (src/config.mjs)
+- [x] `LINKEDIN_COMPANY_URL`: https://www.linkedin.com/company/eonai-ai/ (set 2026-10-09). Cover banner files are in `brand/social/`.
 - [ ] Privacy policy: published (dated 8 October 2026). Optional: have an advisor review it; edit both `src/pages/privacy.mjs` (published) and `content/privacy.md` (source draft).
 - [x] Engineering notes 2 to 9 written up as prose from the outline (2026-10-08). The owner may refine them in `src/notes-data.mjs`.
 - [ ] Optional: `CF_ANALYTICS_TOKEN` for Cloudflare Web Analytics (cookieless, free).

@@ -56,7 +56,7 @@ Footer (all pages): company legal line + registered address, Company links, Cont
 - Placeholders that stay as visible TODOs until the owner supplies them:
   - `BOOKING_URL` — every "Book a call" / "Book a 30-minute working session" / "Request an AI readiness workshop" link. Set 2026-10-08 to the Zoho Bookings event page (free plan); links open in a new tab. If unset, point them to `#contact`.
   - `FORM_TARGET` — contact form delivery via FormSubmit (formsubmit.co). Set to `hello@eonai.ai`; optionally replace with the random alias FormSubmit sends after activation. (Replaced Formspree, which caps free submissions.)
-  - `LINKEDIN_COMPANY_URL` — footer LinkedIn link.
+  - `LINKEDIN_COMPANY_URL` — footer LinkedIn link. Set 2026-10-09 to https://www.linkedin.com/company/eonai-ai/ (`/company/eonai` is an unrelated company).
 - Engineering notes carry the provenance sentence exactly as in the reference ("Findings are from EonAI's reference systems, built and tested on synthetic data…"). Keep it on every note.
 
 ## 5. Components to extract
