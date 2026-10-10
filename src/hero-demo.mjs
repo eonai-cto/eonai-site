@@ -6,164 +6,146 @@
 // Scene format. code: [text, act]; term: [text, act, typed?]. Acts play in order:
 // 1 code is written, 2 terminal runs, 3 a fix is added to the code (marked +), 4 terminal runs again.
 // Colour markup: {k:…} keyword, {f:…} name, {s:…} literal, {d:…} dim, {o:…} pass, {x:…} fail, {w:…} command.
-// Keep lines to 42 characters so they fit a 375px phone, and code to 11 lines (the editor height).
+// Keep lines to 44 characters so they fit a 375px phone, and code to 9 lines (the editor height).
+// {m:…} marks the verdict line of a scene (highlighted, held for a beat); {d:↳} tool calls show a pending dot until the next line.
 
 const CHAR_MS = 22; // typing speed; must match the calc() on .dl--type in site.css
 const VIEW = 9; // terminal lines visible at once
-const CODE_LINES = 11;
+const CODE_LINES = 9;
 
 const scenes = [
   {
-    title: 'support-agent',
-    file: 'agent.py',
-    label: 'Illustration: a support agent is written in code and run on a ticket. Its evaluation finds failing edge cases and blocks the release. A fix is added, the evaluation passes, and it is ready to ship.',
+    title: 'refunds-agent',
+    file: 'refunds.py',
+    label: 'Illustration: an agent handling a refund ticket. Before it issues the refund, the code checks earlier refunds on the same order, finds the combined amount is over the limit, holds the refund and sends the ticket to a person.',
     code: [
-      ['{k:@tool}', 1],
-      ['{k:def} {f:lookup_policy}(query: str):', 1],
-      ['    {k:return} index.search(query, k={s:5})', 1],
-      ['', 1],
-      ['agent = {f:Agent}(', 1],
-      ['    model=router.pick({s:"support"}),', 1],
-      ['    tools=[lookup_policy, draft_reply],', 1],
-      ['    guardrails=[cite_sources, redact_pii],', 1],
-      [')', 1],
-      ['', 3],
-      ['agent.{f:on_low_confidence}(hand_to_human)', 3],
+      ['{k:for} step {k:in} agent.{f:run}(ticket):', 1],
+      ['    {k:if} step.tool == {s:"issue_refund"}:', 1],
+      ['        past = ledger.{f:refunds}(step.order_id,', 1],
+      ['                               since={s:"24h"})', 1],
+      ['        {k:if} past.total + step.amount > CAP:', 1],
+      ['            step.{f:hold}({s:"refund over limit"})', 1],
+      ['            {f:escalate}(ticket, to={s:"billing"})', 1],
+      ['            {k:break}', 1],
+      ['    step.{f:execute}()', 1],
     ],
     term: [
-      ['{d:$} {w:python run.py --ticket 4821}', 2, true],
-      ['  {d:plan}   refund request, annual plan', 2],
-      ['  {d:tool}   lookup_policy({s:"refund window"})', 2],
-      ['  {d:tool}   draft_reply(sources={s:3})', 2],
-      ['  {o:✓} cite_sources   {o:✓} redact_pii', 2],
-      ['  {d:reply drafted · 2.4s}', 2],
-      ['{d:$} {w:make eval}', 2, true],
-      ['  grounded answers     {o:✓ pass}', 2],
-      ['  policy compliance    {o:✓ pass}', 2],
-      ['  edge cases           {x:✗ 2 failing}', 2],
-      ['  {x:below threshold · release blocked}', 2],
-      ['{d:$} {w:make eval}', 4, true],
-      ['  edge cases           {o:✓ pass}', 4],
-      ['  {o:✓ all suites pass · ready to ship}', 4],
+      ['{d:$} {w:python run.py --ticket 48213}', 2, true],
+      ['  {d:›} "refund the other half now"', 2],
+      ['  {d:↳} lookup_order({s:#48213})', 2],
+      ['    {d:←} refunded 50% · 3h ago', 2],
+      ['  {d:↳} issue_refund({s:#48213}, 50%)', 2],
+      ['    {x:✗ held · refund over limit}', 2],
+      ['  {d:↳} escalate({s:#48213}, to={s:"billing"})', 2],
+      ['{m:HELD · sent to a person, nothing refunded}', 2],
     ],
   },
   {
-    title: 'refunds-agent',
-    file: 'refunds.py',
-    label: 'Illustration: a refunds agent is attacked with adversarial conversations. One attack splits a refund across several chats and gets through, so the release is blocked. A rule sending large refunds to a person is added, and every attack is then handled.',
+    title: 'agent-evals',
+    file: 'test_agent.py',
+    label: 'Illustration: pytest tests that run the agent on hard cases and assert every answer is grounded in its sources and free of personal data. One case scores below the threshold, so the release is blocked and the failing trace is attached.',
     code: [
-      ['{k:@tool}(side_effects={k:True})', 1],
-      ['{k:def} {f:issue_refund}(order_id: str, amount):', 1],
-      ['    {k:return} payments.refund(order_id, amount)', 1],
+      ['{k:@pytest}.mark.parametrize({s:"case"}, EDGE)', 1],
+      ['{k:def} {f:test_grounded}(case):', 1],
+      ['    reply = agent.{f:answer}(case.question)', 1],
+      ['    score = {f:grounded}(reply, case.sources)', 1],
+      ['    {k:assert} score >= {s:0.95}, reply.trace', 1],
       ['', 1],
-      ['agent = {f:Agent}(', 1],
-      ['    tools=[lookup_order, issue_refund],', 1],
-      ['    policy=refund_policy,', 1],
-      [')', 1],
-      ['', 3],
-      ['issue_refund.{f:require}(', 3],
-      ['    within_policy, human_above_limit)', 3],
+      ['{k:def} {f:test_no_pii}(case):', 1],
+      ['    reply = agent.{f:answer}(case.question)', 1],
+      ['    {k:assert} {k:not} pii.{f:found}(reply.text)', 1],
     ],
     term: [
-      ['{d:$} {w:make redteam}', 2, true],
-      ['  {d:running 48 adversarial conversations}', 2],
-      ['  {o:✓} prompt injection     refused', 2],
-      ['  {o:✓} fake order number    refused', 2],
-      ['  {o:✓} angry escalation     refused', 2],
-      ['  {x:✗} split refund         executed', 2],
-      ['  {x:policy bypass · release blocked}', 2],
-      ['{d:$} {w:make redteam}', 4, true],
-      ['  {o:✓} split refund         sent to a person', 4],
-      ['  {o:✓ 48 of 48 handled · ready to ship}', 4],
+      ['{d:$} {w:pytest evals/ -q}', 2, true],
+      ['  test_grounded[refund-window]   {o:PASSED}', 2],
+      ['  test_grounded[plan-change]     {o:PASSED}', 2],
+      ['  test_grounded[two-accounts]    {x:FAILED}', 2],
+      ['  test_no_pii[*]                 {o:PASSED}', 2],
+      ['    {x:assert 0.88 >= 0.95}', 2],
+      ['    {d:← trace: agent cited the old policy}', 2],
+      ['{m:RELEASE BLOCKED · 1 of 212 to fix first}', 2],
     ],
   },
   {
     title: 'model-router',
-    file: 'routing.py',
-    label: 'Illustration: a router sends each task to the model that does it best on accuracy and cost. A provider releases a new model, the evaluation finds it is worse at drafting, and the router pins the last good version while logging every decision.',
+    file: 'router.py',
+    label: 'Illustration: a router that scores every candidate model on the task, keeps the ones within a point of the best, picks the cheapest of those and logs the decision. A drafting task goes to the medium model; a classification task goes to the small one.',
     code: [
-      ['router = {f:Router}(', 1],
-      ['    candidates=[small, medium, large],', 1],
-      ['    choose_by=[{s:"accuracy"}, {s:"cost"}],', 1],
-      ['    eval_set={s:"tickets_v12"},', 1],
-      ['    log_decisions={k:True},', 1],
-      [')', 1],
-      ['', 1],
-      ['model = router.{f:pick}(task)', 1],
-      ['', 3],
-      ['router.{f:pin}({s:"draft"}, to={s:"last_good"})', 3],
+      ['{k:def} {f:choose}(task, pool):', 1],
+      ['    acc = {p: {f:score}(p, task) {k:for} p {k:in} pool}', 1],
+      ['    best = {f:max}(acc.values())', 1],
+      ['    close = [m {k:for} m {k:in} pool', 1],
+      ['             {k:if} best - acc[m] <= {s:0.01}]', 1],
+      ['    pick = {f:min}(close, key={k:lambda} m: m.cost)', 1],
+      ['    log.{f:decision}(task, pick, acc)', 1],
+      ['    {k:return} pick', 1],
     ],
     term: [
-      ['{d:$} {w:make eval-routes}', 2, true],
-      ['  classify   → small model    {o:✓}', 2],
-      ['  extract    → medium model   {o:✓}', 2],
-      ['  draft      → large model    {o:✓}', 2],
-      ['  {d:# provider ships a new large model}', 2],
-      ['{d:$} {w:make eval-routes}', 2, true],
-      ['  draft      → large v2  {x:✗ regression}', 2],
-      ['  {x:below the bar · route held back}', 2],
-      ['{d:$} {w:make eval-routes}', 4, true],
-      ['  draft      → last good      {o:✓ pass}', 4],
-      ['  {o:✓ stable · every decision logged}', 4],
+      ['{d:$} {w:python route.py --task draft_reply}', 2, true],
+      ['  {d:↳} score(small)    0.81   cost 1×', 2],
+      ['  {d:↳} score(medium)   0.94   cost 4×', 2],
+      ['  {d:↳} score(large)    0.95   cost 16×', 2],
+      ['  {d:◦} medium is within 0.01 of best', 2],
+      ['{m:ROUTED → medium · 4× cheaper, logged}', 2],
+      ['{d:$} {w:python route.py --task classify}', 2, true],
+      ['  {d:↳} score(small)    0.97   cost 1×', 2],
+      ['{m:ROUTED → small · 16× cheaper, logged}', 2],
     ],
   },
   {
     title: 'invoice-pipeline',
     file: 'pipeline.py',
-    label: 'Illustration: an invoice pipeline where a model extracts fields and plain code does the checking. Replaying past invoices shows duplicates being posted, so a duplicate check is added and every check then passes.',
+    label: 'Illustration: an agent extracts the fields from an invoice and plain code validates them, checks the ledger for a duplicate and sends anything doubtful to a person. In a monthly batch, 498 invoices post and two are held.',
     code: [
-      ['pipeline = {f:Pipeline}([', 1],
-      ['    extract_fields,     {d:# model}', 1],
-      ['    validate_schema,    {d:# code}', 1],
-      ['    reconcile_totals,   {d:# code}', 1],
-      ['    post_to_ledger,     {d:# code}', 1],
-      ['])', 1],
-      ['pipeline.{f:review_if}(confidence < {s:0.9})', 1],
-      ['', 3],
-      ['pipeline.{f:insert}({s:3}, reject_duplicates)', 3],
+      ['fields = agent.{f:extract}(invoice, INVOICE)', 1],
+      ['errors = {f:validate}(fields, INVOICE)', 1],
+      ['{k:if} ledger.{f:has}(fields.number, fields.vendor):', 1],
+      ['    errors.append({s:"duplicate invoice"})', 1],
+      ['{k:if} errors {k:or} fields.confidence < {s:0.9}:', 1],
+      ['    {k:return} review.{f:queue}(invoice, errors)', 1],
+      ['{k:return} ledger.{f:post}(fields)', 1],
     ],
     term: [
-      ['{d:$} {w:make eval}', 2, true],
-      ['  {d:replaying 500 past invoices}', 2],
-      ['  fields extracted      {o:✓ pass}', 2],
-      ['  totals reconciled     {o:✓ pass}', 2],
-      ['  sent to a person      {d:14}', 2],
-      ['  duplicates posted     {x:✗ 2}', 2],
-      ['  {x:ledger at risk · release blocked}', 2],
-      ['{d:$} {w:make eval}', 4, true],
-      ['  duplicates posted     {o:✓ 0}', 4],
-      ['  {o:✓ all checks pass · ready to ship}', 4],
+      ['{d:$} {w:python run.py --batch 2026-10}', 2, true],
+      ['  {d:↳} agent.extract({s:INV-20417})', 2],
+      ['    {d:←} 11 fields · confidence 0.97', 2],
+      ['  {d:↳} validate()     {o:0 errors}', 2],
+      ['  {d:↳} ledger.has()   {x:True}', 2],
+      ['    {x:✗ duplicate invoice}', 2],
+      ['  {d:↳} review.queue({s:INV-20417})', 2],
+      ['{m:498 posted · 2 held for a person}', 2],
     ],
   },
   {
-    title: 'ai-ops-monitor',
+    title: 'agent-monitor',
     file: 'monitor.py',
-    label: 'Illustration: a monitor samples live conversations. After a prompt change, answers become less grounded, so it rolls back to the previous version, alerts the team, and the failing conversations are added to the test set.',
+    label: 'Illustration: a monitor samples five percent of the agent’s live conversations and tracks how grounded its answers are over a rolling half hour. When the score falls below the bar it rolls the agent back, alerts the team and adds the failing traces to the test suite.',
     code: [
-      ['monitor = {f:Monitor}(agent,', 1],
-      ['    sample={s:0.05},', 1],
-      ['    checks=[grounded, on_policy, latency],', 1],
-      ['    alert={s:"#ai-ops"},', 1],
-      [')', 1],
-      ['monitor.{f:rollback_on}(grounded < {s:0.95})', 1],
+      ['{k:while} {k:True}:', 1],
+      ['    batch = traces.{f:sample}(agent, pct={s:5})', 1],
+      ['    score = {f:grounded}(batch).rolling({s:"30m"})', 1],
+      ['    {k:if} score < {s:0.95}:', 1],
+      ['        agent.{f:rollback}(to=last_good)', 1],
+      ['        {f:alert}({s:"#ai-ops"}, batch.failed)', 1],
+      ['        evals.{f:add}(batch.failed)', 1],
+      ['    {f:sleep}(minutes={s:15})', 1],
     ],
     term: [
-      ['{d:$} {w:deploy prompt v18}', 2, true],
-      ['  {d:live · sampling 5% of conversations}', 2],
-      ['  on_policy     {o:✓ steady}', 2],
-      ['  latency       {o:✓ steady}', 2],
-      ['  grounded      {x:✗ falling}', 2],
-      ['  {x:below 0.95 · rolled back to v17}', 2],
-      ['  {d:alert sent to #ai-ops with 12 traces}', 2],
-      ['{d:$} {w:make eval --from-traces}', 2, true],
-      ['  {o:✓ 12 failing cases added to the tests}', 2],
+      ['{d:$} {w:python monitor.py --agent support}', 2, true],
+      ['  14:02  grounded 0.97  {o:✓}', 2],
+      ['  14:17  grounded 0.96  {o:✓}', 2],
+      ['  14:31  grounded 0.93  {x:✗ falling}', 2],
+      ['  {d:↳} agent.rollback(to={s:v17})', 2],
+      ['  {d:↳} alert({s:#ai-ops}, 12 traces)', 2],
+      ['  {d:↳} evals.add(12 traces)', 2],
+      ['{m:ROLLED BACK in 29 min · 12 new tests}', 2],
     ],
   },
 ];
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const paint = (src) => esc(src).replace(/\{([kfsdoxw]):([^}]*)\}/g, '<span class="t-$1">$2</span>');
-const plain = (src) => src.replace(/\{[kfsdoxw]:([^}]*)\}/g, '$1');
+const paint = (src) => esc(src).replace(/\{([kfsdoxwm]):([^}]*)\}/g, '<span class="t-$1">$2</span>');
+const plain = (src) => src.replace(/\{[kfsdoxwm]:([^}]*)\}/g, '$1');
 const typedMs = (src) => plain(src).length * CHAR_MS;
 
 for (const sc of scenes) {
@@ -185,8 +167,15 @@ const timeline = (sc) => {
   });
   const runTerm = (act) => sc.term.forEach(([src, a, isTyped], j) => {
     if (a !== act) return;
+    const isMark = src.startsWith('{m:');
+    if (isMark) t += 700; // a beat before the verdict
     termAt[j] = t;
-    t += isTyped ? typedMs(src.replace(/^\{d:\$\} /, '')) + 350 : (src.includes('{x:') ? 700 : 380);
+    t += isTyped ? typedMs(src.replace(/^\{d:\$\} /, '')) + 350
+      : isMark ? 1400
+      : src.includes('{x:') ? 800
+      : src.includes('{d:↳}') ? 800 // a tool call waits for its result
+      : src.includes('{d:◦}') ? 600
+      : 420;
   });
   runCode(1, 120);
   t += 500;
@@ -201,6 +190,8 @@ const line = (src, at, cls, n) => {
   const body = isTyped && src.startsWith('{d:$} ')
     ? `<span class="t-d">$</span> <span class="dl__txt" style="--n:${plain(src).length - 2}">${paint(src.slice(6))}</span>`
     : `<span class="dl__txt"${isTyped ? ` style="--n:${plain(src).length}"` : ''}>${paint(src) || ' '}</span>`;
+  if (src.startsWith('{m:')) cls += ' dl--mark';
+  else if (src.includes('{d:↳}')) cls += ' dl--tool';
   return `<span class="dl ${cls}" data-at="${at}">${n !== undefined ? `<span class="dl__n">${n}</span>` : ''}${body}</span>`;
 };
 
