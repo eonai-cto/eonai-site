@@ -17,7 +17,7 @@ const scenes = [
   {
     title: 'refunds-agent',
     file: 'refunds.py',
-    label: 'Illustration: an agent handling a refund ticket. Before it issues the refund, the code checks earlier refunds on the same order, finds the combined amount is over the limit, holds the refund and sends the ticket to a person.',
+    label: 'Illustration: an agent handling a refund ticket. Before it issues the refund, the code checks earlier refunds on the same order, finds the combined amount is over the limit, holds the refund for human review.',
     code: [
       ['{k:for} step {k:in} agent.{f:run}(ticket):', 1],
       ['    {k:if} step.tool == {s:"issue_refund"}:', 1],
@@ -37,7 +37,7 @@ const scenes = [
       ['  {d:↳} issue_refund({s:#48213}, 50%)', 2],
       ['    {x:✗ held · refund over limit}', 2],
       ['  {d:↳} escalate({s:#48213}, to={s:"billing"})', 2],
-      ['{m:HELD · sent to a person, nothing refunded}', 2],
+      ['{m:HELD for human review · nothing refunded}', 2],
     ],
   },
   {
@@ -95,7 +95,7 @@ const scenes = [
   {
     title: 'invoice-pipeline',
     file: 'pipeline.py',
-    label: 'Illustration: an agent extracts the fields from an invoice and plain code validates them, checks the ledger for a duplicate and sends anything doubtful to a person. In a monthly batch, 498 invoices post and two are held.',
+    label: 'Illustration: an agent extracts the fields from an invoice and plain code validates them, checks the ledger for a duplicate and holds anything doubtful for human review. In a monthly batch, 498 invoices post and two are held.',
     code: [
       ['fields = agent.{f:extract}(invoice, INVOICE)', 1],
       ['errors = {f:validate}(fields, INVOICE)', 1],
@@ -113,7 +113,7 @@ const scenes = [
       ['  {d:↳} ledger.has()   {x:True}', 2],
       ['    {x:✗ duplicate invoice}', 2],
       ['  {d:↳} review.queue({s:INV-20417})', 2],
-      ['{m:498 posted · 2 held for a person}', 2],
+      ['{m:498 posted · 2 held for human review}', 2],
     ],
   },
   {
