@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>document.documentElement.classList.add('js')</script>
-<title>Most of your agent’s model calls are decisions, not reasoning — EonAI</title>
-<meta name="description" content="In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.">
+<title>Most of your agent’s model calls are decisions — EonAI</title>
+<meta name="description" content="In a typical agent loop, most model calls decide something: route this, is that tool call safe, how urgent is this ticket, did this output pass. Only a minority reason through a problem, and most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow in code.">
 <link rel="canonical" href="https://eonai.ai/notes/decisions-not-reasoning/">
 <meta property="og:site_name" content="EonAI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Most of your agent’s model calls are decisions, not reasoning — EonAI">
-<meta property="og:description" content="In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.">
+<meta property="og:title" content="Most of your agent’s model calls are decisions — EonAI">
+<meta property="og:description" content="In a typical agent loop, most model calls decide something: route this, is that tool call safe, how urgent is this ticket, did this output pass. Only a minority reason through a problem, and most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow in code.">
 <meta property="og:url" content="https://eonai.ai/notes/decisions-not-reasoning/">
 <meta property="og:image" content="https://eonai.ai/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="eonai logo. AI that works beyond the demo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Most of your agent’s model calls are decisions, not reasoning — EonAI">
-<meta name="twitter:description" content="In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.">
+<meta name="twitter:title" content="Most of your agent’s model calls are decisions — EonAI">
+<meta name="twitter:description" content="In a typical agent loop, most model calls decide something: route this, is that tool call safe, how urgent is this ticket, did this output pass. Only a minority reason through a problem, and most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow in code.">
 <meta name="twitter:image" content="https://eonai.ai/assets/og.png">
 <meta name="theme-color" content="#0B1220">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Most of your agent’s model calls are decisions, not reasoning","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/decisions-not-reasoning/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Most of your agent’s model calls are decisions","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/decisions-not-reasoning/"}</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -49,9 +49,9 @@
 <section class="note-hero on-dark">
 <div class="container note-hero__inner">
 <a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
-<div class="eyebrow">COST &amp; ARCHITECTURE · ADVISORY NOTE · 7 MIN READ</div>
-<h1>Most of your agent’s model calls are decisions, not reasoning</h1>
-<p class="note-hero__lead">In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.</p>
+<div class="eyebrow">COST &amp; ARCHITECTURE · ADVISORY NOTE · 3 MIN READ</div>
+<h1>Most of your agent’s model calls are decisions</h1>
+<p class="note-hero__lead">In a typical agent loop, most model calls decide something: route this, is that tool call safe, how urgent is this ticket, did this output pass. Only a minority reason through a problem, and most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow in code.</p>
 <div class="note-hero__meta"><span>For: CTOs, heads of engineering, finance leads watching AI spend</span><span>Related engagement: AI Opportunity Sprint, Agent MVP, Managed AI Operations</span></div>
 </div>
 </section>
@@ -60,9 +60,9 @@
 <article class="article">
 
 <section id="exposure">
-<h2>The exposure</h2>
-<p>An agent loop makes two kinds of model call. Reasoning calls work through context, plan and write a response. Decision calls route a request, classify a ticket, check whether a tool call is safe or decide whether an output passes. Practitioner estimates put decision calls at the large majority of the volume.</p>
-<p>Most teams send nearly all of these calls to a frontier model at frontier prices, and the cost repeats on every iteration of the loop, as does the latency. Cheaper and faster classification models can handle the decision calls, including small models, fine-tuned classifiers and newer calibrated decision models such as TypeSafe’s Jev, one example among several. That only works safely if the architecture is designed for it.</p>
+<h2>Two kinds of model call</h2>
+<p>An agent loop makes two kinds of model call. Reasoning calls work through context, plan and write a response. Decision calls route a request, classify a ticket, check whether a tool call is safe or decide whether an output passes. In the agent loops we have built and audited, decision calls outnumber reasoning calls several times over.</p>
+<p>Most teams send nearly all of these calls to a frontier model at frontier prices, and the cost repeats on every iteration of the loop, as does the latency. Cheaper and faster models can handle the decision calls: small language models, fine-tuned classifiers and, more recently, calibrated decision models built for exactly this. TypeSafe’s Jev is one, still in early access and benchmarked mainly by its vendor. Any of them only works safely if the architecture is designed for it.</p>
 </section>
 
 <section id="shortfalls">
@@ -83,8 +83,8 @@
 </section>
 
 <section id="recommend">
-<h2>What we recommend</h2>
-<p>We recommend separating the two kinds of call, routing them differently, and keeping the decisions that carry risk in code.</p>
+<h2>Separate the two kinds of call</h2>
+<p>We separate the two kinds of call, route them differently, and keep the decisions that carry risk in code.</p>
 <ol>
 <li>Audit your traces and count reasoning calls against structured decisions. The split tells you how much of the cost can move.</li>
 <li>Send the four decision-heavy points (routing, pre-execution guardrails, output evaluation, triage classification) to a cheap calibrated classifier, falling back to the frontier model when confidence is low. A wrong decision on the cheap side compounds, while an extra frontier call costs cents.</li>
@@ -98,7 +98,7 @@
 
 <section id="our-recommendation" class="recommend">
 <h2>Our recommendation</h2>
-<p>Audit one week of agent traces. If more than half the calls are decisions, you are overpaying for them and probably under-measuring them. The fix is architectural, takes a few weeks, and usually pays for itself within a quarter.</p>
+<p>Audit one week of agent traces. If more than half the calls are decisions, you are overpaying for them and probably under-measuring them. The fix is architectural and takes a few weeks.</p>
 </section>
 
 <p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
@@ -108,9 +108,9 @@
 <aside class="sidebar" aria-label="Note details">
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
-<a href="#exposure">The exposure</a>
+<a href="#exposure">Two kinds of model call</a>
 <a href="#shortfalls">Where the usual setup falls short</a>
-<a href="#recommend">What we recommend</a>
+<a href="#recommend">Separate the two kinds of call</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
 <div class="side-card">
@@ -129,7 +129,7 @@
 <div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
 <a href="/notes/deterministic-orchestrator/">When money is involved, keep the orchestrator deterministic</a>
 <a href="/notes/measure-before-you-ship/">Before you ship that agent “improvement”, measure it in layers</a>
-<a href="/notes/build-on-real-data/">Why we build on your real data from week one</a>
+<a href="/notes/when-a-high-score-means-nothing/">When a high score means nothing</a>
 </nav>
 <div class="side-card side-card--cta">
 <h3>Paying frontier prices for every call?</h3>

@@ -49,7 +49,7 @@
 <section class="note-hero on-dark">
 <div class="container note-hero__inner">
 <a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
-<div class="eyebrow">KNOWLEDGE ASSISTANTS · ADVISORY NOTE · 6 MIN READ</div>
+<div class="eyebrow">KNOWLEDGE ASSISTANTS · ADVISORY NOTE · 2 MIN READ</div>
 <h1>A fluent answer is not a grounded answer</h1>
 <p class="note-hero__lead">A knowledge assistant can pass every task check and still answer from nothing. Why groundedness needs its own measure, why the judge must be independent of the writer, and how confidence routing keeps weak answers away from your clients.</p>
 <div class="note-hero__meta"><span>For: CTOs, heads of research/knowledge, compliance</span><span>Related engagement: AI Reliability Audit, Agent MVP</span></div>
@@ -60,37 +60,36 @@
 <article class="article">
 
 <section id="exposure">
-<h2>The exposure</h2>
-<p>A tourism website published AI-generated descriptions of hot springs that do not exist, and visitors travelled to look for them. The business lost its credibility in a single news cycle. A proper evaluation before publication would have caught the problem.</p>
-<p>Assistants that answer from legal, research or policy documents are trusted because they sound authoritative. A confident wrong answer in a client deliverable damages your reputation and, in regulated work, can become a compliance matter. The quick pilots that paste documents into a model are fast to build, and they are where this tends to happen.</p>
+<h2>A confident answer with nothing behind it</h2>
+<p>In January 2026 a Tasmanian tour operator’s website carried an AI-written article about hot springs at Weldborough, a hamlet in the north-east of the state that has none. People booked flights and drove out to find them, and the local hotel spent weeks fielding calls before the article came down. Nobody had checked the text against a source before it went live.</p>
+<p>That was a blog post, but the same failure sits inside knowledge assistants. Assistants that answer from legal, research or policy documents are trusted because they sound authoritative, and a confident wrong answer in a client deliverable damages your reputation. In regulated work it can become a compliance matter. The quick pilots that paste documents into a model are fast to build, and they are where this tends to happen.</p>
 </section>
 
 <section id="shortfalls">
-<h2>Where standard controls fall short</h2>
-<p>One assistant we tested answered an out-of-scope question fluently, without retrieving anything, and its task checks still scored it highly. These are the gaps that let that through.</p>
-<div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
+<h2>Why task checks let it through</h2>
+<p>One assistant we tested answered an out-of-scope question fluently, without retrieving anything, and passed five of its six task checks. These are the gaps that let that through.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Gaps that let ungrounded answers through">
 <table class="scenario">
-<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th></tr></thead>
 <tbody>
-<tr><td>Task-completion checks only</td><td>An out-of-scope question answered fluently with zero retrieval scored 5/6</td><td>Ungrounded answer passes</td></tr>
-<tr><td>Same model writes and grades</td><td>Self-assessment bias</td><td>Inflated quality scores</td></tr>
-<tr><td>No scope guard</td><td>Assistant answers questions outside its knowledge base</td><td>Wrong domain, confident tone</td></tr>
-<tr><td>No citation requirement</td><td>Claims cannot be traced</td><td>Reviewers cannot verify</td></tr>
-<tr><td>All answers treated equally</td><td>Low-confidence answers reach clients</td><td>No safety valve</td></tr>
+<tr><td>Task-completion checks only</td><td>Whether the answer came from the documents at all</td></tr>
+<tr><td>The same model writes and grades</td><td>Self-assessment bias, so quality scores inflate</td></tr>
+<tr><td>No scope guard</td><td>Questions outside the knowledge base get confident answers</td></tr>
+<tr><td>No citation requirement</td><td>Nobody can trace a claim to its source</td></tr>
+<tr><td>Every answer treated the same</td><td>Low-confidence answers reach clients with no safety valve</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
 <section id="recommend">
-<h2>What we recommend</h2>
+<h2>Measure groundedness on its own</h2>
 <p>Groundedness has to be measured on its own, by a judge that didn’t write the answer, with somewhere to send the answers that fall short.</p>
 <ol>
 <li>A scope guard that returns “out of scope” before any retrieval runs.</li>
 <li>An answer-only-from-context rule: when the documents don’t support an answer, the assistant says it doesn’t know.</li>
 <li>An independent judge model that scores groundedness and citation precision against a gold set.</li>
 <li>Confidence-based routing, so that low-confidence answers go to a person and never reach a client unchecked.</li>
-<li>Prompt changes driven by failure feedback and validated on held-out questions.</li>
 <li>Groundedness and relevance tracked over time, with any drift triggering a review.</li>
 </ol>
 </section>
@@ -107,9 +106,9 @@
 <aside class="sidebar" aria-label="Note details">
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
-<a href="#exposure">The exposure</a>
-<a href="#shortfalls">Where standard controls fall short</a>
-<a href="#recommend">What we recommend</a>
+<a href="#exposure">A confident answer with nothing behind it</a>
+<a href="#shortfalls">Why task checks let it through</a>
+<a href="#recommend">Measure groundedness on its own</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
 <div class="side-card">

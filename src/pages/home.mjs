@@ -3,6 +3,7 @@ import { icon } from '../icons.mjs';
 import { heroBg } from '../hero-bg.mjs';
 import { heroDemo } from '../hero-demo.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
+import { bySlug } from '../notes-data.mjs';
 
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
 
@@ -189,19 +190,19 @@ ${problems}
 </div>
 <div class="grid grid--2">
 <a class="note-card note-card--dark" href="/notes/refunds-agent/">
-<div class="eyebrow eyebrow--xs">SECURITY &amp; GUARDRAILS · 8 MIN</div>
+<div class="eyebrow eyebrow--xs">SECURITY &amp; GUARDRAILS · ${bySlug['refunds-agent'].mins} MIN</div>
 <h3>If your agent can issue refunds, a content filter is not protecting you</h3>
 <p>Six scenarios that read as ordinary customer traffic and cost money, and the seven controls we recommend.</p>
 <span class="note-card__cta">Read →</span>
 </a>
 <a class="note-card" href="/notes/measure-before-you-ship/">
-<div class="eyebrow eyebrow--xs">EVALUATION · 7 MIN</div>
+<div class="eyebrow eyebrow--xs">EVALUATION · ${bySlug['measure-before-you-ship'].mins} MIN</div>
 <h3>Before you ship that agent “improvement”, measure it in layers</h3>
 <p>An upgrade that improved decisions and also made the agent slower and less consistent. One accuracy number would have hidden both.</p>
 <span class="note-card__cta">Read →</span>
 </a>
 <a class="note-card" href="/notes/grounded-answers/">
-<div class="eyebrow eyebrow--xs">KNOWLEDGE ASSISTANTS · 6 MIN</div>
+<div class="eyebrow eyebrow--xs">KNOWLEDGE ASSISTANTS · ${bySlug['grounded-answers'].mins} MIN</div>
 <h3>A fluent answer is not a grounded answer</h3>
 <p>A knowledge assistant can pass every task check and still answer from nothing. What to measure before it reaches your clients.</p>
 <span class="note-card__cta">Read →</span>

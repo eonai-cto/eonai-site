@@ -49,7 +49,7 @@
 <section class="note-hero on-dark">
 <div class="container note-hero__inner">
 <a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
-<div class="eyebrow">MULTI-AGENT SYSTEMS · ADVISORY NOTE · 8 MIN READ</div>
+<div class="eyebrow">MULTI-AGENT SYSTEMS · ADVISORY NOTE · 3 MIN READ</div>
 <h1>When money is involved, keep the orchestrator deterministic</h1>
 <p class="note-hero__lead">How to structure a multi-agent review so every agent shows its evidence, a critic catches contradictions, insufficient evidence never becomes an approval, and your auditors get a complete trail. Illustrated with insurance claims.</p>
 <div class="note-hero__meta"><span>For: CTOs, heads of operations, claims/finance leaders</span><span>Related engagement: Agent MVP, AI Opportunity Sprint</span></div>
@@ -60,34 +60,39 @@
 <article class="article">
 
 <section id="exposure">
-<h2>The exposure</h2>
-<p>Reviewing claims and their documents by hand is slow, costly and inconsistent. Fixed rules are faster but break as soon as a case doesn’t fit them, and most claims arrive with partial evidence: a document missing, a figure that doesn’t match, no obvious answer.</p>
+<h2>Where claims review stands today</h2>
+<p>Reviewing claims and their documents by hand is slow, expensive and inconsistent. Fixed rules are faster but break as soon as a case doesn’t fit them, and most claims arrive with partial evidence: a document missing, a figure that doesn’t match, no obvious answer.</p>
 <p>A multi-agent design is the usual next step. Often it turns out to be three model calls running in parallel, with no defined roles, no agreement on what evidence each one must produce, and no record of how the final decision was reached. That is hard to defend once money has been paid out on the result.</p>
 </section>
 
 <section id="shortfalls">
-<h2>Where standard controls fall short</h2>
-<p>These are common in first multi-agent builds, and each one leaves a question an auditor will ask.</p>
-<div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
+<h2>What first multi-agent builds get wrong</h2>
+<p>These are common in first builds, and each one leaves a question an auditor will ask.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Common practices in first multi-agent builds">
 <table class="scenario">
-<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">WHAT FOLLOWS</th></tr></thead>
 <tbody>
-<tr><td>One LLM asked to “assess the claim”</td><td>No evidence trail</td><td>Decision cannot be defended</td></tr>
+<tr><td>One model asked to “assess the claim”</td><td>There is no evidence trail</td><td>The decision cannot be defended</td></tr>
 <tr><td>Parallel calls with no critic</td><td>Contradictions between findings go unnoticed</td><td>Wrong approvals</td></tr>
-<tr><td>LLM as orchestrator</td><td>Retries and routing become unpredictable</td><td>Cost and audit problems</td></tr>
-<tr><td>No quorum rule</td><td>A missing worker result becomes an implicit approval</td><td>Money out on no evidence</td></tr>
-<tr><td>Document inconsistencies (header vs body claim ID, invoice amount vs claim amount)</td><td>Missed unless a worker is tasked with them</td><td>Fraud passes</td></tr>
+<tr><td>A model as the orchestrator</td><td>Retries and routing become unpredictable</td><td>Costs vary and the process cannot be replayed for an auditor</td></tr>
+<tr><td>No quorum rule</td><td>A missing result is read as “no objection”</td><td>Money paid out on no evidence</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
+<section id="example">
+<h2>One claim, end to end</h2>
+<p>A windscreen claim arrives. The invoice says 48,000, the claim form says 54,000, and the claim number in the document header does not match the one in the body. A document worker extracts the three figures and reports both mismatches as evidence, with no verdict attached. A policy worker confirms windscreen cover and reports the excess. A fraud worker finds a second claim on the same vehicle within ninety days and says so, with the record it found.</p>
+<p>A critic compares the three reports, flags that the amount mismatch is unexplained, and requests one retry from the document worker with the invoice read again at higher resolution. The retry returns the same figures. The orchestrator, which is ordinary code, applies the quorum rule: an unexplained contradiction means no approval, so the claim goes to a human reviewer with the three reports and the critic’s note attached. Every step of that path is in the audit trail, and no model decided what ran next.</p>
+</section>
+
 <section id="recommend">
-<h2>What we recommend</h2>
-<p>We recommend giving each component a single job, making the evidence explicit, and keeping the decision about what runs next in code.</p>
+<h2>Give each component one job</h2>
+<p>We give each component a single job, make the evidence explicit, and keep the decision about what runs next in code.</p>
 <ol>
 <li>Specialist workers with explicit responsibilities and an output contract (a risk signal plus evidence-backed notes), each with stated limits, for example “never infer risk from frequency alone”.</li>
-<li>Tools reached through a standard protocol boundary (MCP), so data access is governed and logged.</li>
+<li>Tools reached through one governed gateway, so that every data access is permitted explicitly and logged. We use the Model Context Protocol for this.</li>
 <li>A critic that compares the findings, flags contradictions and evidence gaps, and may request exactly one retry.</li>
 <li>A deterministic orchestrator, written as code rather than run by a model, that dispatches the work, enforces retry caps and applies the verdict.</li>
 <li>A quorum rule: if the evidence is insufficient, the claim falls back to a denial or to human review, never to an approval.</li>
@@ -108,9 +113,10 @@
 <aside class="sidebar" aria-label="Note details">
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
-<a href="#exposure">The exposure</a>
-<a href="#shortfalls">Where standard controls fall short</a>
-<a href="#recommend">What we recommend</a>
+<a href="#exposure">Where claims review stands today</a>
+<a href="#shortfalls">What first multi-agent builds get wrong</a>
+<a href="#example">One claim, end to end</a>
+<a href="#recommend">Give each component one job</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
 <div class="side-card">
@@ -124,9 +130,9 @@
 </div>
 <nav class="side-card" aria-label="Related notes">
 <div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
-<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/guardrails-in-the-architecture/">Put guardrails where the model cannot skip them</a>
 <a href="/notes/grounded-answers/">A fluent answer is not a grounded answer</a>
-<a href="/notes/decisions-not-reasoning/">Most of your agent’s model calls are decisions, not reasoning</a>
+<a href="/notes/decisions-not-reasoning/">Most of your agent’s model calls are decisions</a>
 </nav>
 <div class="side-card side-card--cta">
 <h3>Does your agent have one of these exposures?</h3>

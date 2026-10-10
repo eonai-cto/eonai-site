@@ -8,7 +8,7 @@ Static site. Source lives in `src/`; `npm run build` renders it into `docs/`, wh
 src/config.mjs        owner placeholders (see below)
 src/layout.mjs        header, footer, <head> metadata
 src/pages/            home, notes index, note template, privacy, 404
-src/notes-data.mjs    content of all nine engineering notes
+src/notes-data.mjs    content of all eight engineering notes
 src/assets/           site.css (single stylesheet), site.js (mobile nav, form)
 brand/logo/           logo files and favicon (copied to docs/brand/ and docs/favicon.svg)
 brand/fonts/          self-hosted woff2 fonts (copied to docs/assets/fonts/)
@@ -76,7 +76,7 @@ Icons: `src/icons.mjs`. Engagement routes: `paths` in `src/pages/home.mjs`. Hero
 | Home page sections | `src/pages/home.mjs` |
 | Header, footer, `<head>` tags | `src/layout.mjs` |
 | Notes index | `src/pages/notes-index.mjs` |
-| Note pages (all nine) | `src/notes-data.mjs` (content), `src/pages/note.mjs` (template) |
+| Note pages (all eight) | `src/notes-data.mjs` (content), `src/pages/note.mjs` (template) |
 | Privacy policy | `src/pages/privacy.mjs` (keep `content/privacy.md` in step) |
 | 404 page | `src/pages/not-found.mjs` |
 | Styles | `src/assets/site.css` (design tokens at the top) |
@@ -85,7 +85,7 @@ Copy is final: change it only on the owner's instruction, and follow the house s
 
 ## Add a note
 
-Add an object to the `notes` array in `src/notes-data.mjs` (copy an existing one: slug, title, category, mins, lede, card, sections, recommendation, related). Remove `draft: true` from a section once its prose is final. The note page, index card and sitemap entry are generated. To show it on the home page, add a card in `src/pages/home.mjs`.
+Add an object to the `notes` array in `src/notes-data.mjs` (copy an existing one: slug, title, category, lede, card, sections, recommendation; the reading time is computed from the word count, related). Remove `draft: true` from a section once its prose is final. The note page, index card and sitemap entry are generated. To show it on the home page, add a card in `src/pages/home.mjs`.
 
 ## Fonts
 

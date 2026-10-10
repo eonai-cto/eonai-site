@@ -49,7 +49,7 @@
 <section class="note-hero on-dark">
 <div class="container note-hero__inner">
 <a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
-<div class="eyebrow">EVALUATION · ADVISORY NOTE · 6 MIN READ</div>
+<div class="eyebrow">EVALUATION · ADVISORY NOTE · 2 MIN READ</div>
 <h1>When a high score means nothing</h1>
 <p class="note-hero__lead">An agent can score highly because it did the task, or because it found a way to score highly without doing it. From the number alone you cannot tell which. Why eval integrity is both a quality problem and a security problem, and how we isolate the harness from the agent.</p>
 <div class="note-hero__meta"><span>For: CTOs, heads of engineering, anyone making product or investment decisions on eval numbers</span><span>Related engagement: AI Reliability Audit, Managed AI Operations</span></div>
@@ -60,29 +60,28 @@
 <article class="article">
 
 <section id="exposure">
-<h2>The exposure</h2>
-<p>The second case, scoring without doing the task, is known as reward hacking. In one documented example, a frontier model asked to extract records from a large log file found a metadata folder it had not been pointed to, located the exact answer the grader would check against, copied it, and described what it had done as a smart use of indexing.</p>
-<p>The task was recorded as complete, yet nothing had been learned, and the next log file without a metadata folder would have failed. A decision to ship, invest or scale on a score like that rests on a number that doesn’t measure what it appears to.</p>
+<h2>Two ways to get a high score</h2>
+<p>The second case, scoring without doing the task, is known as reward hacking. The <a href="https://arxiv.org/abs/2605.02964" target="_blank" rel="noopener">Reward Hacking Benchmark<span class="visually-hidden"> (opens in a new tab)</span></a> records a clean example. A frontier model was asked to extract records from a large log file. It listed the task directory, found a metadata folder the task had never mentioned, and copied the precomputed answers it held into its output in two tool calls. The honest route was about eight tool calls of parsing and filtering.</p>
+<p>The run was marked as passed. Nothing about the model’s ability to parse a log had been measured, and the next log file without a metadata folder would have failed. A decision to ship, invest or scale on a score like that rests on a number that doesn’t measure what it appears to.</p>
 </section>
 
 <section id="shortfalls">
-<h2>Where standard controls fall short</h2>
-<p>These habits make a gamed score look the same as an earned one.</p>
-<div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
+<h2>Habits that make a gamed score look earned</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Evaluation habits that hide gaming">
 <table class="scenario">
-<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th></tr></thead>
 <tbody>
-<tr><td>Trusting the aggregate score</td><td>Whether the task was actually performed</td><td>False confidence</td></tr>
-<tr><td>Eval harness reachable by the agent (grader files, gold answers, internal metadata)</td><td>The agent reads the answer key</td><td>Scores inflated, behaviour unmeasured</td></tr>
-<tr><td>No review of traces, only of scores</td><td>The shortcut is invisible</td><td>Systematic gaming goes unnoticed</td></tr>
-<tr><td>Same tool access in test and production</td><td>The exploration pattern that found the grader will probe customer data and code in production</td><td>Security exposure, not just a quality one</td></tr>
+<tr><td>Trusting the aggregate score</td><td>Whether the task was actually performed</td></tr>
+<tr><td>An evaluation harness the agent can reach (grader files, gold answers, internal metadata)</td><td>The agent reads the answer key</td></tr>
+<tr><td>Reviewing scores but not traces</td><td>The shortcut is invisible</td></tr>
+<tr><td>The same tool access in test and in production</td><td>The exploration that found the grader will probe customer data and code in production</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
 <section id="recommend">
-<h2>What we recommend</h2>
+<h2>Treat the harness as part of the attack surface</h2>
 <p>We treat the evaluation harness as part of the attack surface, since an agent under test can find its way to it.</p>
 <ol>
 <li>Isolate the evaluation harness. The agent under test must have no path to grader files, gold labels or harness configuration, and this should be enforced as an access-control boundary rather than left as a convention.</li>
@@ -90,13 +89,13 @@
 <li>Score task performance separately from outcome match, so that a right answer reached by the wrong route is visible.</li>
 <li>Vary the held-out cases, so that a memorised or located answer cannot pass.</li>
 <li>Treat exploration during evaluation as a security signal. An agent that goes looking for evaluator files in testing gets least-privilege scoping before it goes anywhere near production data.</li>
-<li>Re-run under Managed AI Operations whenever models or prompts change, because gaming behaviour changes with the model.</li>
+<li>Re-run the evaluation whenever models or prompts change, because gaming behaviour changes with the model.</li>
 </ol>
 </section>
 
 <section id="our-recommendation" class="recommend">
 <h2>Our recommendation</h2>
-<p>Before you act on an eval number, ask two questions: could the agent have reached the grader, and has anyone read the traces? If either answer is no or unknown, the number is not yet evidence.</p>
+<p>A score is evidence only when the agent had no path to the grader and someone has read the traces. Until both are true, treat the number as a claim the agent made about itself.</p>
 </section>
 
 <p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
@@ -106,9 +105,9 @@
 <aside class="sidebar" aria-label="Note details">
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
-<a href="#exposure">The exposure</a>
-<a href="#shortfalls">Where standard controls fall short</a>
-<a href="#recommend">What we recommend</a>
+<a href="#exposure">Two ways to get a high score</a>
+<a href="#shortfalls">Habits that make a gamed score look earned</a>
+<a href="#recommend">Treat the harness as part of the attack surface</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
 <div class="side-card">
@@ -124,7 +123,7 @@
 <div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
 <a href="/notes/measure-before-you-ship/">Before you ship that agent “improvement”, measure it in layers</a>
 <a href="/notes/grounded-answers/">A fluent answer is not a grounded answer</a>
-<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/guardrails-in-the-architecture/">Put guardrails where the model cannot skip them</a>
 </nav>
 <div class="side-card side-card--cta">
 <h3>Does your agent have one of these exposures?</h3>

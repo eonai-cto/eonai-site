@@ -49,7 +49,7 @@
 <section class="note-hero on-dark">
 <div class="container note-hero__inner">
 <a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
-<div class="eyebrow">SECURITY &amp; GUARDRAILS · ADVISORY NOTE · 8 MIN READ</div>
+<div class="eyebrow">SECURITY &amp; GUARDRAILS · ADVISORY NOTE · 5 MIN READ</div>
 <h1>If your agent can issue refunds, a content filter is not protecting you</h1>
 <p class="note-hero__lead">Most support agents in production rely on injection filters, output scanning and a per-transaction cap. Those controls stop the attacks that look like attacks. The ones that cost money look like ordinary business. This note sets out the exposure, where standard controls fall short, and the seven controls we recommend.</p>
 <div class="note-hero__meta"><span>For: CTOs, heads of customer operations, risk and compliance leads</span><span>Applies to: any agent that can refund, update records or send messages</span><span>Related engagement: AI Reliability Audit</span></div>
@@ -66,8 +66,8 @@
 </section>
 
 <section id="shortfalls">
-<h2>Where standard controls fall short</h2>
-<p>In our reference build, a support agent protected with the standard controls stopped the textbook injection and then failed six scenarios that read as normal customer traffic. Each one maps to a loss your finance or fraud team would recognise.</p>
+<h2>Six ways a filter and a cap lose money</h2>
+<p>In our reference build, on synthetic data, a support agent protected with the standard controls stopped the textbook injection and then failed six scenarios that read as normal customer traffic. Each one maps to a loss your finance or fraud team would recognise.</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Scenarios where standard controls fall short">
 <table class="scenario">
 <thead><tr><th scope="col">SCENARIO</th><th scope="col">EXPOSURE</th><th scope="col">WHY STANDARD CONTROLS MISS IT</th></tr></thead>
@@ -85,7 +85,7 @@
 </section>
 
 <section id="recommend">
-<h2>What we recommend</h2>
+<h2>Seven controls, in the order they depend on each other</h2>
 <p>Put authorisation in the architecture rather than in the prompt. The model can propose an action, but what is permitted is decided in code. In practice that is seven controls, in order of dependency. Most teams can implement the first two in days, and they close the most expensive scenarios.</p>
 <ol>
 <li><strong>Know who is asking.</strong> Every session is bound to an identified customer at a known assurance level (unverified, email-verified, MFA). Higher-impact actions require the higher levels. Everything below depends on this.</li>
@@ -101,7 +101,7 @@
 
 <section id="our-recommendation" class="recommend">
 <h2>Our recommendation</h2>
-<p>Before the next release, ask three questions of every tool your agent can call: who is calling, what are they entitled to, and what has already happened in this session? If any of those answers lives in a prompt, you have a request rather than a control. Keep the filters as defence in depth and move authorisation into the architecture. A two-week audit is enough to find out which of the six scenarios apply to you and what closing them would take.</p>
+<p>Before the next release, ask three questions of every tool your agent can call: who is calling, what are they entitled to, and what has already happened in this session? If any of those answers lives in a prompt, you have a request rather than a control. Keep the filters as defence in depth and move authorisation into the architecture. An audit of two to three weeks is enough to find out which of the six scenarios apply to you and what closing them would take.</p>
 </section>
 
 <p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across support agents, not a client engagement.</p>
@@ -112,8 +112,8 @@
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
 <a href="#exposure">The exposure</a>
-<a href="#shortfalls">Where standard controls fall short</a>
-<a href="#recommend">What we recommend</a>
+<a href="#shortfalls">Six ways a filter and a cap lose money</a>
+<a href="#recommend">Seven controls, in the order they depend on each other</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
 <div class="side-card">
@@ -124,7 +124,7 @@
 </div>
 <nav class="side-card" aria-label="Related notes">
 <div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
-<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/guardrails-in-the-architecture/">Put guardrails where the model cannot skip them</a>
 <a href="/notes/deterministic-orchestrator/">When money is involved, keep the orchestrator deterministic</a>
 <a href="/notes/grounded-answers/">A fluent answer is not a grounded answer</a>
 </nav>

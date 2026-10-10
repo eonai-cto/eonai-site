@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>document.documentElement.classList.add('js')</script>
-<title>Fairness is a test, not a policy — EonAI</title>
+<title>Test fairness the way you test everything else — EonAI</title>
 <meta name="description" content="If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.">
 <link rel="canonical" href="https://eonai.ai/notes/fairness-is-a-test/">
 <meta property="og:site_name" content="EonAI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fairness is a test, not a policy — EonAI">
+<meta property="og:title" content="Test fairness the way you test everything else — EonAI">
 <meta property="og:description" content="If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.">
 <meta property="og:url" content="https://eonai.ai/notes/fairness-is-a-test/">
 <meta property="og:image" content="https://eonai.ai/assets/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="eonai logo. AI that works beyond the demo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Fairness is a test, not a policy — EonAI">
+<meta name="twitter:title" content="Test fairness the way you test everything else — EonAI">
 <meta name="twitter:description" content="If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.">
 <meta name="twitter:image" content="https://eonai.ai/assets/og.png">
 <meta name="theme-color" content="#0B1220">
@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Fairness is a test, not a policy","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/fairness-is-a-test/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Test fairness the way you test everything else","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/fairness-is-a-test/"}</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -49,8 +49,8 @@
 <section class="note-hero on-dark">
 <div class="container note-hero__inner">
 <a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
-<div class="eyebrow">RESPONSIBLE AI · ADVISORY NOTE · 5 MIN READ</div>
-<h1>Fairness is a test, not a policy</h1>
+<div class="eyebrow">RESPONSIBLE AI · ADVISORY NOTE · 2 MIN READ</div>
+<h1>Test fairness the way you test everything else</h1>
 <p class="note-hero__lead">If an automated screening decision moves when only the candidate’s name changes, you have a regulatory exposure, whatever your policy says. The matched-pair tests, abstain rules and audit trail we recommend before any such system goes live.</p>
 <div class="note-hero__meta"><span>For: HR and talent leaders, compliance, CTOs</span><span>Related engagement: AI Reliability Audit, Transform</span></div>
 </div>
@@ -60,30 +60,30 @@
 <article class="article">
 
 <section id="exposure">
-<h2>The exposure</h2>
-<p>Automated screening of CVs, applications or claims can be biased, hard to explain and more confident than it should be. A written policy addresses none of that, and regulators and candidates increasingly ask for evidence of how the system actually behaves.</p>
+<h2>What a policy cannot show</h2>
+<p>Automated screening of CVs, applications or claims can be biased, hard to explain and more confident than the evidence allows. A written policy addresses none of that. Under the EU AI Act, systems used in recruitment and in access to essential services such as credit and insurance are high-risk, and under GDPR a person can contest a decision made solely by automated means. Both ask for evidence of how the system behaves.</p>
 </section>
 
 <section id="shortfalls">
-<h2>Where standard controls fall short</h2>
-<p>Most teams have some of the following in place. None of it produces evidence about how the system behaves.</p>
-<div class="table-wrap" tabindex="0" role="region" aria-label="Practice, What it hides, Consequence">
+<h2>What most teams have in place</h2>
+<p>Most teams have some of the following. None of it produces evidence about behaviour.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Common fairness measures and what each one misses">
 <table class="scenario">
-<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT HIDES</th><th scope="col">CONSEQUENCE</th></tr></thead>
+<thead><tr><th scope="col">PRACTICE</th><th scope="col">WHAT IT MISSES</th></tr></thead>
 <tbody>
-<tr><td>A written fairness policy</td><td>Says nothing about behaviour</td><td>No evidence</td></tr>
-<tr><td>Removing obvious sensitive fields</td><td>Proxies (address, school, gaps) carry the signal</td><td>Bias persists</td></tr>
-<tr><td>Single-pass scoring</td><td>Unstable scores presented as decisions</td><td>Inconsistent outcomes</td></tr>
-<tr><td>No injection check on documents</td><td>Text hidden in a resume influences the score</td><td>Manipulation</td></tr>
-<tr><td>No audit log</td><td>Decisions cannot be explained after the fact</td><td>Regulatory risk</td></tr>
+<tr><td>A written fairness policy</td><td>It describes intent, so it says nothing about behaviour</td></tr>
+<tr><td>Removing the obvious sensitive fields</td><td>Proxies such as address, school and career gaps carry the same signal</td></tr>
+<tr><td>Scoring each candidate once</td><td>An unstable score is presented as a decision</td></tr>
+<tr><td>No injection check on documents</td><td>Text hidden in a CV can move the score</td></tr>
+<tr><td>No audit log</td><td>A decision cannot be explained after the fact</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
 <section id="recommend">
-<h2>What we recommend</h2>
-<p>We recommend testing fairness the way you would test any other behaviour, with controlled inputs and recorded outputs.</p>
+<h2>Six tests and controls</h2>
+<p>We test fairness the way we test any other behaviour, with controlled inputs and recorded outputs.</p>
 <ol>
 <li>Injection scrubbing and PII redaction before anything is scored.</li>
 <li>Scores built from weighted components, each with an explanation, rather than a single opaque number.</li>
@@ -96,7 +96,7 @@
 
 <section id="our-recommendation" class="recommend">
 <h2>Our recommendation</h2>
-<p>Run the name-swap test before launch and again every time the model or prompt changes. It takes an afternoon and it is the question a regulator will ask first.</p>
+<p>Run the name-swap test before launch and again every time the model or prompt changes. Building the harness takes a day or two, and it is the first thing a regulator will ask about.</p>
 </section>
 
 <p class="provenance">Findings are from EonAI’s reference systems, built and tested on synthetic data. They describe patterns we see across clients’ systems, not a client engagement.</p>
@@ -106,9 +106,9 @@
 <aside class="sidebar" aria-label="Note details">
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
-<a href="#exposure">The exposure</a>
-<a href="#shortfalls">Where standard controls fall short</a>
-<a href="#recommend">What we recommend</a>
+<a href="#exposure">What a policy cannot show</a>
+<a href="#shortfalls">What most teams have in place</a>
+<a href="#recommend">Six tests and controls</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
 <div class="side-card">
@@ -122,7 +122,7 @@
 </div>
 <nav class="side-card" aria-label="Related notes">
 <div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
-<a href="/notes/guardrails-in-the-architecture/">Guardrails are topology, not prompts</a>
+<a href="/notes/guardrails-in-the-architecture/">Put guardrails where the model cannot skip them</a>
 <a href="/notes/measure-before-you-ship/">Before you ship that agent “improvement”, measure it in layers</a>
 <a href="/notes/refunds-agent/">If your agent can issue refunds, a content filter is not protecting you</a>
 </nav>

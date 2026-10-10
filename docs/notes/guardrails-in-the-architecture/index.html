@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>document.documentElement.classList.add('js')</script>
-<title>Guardrails are topology, not prompts — EonAI</title>
+<title>Put guardrails where the model cannot skip them — EonAI</title>
 <meta name="description" content="A safety rule in the system prompt is a request, and the model can ignore it. A check built into the workflow cannot be skipped. What a guardrail architecture looks like, and the failure policy each check needs before launch.">
 <link rel="canonical" href="https://eonai.ai/notes/guardrails-in-the-architecture/">
 <meta property="og:site_name" content="EonAI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Guardrails are topology, not prompts — EonAI">
+<meta property="og:title" content="Put guardrails where the model cannot skip them — EonAI">
 <meta property="og:description" content="A safety rule in the system prompt is a request, and the model can ignore it. A check built into the workflow cannot be skipped. What a guardrail architecture looks like, and the failure policy each check needs before launch.">
 <meta property="og:url" content="https://eonai.ai/notes/guardrails-in-the-architecture/">
 <meta property="og:image" content="https://eonai.ai/assets/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="eonai logo. AI that works beyond the demo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Guardrails are topology, not prompts — EonAI">
+<meta name="twitter:title" content="Put guardrails where the model cannot skip them — EonAI">
 <meta name="twitter:description" content="A safety rule in the system prompt is a request, and the model can ignore it. A check built into the workflow cannot be skipped. What a guardrail architecture looks like, and the failure policy each check needs before launch.">
 <meta name="twitter:image" content="https://eonai.ai/assets/og.png">
 <meta name="theme-color" content="#0B1220">
@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Guardrails are topology, not prompts","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/guardrails-in-the-architecture/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Put guardrails where the model cannot skip them","datePublished":"2026-10-07","author":{"@type":"Organization","name":"EonAI"},"mainEntityOfPage":"https://eonai.ai/notes/guardrails-in-the-architecture/"}</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -49,8 +49,8 @@
 <section class="note-hero on-dark">
 <div class="container note-hero__inner">
 <a class="crumb" href="/notes/">← ENGINEERING NOTES</a>
-<div class="eyebrow">SECURITY &amp; GUARDRAILS · ADVISORY NOTE · 8 MIN READ</div>
-<h1>Guardrails are topology, not prompts</h1>
+<div class="eyebrow">SECURITY &amp; GUARDRAILS · ADVISORY NOTE · 3 MIN READ</div>
+<h1>Put guardrails where the model cannot skip them</h1>
 <p class="note-hero__lead">A safety rule in the system prompt is a request, and the model can ignore it. A check built into the workflow cannot be skipped. What a guardrail architecture looks like, and the failure policy each check needs before launch.</p>
 <div class="note-hero__meta"><span>For: CTOs, heads of product, trust & safety, legal</span><span>Related engagement: AI Reliability Audit, Agent MVP</span></div>
 </div>
@@ -60,38 +60,38 @@
 <article class="article">
 
 <section id="exposure">
-<h2>The exposure</h2>
+<h2>What a reviewer will ask</h2>
 <p>A returns-and-refunds agent takes actions, so its mistakes cost something: a refund paid in error, a customer record disclosed, two customers treated differently for no good reason. Trust & Safety and Legal will want to review it before launch, and they will ask what prevents each of those.</p>
 <p>The safety training that model vendors build in catches some attacks, but not reliably. You can’t configure it, and you can’t test how it will behave after the next model update, so it can’t be the control you show a reviewer.</p>
 </section>
 
 <section id="shortfalls">
-<h2>Where standard controls fall short</h2>
+<h2>Five ways a rule in the prompt fails</h2>
 <p>Each scenario below gets past safety rules written into the prompt, because the attack arrives through the same channel as the instructions.</p>
-<div class="table-wrap" tabindex="0" role="region" aria-label="Scenario, Exposure, Why prompt-based safety misses it">
+<div class="table-wrap" tabindex="0" role="region" aria-label="Scenarios that get past prompt-based safety">
 <table class="scenario">
-<thead><tr><th scope="col">SCENARIO</th><th scope="col">EXPOSURE</th><th scope="col">WHY PROMPT-BASED SAFETY MISSES IT</th></tr></thead>
+<thead><tr><th scope="col">SCENARIO</th><th scope="col">WHAT HAPPENS</th><th scope="col">WHY THE PROMPT DOES NOT STOP IT</th></tr></thead>
 <tbody>
-<tr><td>Direct prompt injection</td><td>Agent ignores policy</td><td>The instruction is in the same channel as the attack</td></tr>
-<tr><td>PII exfiltration request</td><td>Customer record disclosed</td><td>Prompt says “don’t”, attacker says “do”</td></tr>
-<tr><td>Indirect injection via tool output</td><td>Agent acts on text inside a record</td><td>Tool output treated as trusted</td></tr>
-<tr><td>Frustrated legitimate customer</td><td>Wrongly refused or blocked</td><td>A single toxicity threshold cannot tell angry from malicious</td></tr>
-<tr><td>Over-refund attempt</td><td>Money out</td><td>No cap enforced where the action happens</td></tr>
+<tr><td>Direct prompt injection</td><td>The agent ignores its policy</td><td>The instruction and the attack arrive in the same channel</td></tr>
+<tr><td>A request to reveal personal data</td><td>A customer record is disclosed</td><td>The prompt says “don’t”, the attacker says “do”</td></tr>
+<tr><td>Indirect injection through tool output</td><td>The agent acts on text inside a record</td><td>Tool output is treated as trusted</td></tr>
+<tr><td>A frustrated legitimate customer</td><td>Wrongly refused or blocked</td><td>One toxicity threshold cannot tell angry from malicious</td></tr>
+<tr><td>An over-refund attempt</td><td>Money leaves</td><td>No cap is enforced where the action happens</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
 <section id="recommend">
-<h2>What we recommend</h2>
-<p>We recommend building guardrails as steps in the workflow that every request has to pass through, rather than as instructions to the model. A step the agent has no way around holds up in review in a way that a line in the prompt does not.</p>
+<h2>Guardrails as steps in the workflow</h2>
+<p>We build guardrails as steps in the workflow that every request has to pass through, rather than as instructions to the model. A step the agent has no way around holds up in review in a way that a line in the prompt does not.</p>
 <ol>
 <li>Input checks run in a fixed order before the agent sees the message: PII redaction (redact and continue), injection classifier (fail closed), toxicity (route to a person), topic (fail open and log).</li>
 <li>An output check the agent cannot skip. Its only path to the customer runs through that check.</li>
 <li>The refund cap is enforced inside the tool, on the server, and not in the prompt.</li>
 <li>Models score the risk; deterministic code makes and enforces the decision.</li>
 <li>Every check has a written failure policy, stating what happens on an error or a trigger, agreed with Trust & Safety before launch.</li>
-<li>Fairness is tested as behaviour: identical claims with different customer names must produce identical decisions.</li>
+<li>Fairness is checked in the same harness: identical claims with different customer names must produce identical decisions. The <a href="/notes/fairness-is-a-test/">fairness note</a> covers how to build that test.</li>
 <li>A decision trace records which check made which call, so any outcome can be reconstructed.</li>
 </ol>
 </section>
@@ -108,9 +108,9 @@
 <aside class="sidebar" aria-label="Note details">
 <nav class="side-card" aria-label="In this note">
 <div class="eyebrow eyebrow--xs eyebrow--grey">IN THIS NOTE</div>
-<a href="#exposure">The exposure</a>
-<a href="#shortfalls">Where standard controls fall short</a>
-<a href="#recommend">What we recommend</a>
+<a href="#exposure">What a reviewer will ask</a>
+<a href="#shortfalls">Five ways a rule in the prompt fails</a>
+<a href="#recommend">Guardrails as steps in the workflow</a>
 <a href="#our-recommendation">Our recommendation</a>
 </nav>
 <div class="side-card">
@@ -126,7 +126,7 @@
 <div class="eyebrow eyebrow--xs eyebrow--grey">RELATED NOTES</div>
 <a href="/notes/refunds-agent/">If your agent can issue refunds, a content filter is not protecting you</a>
 <a href="/notes/deterministic-orchestrator/">When money is involved, keep the orchestrator deterministic</a>
-<a href="/notes/fairness-is-a-test/">Fairness is a test, not a policy</a>
+<a href="/notes/fairness-is-a-test/">Test fairness the way you test everything else</a>
 </nav>
 <div class="side-card side-card--cta">
 <h3>Does your agent have one of these exposures?</h3>

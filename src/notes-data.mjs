@@ -40,8 +40,8 @@ export const notes = [
         ],
       },
       {
-        id: 'shortfalls', h: 'Where standard controls fall short', blocks: [
-          { p: 'In our reference build, a support agent protected with the standard controls stopped the textbook injection and then failed six scenarios that read as normal customer traffic. Each one maps to a loss your finance or fraud team would recognise.' },
+        id: 'shortfalls', h: 'Six ways a filter and a cap lose money', blocks: [
+          { p: 'In our reference build, on synthetic data, a support agent protected with the standard controls stopped the textbook injection and then failed six scenarios that read as normal customer traffic. Each one maps to a loss your finance or fraud team would recognise.' },
           {
             table: {
               label: 'Scenarios where standard controls fall short',
@@ -60,7 +60,7 @@ export const notes = [
         ],
       },
       {
-        id: 'recommend', h: 'What we recommend', blocks: [
+        id: 'recommend', h: 'Seven controls, in the order they depend on each other', blocks: [
           { p: 'Put authorisation in the architecture rather than in the prompt. The model can propose an action, but what is permitted is decided in code. In practice that is seven controls, in order of dependency. Most teams can implement the first two in days, and they close the most expensive scenarios.' },
           {
             ol: [
@@ -77,7 +77,7 @@ export const notes = [
         ],
       },
     ],
-    recommendation: 'Before the next release, ask three questions of every tool your agent can call: who is calling, what are they entitled to, and what has already happened in this session? If any of those answers lives in a prompt, you have a request rather than a control. Keep the filters as defence in depth and move authorisation into the architecture. A two-week audit is enough to find out which of the six scenarios apply to you and what closing them would take.',
+    recommendation: 'Before the next release, ask three questions of every tool your agent can call: who is calling, what are they entitled to, and what has already happened in this session? If any of those answers lives in a prompt, you have a request rather than a control. Keep the filters as defence in depth and move authorisation into the architecture. An audit of two to three weeks is enough to find out which of the six scenarios apply to you and what closing them would take.',
   },
 
   {
@@ -90,42 +90,57 @@ export const notes = [
     lede: 'An upgrade to a triage agent improved its decisions and also made it slower and less consistent. One accuracy number would have hidden both. How to set up a golden set and layered metrics so your team sees the trade-off before customers do.',
     card: "An upgrade to a triage agent improved its decisions and also made it slower and less consistent. One accuracy number would have hidden both. How to set up a golden set and layered metrics so your team sees the trade-off before customers do.",
     homeCard: 'An upgrade that improved decisions and also made the agent slower and less consistent. One accuracy number would have hidden both.',
-    related: ['when-a-high-score-means-nothing', 'guardrails-in-the-architecture', 'build-on-real-data'],
+    related: ['when-a-high-score-means-nothing', 'guardrails-in-the-architecture', 'decisions-not-reasoning'],
     sections: [
       {
-        id: 'exposure', h: "The exposure", blocks: [
-          { p: "Support triage has to be fast, consistent and auditable. A single-pass triage agent tends to fail in three places: tickets that fit no category, the wrong tool chosen for the job, and the right tool called with badly formed arguments." },
-          { p: "When a team changes the agent, it usually checks one headline accuracy figure or reads through a few examples. That shows whether the agent got better at its main job, and very little about what happened to speed and consistency along the way." },
+        id: 'exposure', h: "Why one accuracy figure is not enough", blocks: [
+          { p: "Support triage has to be fast and consistent, and every decision has to be explainable afterwards. A single-pass triage agent tends to fail in three places: tickets that fit no category, the wrong tool chosen for the job, and the right tool called with badly formed arguments." },
+          { p: "When a team changes the agent, it usually checks one headline accuracy figure or reads through a few examples. That shows whether the agent got better at its main job. It shows very little about what happened to speed and consistency along the way." },
         ],
       },
       {
-        id: 'shortfalls', h: "Where standard controls fall short", blocks: [
-          { p: "These are the habits we see most often when teams evaluate a change to an agent." },
+        id: 'shortfalls', h: "What teams usually check", blocks: [
+          { p: "These are the habits we see most often when a team evaluates a change to an agent." },
           {
             table: {
-              head: ['What teams do', 'What it hides', 'Consequence'],
+              label: 'Common evaluation habits and what each one hides',
+              head: ['What teams do', 'What it hides'],
               rows: [
-                ['Single accuracy metric', 'Trade-offs between decision quality and efficiency', 'Ships a change that is better on hard cases and worse on cost and consistency'],
-                ['Ad-hoc test prompts that change each time', 'Regressions between versions', '“Improvements” that cannot be compared'],
-                ['One run at temperature 0 treated as truth', 'Run-to-run drift of both the agent and the judge', 'Decisions made on noise'],
-                ['Planning metrics read at face value', 'A perfect score because no plan text existed to judge', 'False confidence'],
+                ['Report a single accuracy metric', 'The trade-off between decision quality and efficiency. A change can be better on hard cases and worse on cost and consistency, and the number goes up.'],
+                ['Test with ad-hoc prompts that change each time', 'Regressions between versions. Two runs that used different prompts cannot be compared.'],
+                ['Treat one run at temperature 0 as the truth', 'Run-to-run drift, in the agent and in the judge. Decisions get made on noise.'],
+                ['Read planning metrics at face value', 'A perfect score that exists because there was no plan text to judge.'],
               ],
             },
           },
-          { p: "In our reference build, adding planning and self-correction made tool choice and argument quality markedly better. It also cut step efficiency by roughly two-thirds and slightly reduced completion. A single accuracy figure would have shown the improvement and missed the other two effects." },
+          { p: "In our reference build, adding planning and self-correction improved tool choice and argument quality, cut step efficiency by about two-thirds and slightly reduced completion. A single accuracy figure would have shown the improvement and missed the other two effects." },
         ],
       },
       {
-        id: 'recommend', h: "What we recommend", blocks: [
-          { p: "We recommend six steps, and the first one happens before anyone touches the agent." },
+        id: 'recommend', h: "Score in layers", blocks: [
+          { p: "We score an agentic workflow in five layers, each with its own metric, so that a change which helps one layer and hurts another is visible as exactly that." },
+          {
+            table: {
+              label: 'The five scoring layers',
+              head: ['Layer', 'What it asks'],
+              rows: [
+                ['Instructions', 'Does the model follow the constraints it was given?'],
+                ['Planning', 'Is the plan sound, and are the right tools chosen?'],
+                ['Actions', 'Do tool calls succeed? How many retries, how much latency, how are errors handled?'],
+                ['Context', 'Was the right information retrieved, and is the answer grounded in it with accurate citations?'],
+                ['Outcomes', 'Was the task completed, is the result factual, did it pass the safety checks, and was the user satisfied?'],
+              ],
+            },
+          },
+          { p: "Six steps put that scorecard to work, and the first one happens before anyone touches the agent." },
           {
             ol: [
               ["Freeze a golden set.", "Collect real tickets, agree the correct outcome for each, and fix the set before any change is made."],
-              ["Score in layers rather than with one number.", "For an agentic workflow, a practical set is: prompts and instructions (does the model follow the constraints it was given?), planning and reasoning (is the plan sound, and are the right tools chosen?), actions (tool-call success, retries, latency, error handling), context and retrieval (quality of retrieved information, grounding, citation accuracy) and outcomes (task completion, factuality, safety checks, user satisfaction)."],
-              "Tie each layer to a business measure, such as routing accuracy, escalation quality, operational efficiency or decision consistency, so that leadership reads the same report as engineering.",
-              "Run the suite several times and report the mean and the spread. Treat a small difference as noise until it shows up again.",
-              "If the planning layer produces nothing to score, record that as a gap rather than reading the empty result as a perfect score.",
-              "Re-run the suite whenever a prompt, model or tool changes. Managed AI Operations does this every month.",
+              ["Score every layer, every time.", "One number per layer, from the table above, on every run of the golden set."],
+              ["Tie each layer to a business measure", "such as routing accuracy, escalation quality, operational efficiency or decision consistency, so that leadership reads the same report as engineering."],
+              ["Run the suite several times", "and report the mean and the spread. Treat a small difference as noise until it shows up again."],
+              ["Record an empty layer as a gap.", "If the planning layer produces nothing to score, that is a finding, not a perfect score."],
+              ["Re-run the suite whenever a prompt, model or tool changes.", "A change that was never scored is a change nobody can explain later."],
             ],
           },
         ],
@@ -136,7 +151,7 @@ export const notes = [
 
   {
     slug: 'guardrails-in-the-architecture',
-    title: 'Guardrails are topology, not prompts',
+    title: 'Put guardrails where the model cannot skip them',
     category: 'Security & guardrails',
     mins: 8,
     forWho: 'CTOs, heads of product, trust & safety, legal',
@@ -147,31 +162,32 @@ export const notes = [
     related: ['refunds-agent', 'deterministic-orchestrator', 'fairness-is-a-test'],
     sections: [
       {
-        id: 'exposure', h: "The exposure", blocks: [
+        id: 'exposure', h: "What a reviewer will ask", blocks: [
           { p: "A returns-and-refunds agent takes actions, so its mistakes cost something: a refund paid in error, a customer record disclosed, two customers treated differently for no good reason. Trust & Safety and Legal will want to review it before launch, and they will ask what prevents each of those." },
           { p: "The safety training that model vendors build in catches some attacks, but not reliably. You can’t configure it, and you can’t test how it will behave after the next model update, so it can’t be the control you show a reviewer." },
         ],
       },
       {
-        id: 'shortfalls', h: "Where standard controls fall short", blocks: [
+        id: 'shortfalls', h: "Five ways a rule in the prompt fails", blocks: [
           { p: "Each scenario below gets past safety rules written into the prompt, because the attack arrives through the same channel as the instructions." },
           {
             table: {
-              head: ['Scenario', 'Exposure', 'Why prompt-based safety misses it'],
+              label: 'Scenarios that get past prompt-based safety',
+              head: ['Scenario', 'What happens', 'Why the prompt does not stop it'],
               rows: [
-                ['Direct prompt injection', 'Agent ignores policy', 'The instruction is in the same channel as the attack'],
-                ['PII exfiltration request', 'Customer record disclosed', 'Prompt says “don’t”, attacker says “do”'],
-                ['Indirect injection via tool output', 'Agent acts on text inside a record', 'Tool output treated as trusted'],
-                ['Frustrated legitimate customer', 'Wrongly refused or blocked', 'A single toxicity threshold cannot tell angry from malicious'],
-                ['Over-refund attempt', 'Money out', 'No cap enforced where the action happens'],
+                ['Direct prompt injection', 'The agent ignores its policy', 'The instruction and the attack arrive in the same channel'],
+                ['A request to reveal personal data', 'A customer record is disclosed', 'The prompt says “don’t”, the attacker says “do”'],
+                ['Indirect injection through tool output', 'The agent acts on text inside a record', 'Tool output is treated as trusted'],
+                ['A frustrated legitimate customer', 'Wrongly refused or blocked', 'One toxicity threshold cannot tell angry from malicious'],
+                ['An over-refund attempt', 'Money leaves', 'No cap is enforced where the action happens'],
               ],
             },
           },
         ],
       },
       {
-        id: 'recommend', h: "What we recommend", blocks: [
-          { p: "We recommend building guardrails as steps in the workflow that every request has to pass through, rather than as instructions to the model. A step the agent has no way around holds up in review in a way that a line in the prompt does not." },
+        id: 'recommend', h: "Guardrails as steps in the workflow", blocks: [
+          { p: "We build guardrails as steps in the workflow that every request has to pass through, rather than as instructions to the model. A step the agent has no way around holds up in review in a way that a line in the prompt does not." },
           {
             ol: [
               "Input checks run in a fixed order before the agent sees the message: PII redaction (redact and continue), injection classifier (fail closed), toxicity (route to a person), topic (fail open and log).",
@@ -179,7 +195,7 @@ export const notes = [
               "The refund cap is enforced inside the tool, on the server, and not in the prompt.",
               "Models score the risk; deterministic code makes and enforces the decision.",
               "Every check has a written failure policy, stating what happens on an error or a trigger, agreed with Trust & Safety before launch.",
-              "Fairness is tested as behaviour: identical claims with different customer names must produce identical decisions.",
+              "Fairness is checked in the same harness: identical claims with different customer names must produce identical decisions. The <a href=\"/notes/fairness-is-a-test/\">fairness note</a> covers how to build that test.",
               "A decision trace records which check made which call, so any outcome can be reconstructed.",
             ],
           },
@@ -201,35 +217,41 @@ export const notes = [
     related: ['guardrails-in-the-architecture', 'grounded-answers', 'decisions-not-reasoning'],
     sections: [
       {
-        id: 'exposure', h: "The exposure", blocks: [
-          { p: "Reviewing claims and their documents by hand is slow, costly and inconsistent. Fixed rules are faster but break as soon as a case doesn’t fit them, and most claims arrive with partial evidence: a document missing, a figure that doesn’t match, no obvious answer." },
+        id: 'exposure', h: "Where claims review stands today", blocks: [
+          { p: "Reviewing claims and their documents by hand is slow, expensive and inconsistent. Fixed rules are faster but break as soon as a case doesn’t fit them, and most claims arrive with partial evidence: a document missing, a figure that doesn’t match, no obvious answer." },
           { p: "A multi-agent design is the usual next step. Often it turns out to be three model calls running in parallel, with no defined roles, no agreement on what evidence each one must produce, and no record of how the final decision was reached. That is hard to defend once money has been paid out on the result." },
         ],
       },
       {
-        id: 'shortfalls', h: "Where standard controls fall short", blocks: [
-          { p: "These are common in first multi-agent builds, and each one leaves a question an auditor will ask." },
+        id: 'shortfalls', h: "What first multi-agent builds get wrong", blocks: [
+          { p: "These are common in first builds, and each one leaves a question an auditor will ask." },
           {
             table: {
-              head: ['Practice', 'What it hides', 'Consequence'],
+              label: 'Common practices in first multi-agent builds',
+              head: ['Practice', 'What it hides', 'What follows'],
               rows: [
-                ['One LLM asked to “assess the claim”', 'No evidence trail', 'Decision cannot be defended'],
+                ['One model asked to “assess the claim”', 'There is no evidence trail', 'The decision cannot be defended'],
                 ['Parallel calls with no critic', 'Contradictions between findings go unnoticed', 'Wrong approvals'],
-                ['LLM as orchestrator', 'Retries and routing become unpredictable', 'Cost and audit problems'],
-                ['No quorum rule', 'A missing worker result becomes an implicit approval', 'Money out on no evidence'],
-                ['Document inconsistencies (header vs body claim ID, invoice amount vs claim amount)', 'Missed unless a worker is tasked with them', 'Fraud passes'],
+                ['A model as the orchestrator', 'Retries and routing become unpredictable', 'Costs vary and the process cannot be replayed for an auditor'],
+                ['No quorum rule', 'A missing result is read as “no objection”', 'Money paid out on no evidence'],
               ],
             },
           },
         ],
       },
       {
-        id: 'recommend', h: "What we recommend", blocks: [
-          { p: "We recommend giving each component a single job, making the evidence explicit, and keeping the decision about what runs next in code." },
+        id: 'example', h: "One claim, end to end", blocks: [
+          { p: "A windscreen claim arrives. The invoice says 48,000, the claim form says 54,000, and the claim number in the document header does not match the one in the body. A document worker extracts the three figures and reports both mismatches as evidence, with no verdict attached. A policy worker confirms windscreen cover and reports the excess. A fraud worker finds a second claim on the same vehicle within ninety days and says so, with the record it found." },
+          { p: "A critic compares the three reports, flags that the amount mismatch is unexplained, and requests one retry from the document worker with the invoice read again at higher resolution. The retry returns the same figures. The orchestrator, which is ordinary code, applies the quorum rule: an unexplained contradiction means no approval, so the claim goes to a human reviewer with the three reports and the critic’s note attached. Every step of that path is in the audit trail, and no model decided what ran next." },
+        ],
+      },
+      {
+        id: 'recommend', h: "Give each component one job", blocks: [
+          { p: "We give each component a single job, make the evidence explicit, and keep the decision about what runs next in code." },
           {
             ol: [
               "Specialist workers with explicit responsibilities and an output contract (a risk signal plus evidence-backed notes), each with stated limits, for example “never infer risk from frequency alone”.",
-              "Tools reached through a standard protocol boundary (MCP), so data access is governed and logged.",
+              "Tools reached through one governed gateway, so that every data access is permitted explicitly and logged. We use the Model Context Protocol for this.",
               "A critic that compares the findings, flags contradictions and evidence gaps, and may request exactly one retry.",
               "A deterministic orchestrator, written as code rather than run by a model, that dispatches the work, enforces retry caps and applies the verdict.",
               "A quorum rule: if the evidence is insufficient, the claim falls back to a denial or to human review, never to an approval.",
@@ -256,30 +278,31 @@ export const notes = [
     related: ['when-a-high-score-means-nothing', 'measure-before-you-ship', 'deterministic-orchestrator'],
     sections: [
       {
-        id: 'exposure', h: "The exposure", blocks: [
-          { p: "A tourism website published AI-generated descriptions of hot springs that do not exist, and visitors travelled to look for them. The business lost its credibility in a single news cycle. A proper evaluation before publication would have caught the problem." },
-          { p: "Assistants that answer from legal, research or policy documents are trusted because they sound authoritative. A confident wrong answer in a client deliverable damages your reputation and, in regulated work, can become a compliance matter. The quick pilots that paste documents into a model are fast to build, and they are where this tends to happen." },
+        id: 'exposure', h: "A confident answer with nothing behind it", blocks: [
+          { p: "In January 2026 a Tasmanian tour operator’s website carried an AI-written article about hot springs at Weldborough, a hamlet in the north-east of the state that has none. People booked flights and drove out to find them, and the local hotel spent weeks fielding calls before the article came down. Nobody had checked the text against a source before it went live." },
+          { p: "That was a blog post, but the same failure sits inside knowledge assistants. Assistants that answer from legal, research or policy documents are trusted because they sound authoritative, and a confident wrong answer in a client deliverable damages your reputation. In regulated work it can become a compliance matter. The quick pilots that paste documents into a model are fast to build, and they are where this tends to happen." },
         ],
       },
       {
-        id: 'shortfalls', h: "Where standard controls fall short", blocks: [
-          { p: "One assistant we tested answered an out-of-scope question fluently, without retrieving anything, and its task checks still scored it highly. These are the gaps that let that through." },
+        id: 'shortfalls', h: "Why task checks let it through", blocks: [
+          { p: "One assistant we tested answered an out-of-scope question fluently, without retrieving anything, and passed five of its six task checks. These are the gaps that let that through." },
           {
             table: {
-              head: ['Practice', 'What it hides', 'Consequence'],
+              label: 'Gaps that let ungrounded answers through',
+              head: ['Practice', 'What it hides'],
               rows: [
-                ['Task-completion checks only', 'An out-of-scope question answered fluently with zero retrieval scored 5/6', 'Ungrounded answer passes'],
-                ['Same model writes and grades', 'Self-assessment bias', 'Inflated quality scores'],
-                ['No scope guard', 'Assistant answers questions outside its knowledge base', 'Wrong domain, confident tone'],
-                ['No citation requirement', 'Claims cannot be traced', 'Reviewers cannot verify'],
-                ['All answers treated equally', 'Low-confidence answers reach clients', 'No safety valve'],
+                ['Task-completion checks only', 'Whether the answer came from the documents at all'],
+                ['The same model writes and grades', 'Self-assessment bias, so quality scores inflate'],
+                ['No scope guard', 'Questions outside the knowledge base get confident answers'],
+                ['No citation requirement', 'Nobody can trace a claim to its source'],
+                ['Every answer treated the same', 'Low-confidence answers reach clients with no safety valve'],
               ],
             },
           },
         ],
       },
       {
-        id: 'recommend', h: "What we recommend", blocks: [
+        id: 'recommend', h: "Measure groundedness on its own", blocks: [
           { p: "Groundedness has to be measured on its own, by a judge that didn’t write the answer, with somewhere to send the answers that fall short." },
           {
             ol: [
@@ -287,7 +310,6 @@ export const notes = [
               "An answer-only-from-context rule: when the documents don’t support an answer, the assistant says it doesn’t know.",
               "An independent judge model that scores groundedness and citation precision against a gold set.",
               "Confidence-based routing, so that low-confidence answers go to a person and never reach a client unchecked.",
-              "Prompt changes driven by failure feedback and validated on held-out questions.",
               "Groundedness and relevance tracked over time, with any drift triggering a review.",
             ],
           },
@@ -299,7 +321,7 @@ export const notes = [
 
   {
     slug: 'fairness-is-a-test',
-    title: 'Fairness is a test, not a policy',
+    title: 'Test fairness the way you test everything else',
     category: 'Responsible AI',
     mins: 5,
     forWho: 'HR and talent leaders, compliance, CTOs',
@@ -309,30 +331,31 @@ export const notes = [
     related: ['guardrails-in-the-architecture', 'measure-before-you-ship', 'refunds-agent'],
     sections: [
       {
-        id: 'exposure', h: "The exposure", blocks: [
-          { p: "Automated screening of CVs, applications or claims can be biased, hard to explain and more confident than it should be. A written policy addresses none of that, and regulators and candidates increasingly ask for evidence of how the system actually behaves." },
+        id: 'exposure', h: "What a policy cannot show", blocks: [
+          { p: "Automated screening of CVs, applications or claims can be biased, hard to explain and more confident than the evidence allows. A written policy addresses none of that. Under the EU AI Act, systems used in recruitment and in access to essential services such as credit and insurance are high-risk, and under GDPR a person can contest a decision made solely by automated means. Both ask for evidence of how the system behaves." },
         ],
       },
       {
-        id: 'shortfalls', h: "Where standard controls fall short", blocks: [
-          { p: "Most teams have some of the following in place. None of it produces evidence about how the system behaves." },
+        id: 'shortfalls', h: "What most teams have in place", blocks: [
+          { p: "Most teams have some of the following. None of it produces evidence about behaviour." },
           {
             table: {
-              head: ['Practice', 'What it hides', 'Consequence'],
+              label: 'Common fairness measures and what each one misses',
+              head: ['Practice', 'What it misses'],
               rows: [
-                ['A written fairness policy', 'Says nothing about behaviour', 'No evidence'],
-                ['Removing obvious sensitive fields', 'Proxies (address, school, gaps) carry the signal', 'Bias persists'],
-                ['Single-pass scoring', 'Unstable scores presented as decisions', 'Inconsistent outcomes'],
-                ['No injection check on documents', 'Text hidden in a resume influences the score', 'Manipulation'],
-                ['No audit log', 'Decisions cannot be explained after the fact', 'Regulatory risk'],
+                ['A written fairness policy', 'It describes intent, so it says nothing about behaviour'],
+                ['Removing the obvious sensitive fields', 'Proxies such as address, school and career gaps carry the same signal'],
+                ['Scoring each candidate once', 'An unstable score is presented as a decision'],
+                ['No injection check on documents', 'Text hidden in a CV can move the score'],
+                ['No audit log', 'A decision cannot be explained after the fact'],
               ],
             },
           },
         ],
       },
       {
-        id: 'recommend', h: "What we recommend", blocks: [
-          { p: "We recommend testing fairness the way you would test any other behaviour, with controlled inputs and recorded outputs." },
+        id: 'recommend', h: "Six tests and controls", blocks: [
+          { p: "We test fairness the way we test any other behaviour, with controlled inputs and recorded outputs." },
           {
             ol: [
               "Injection scrubbing and PII redaction before anything is scored.",
@@ -346,48 +369,7 @@ export const notes = [
         ],
       },
     ],
-    recommendation: 'Run the name-swap test before launch and again every time the model or prompt changes. It takes an afternoon and it is the question a regulator will ask first.',
-  },
-
-  {
-    slug: 'build-on-real-data',
-    title: 'Why we build on your real data from week one',
-    category: 'Method',
-    mins: 4,
-    forWho: 'anyone sponsoring an AI build',
-    engagements: ['Agent MVP', 'How we work'],
-    lede: 'An agent that commits to a plan up front breaks the moment reality differs from the plan. One that checks each result and adjusts keeps going. The same is true of projects, which is why we never build on sample data.',
-    card: 'An agent that commits to a plan up front breaks the moment reality differs from the plan. One that checks each result and adjusts keeps going. The same is true of projects, which is why we never build on sample data.',
-    related: ['measure-before-you-ship', 'decisions-not-reasoning', 'when-a-high-score-means-nothing'],
-    ctaTitle: "Planning an AI build?",
-    ctaText: "A 30-minute working session is usually enough to scope the first sprint.",
-    sections: [
-      {
-        id: 'exposure', h: "The exposure", blocks: [
-          { p: "Plans and prototypes built on clean sample data meet real data late in the project, when changing direction is expensive. The edge cases that matter were never in the sample." },
-        ],
-      },
-      {
-        id: 'shortfalls', h: "Where the usual plan fails", blocks: [
-          { p: "A plan-and-execute agent predicts every step at the start and carries them out without checking the results. It breaks on the first ambiguity, such as two contacts with the same name." },
-          { p: "Projects often run the same way: a detailed plan, a demo on sample data, and a surprise in week eight." },
-        ],
-      },
-      {
-        id: 'recommend', h: "What we recommend", blocks: [
-          { p: "The fix is the same for the agent and for the project." },
-          {
-            ol: [
-              "An adaptive loop: observe the result of each step and reconsider before taking the next one.",
-              "Real data from the first sprint, under NDA and inside your environment.",
-              "A definition of success agreed before building starts, so that adjusting course has a target.",
-              "Short cycles, each ending in a measured checkpoint.",
-            ],
-          },
-        ],
-      },
-    ],
-    recommendation: 'If a vendor’s plan has no point at which it expects to be wrong, be cautious. Ours does, and it is in week one.',
+    recommendation: 'Run the name-swap test before launch and again every time the model or prompt changes. Building the harness takes a day or two, and it is the first thing a regulator will ask about.',
   },
 
   {
@@ -402,29 +384,29 @@ export const notes = [
     related: ['measure-before-you-ship', 'grounded-answers', 'guardrails-in-the-architecture'],
     sections: [
       {
-        id: 'exposure', h: "The exposure", blocks: [
-          { p: "The second case, scoring without doing the task, is known as reward hacking. In one documented example, a frontier model asked to extract records from a large log file found a metadata folder it had not been pointed to, located the exact answer the grader would check against, copied it, and described what it had done as a smart use of indexing." },
-          { p: "The task was recorded as complete, yet nothing had been learned, and the next log file without a metadata folder would have failed. A decision to ship, invest or scale on a score like that rests on a number that doesn’t measure what it appears to." },
+        id: 'exposure', h: "Two ways to get a high score", blocks: [
+          { p: "The second case, scoring without doing the task, is known as reward hacking. The <a href=\"https://arxiv.org/abs/2605.02964\" target=\"_blank\" rel=\"noopener\">Reward Hacking Benchmark<span class=\"visually-hidden\"> (opens in a new tab)</span></a> records a clean example. A frontier model was asked to extract records from a large log file. It listed the task directory, found a metadata folder the task had never mentioned, and copied the precomputed answers it held into its output in two tool calls. The honest route was about eight tool calls of parsing and filtering." },
+          { p: "The run was marked as passed. Nothing about the model’s ability to parse a log had been measured, and the next log file without a metadata folder would have failed. A decision to ship, invest or scale on a score like that rests on a number that doesn’t measure what it appears to." },
         ],
       },
       {
-        id: 'shortfalls', h: "Where standard controls fall short", blocks: [
-          { p: "These habits make a gamed score look the same as an earned one." },
+        id: 'shortfalls', h: "Habits that make a gamed score look earned", blocks: [
           {
             table: {
-              head: ['Practice', 'What it hides', 'Consequence'],
+              label: 'Evaluation habits that hide gaming',
+              head: ['Practice', 'What it hides'],
               rows: [
-                ['Trusting the aggregate score', 'Whether the task was actually performed', 'False confidence'],
-                ['Eval harness reachable by the agent (grader files, gold answers, internal metadata)', 'The agent reads the answer key', 'Scores inflated, behaviour unmeasured'],
-                ['No review of traces, only of scores', 'The shortcut is invisible', 'Systematic gaming goes unnoticed'],
-                ['Same tool access in test and production', 'The exploration pattern that found the grader will probe customer data and code in production', 'Security exposure, not just a quality one'],
+                ['Trusting the aggregate score', 'Whether the task was actually performed'],
+                ['An evaluation harness the agent can reach (grader files, gold answers, internal metadata)', 'The agent reads the answer key'],
+                ['Reviewing scores but not traces', 'The shortcut is invisible'],
+                ['The same tool access in test and in production', 'The exploration that found the grader will probe customer data and code in production'],
               ],
             },
           },
         ],
       },
       {
-        id: 'recommend', h: "What we recommend", blocks: [
+        id: 'recommend', h: "Treat the harness as part of the attack surface", blocks: [
           { p: "We treat the evaluation harness as part of the attack surface, since an agent under test can find its way to it." },
           {
             ol: [
@@ -433,32 +415,32 @@ export const notes = [
               "Score task performance separately from outcome match, so that a right answer reached by the wrong route is visible.",
               "Vary the held-out cases, so that a memorised or located answer cannot pass.",
               "Treat exploration during evaluation as a security signal. An agent that goes looking for evaluator files in testing gets least-privilege scoping before it goes anywhere near production data.",
-              "Re-run under Managed AI Operations whenever models or prompts change, because gaming behaviour changes with the model.",
+              "Re-run the evaluation whenever models or prompts change, because gaming behaviour changes with the model.",
             ],
           },
         ],
       },
     ],
-    recommendation: 'Before you act on an eval number, ask two questions: could the agent have reached the grader, and has anyone read the traces? If either answer is no or unknown, the number is not yet evidence.',
+    recommendation: 'A score is evidence only when the agent had no path to the grader and someone has read the traces. Until both are true, treat the number as a claim the agent made about itself.',
   },
 
   {
     slug: 'decisions-not-reasoning',
-    title: 'Most of your agent’s model calls are decisions, not reasoning',
+    title: 'Most of your agent’s model calls are decisions',
     category: 'Cost & architecture',
     mins: 7,
     forWho: 'CTOs, heads of engineering, finance leads watching AI spend',
     engagements: ['AI Opportunity Sprint', 'Agent MVP', 'Managed AI Operations'],
-    lede: 'In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.',
-    card: 'In a typical agent loop, the large majority of model calls decide something (route this, is that tool call safe, how urgent is this ticket, did this output pass) rather than reason about it. Most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow where it belongs.',
-    related: ['deterministic-orchestrator', 'measure-before-you-ship', 'build-on-real-data'],
+    lede: 'In a typical agent loop, most model calls decide something: route this, is that tool call safe, how urgent is this ticket, did this output pass. Only a minority reason through a problem, and most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow in code.',
+    card: 'In a typical agent loop, most model calls decide something: route this, is that tool call safe, how urgent is this ticket, did this output pass. Only a minority reason through a problem, and most teams pay frontier-model prices for all of them. How to separate the two, cut cost and latency, and keep control flow in code.',
+    related: ['deterministic-orchestrator', 'measure-before-you-ship', 'when-a-high-score-means-nothing'],
     ctaTitle: "Paying frontier prices for every call?",
     ctaText: "A 30-minute working session is usually enough to see how much of that cost can move.",
     sections: [
       {
-        id: 'exposure', h: "The exposure", blocks: [
-          { p: "An agent loop makes two kinds of model call. Reasoning calls work through context, plan and write a response. Decision calls route a request, classify a ticket, check whether a tool call is safe or decide whether an output passes. Practitioner estimates put decision calls at the large majority of the volume." },
-          { p: "Most teams send nearly all of these calls to a frontier model at frontier prices, and the cost repeats on every iteration of the loop, as does the latency. Cheaper and faster classification models can handle the decision calls, including small models, fine-tuned classifiers and newer calibrated decision models such as TypeSafe’s Jev, one example among several. That only works safely if the architecture is designed for it." },
+        id: 'exposure', h: "Two kinds of model call", blocks: [
+          { p: "An agent loop makes two kinds of model call. Reasoning calls work through context, plan and write a response. Decision calls route a request, classify a ticket, check whether a tool call is safe or decide whether an output passes. In the agent loops we have built and audited, decision calls outnumber reasoning calls several times over." },
+          { p: "Most teams send nearly all of these calls to a frontier model at frontier prices, and the cost repeats on every iteration of the loop, as does the latency. Cheaper and faster models can handle the decision calls: small language models, fine-tuned classifiers and, more recently, calibrated decision models built for exactly this. TypeSafe’s Jev is one, still in early access and benchmarked mainly by its vendor. Any of them only works safely if the architecture is designed for it." },
         ],
       },
       {
@@ -479,8 +461,8 @@ export const notes = [
         ],
       },
       {
-        id: 'recommend', h: "What we recommend", blocks: [
-          { p: "We recommend separating the two kinds of call, routing them differently, and keeping the decisions that carry risk in code." },
+        id: 'recommend', h: "Separate the two kinds of call", blocks: [
+          { p: "We separate the two kinds of call, route them differently, and keep the decisions that carry risk in code." },
           {
             ol: [
               "Audit your traces and count reasoning calls against structured decisions. The split tells you how much of the cost can move.",
@@ -495,8 +477,13 @@ export const notes = [
         ],
       },
     ],
-    recommendation: 'Audit one week of agent traces. If more than half the calls are decisions, you are overpaying for them and probably under-measuring them. The fix is architectural, takes a few weeks, and usually pays for itself within a quarter.',
+    recommendation: 'Audit one week of agent traces. If more than half the calls are decisions, you are overpaying for them and probably under-measuring them. The fix is architectural and takes a few weeks.',
   },
 ];
+
+// Reading time from the word count of everything on the page (200 words a minute, never under 2).
+const text = (v) => Array.isArray(v) ? v.map(text).join(' ') : typeof v === 'string' ? v : v && typeof v === 'object' ? Object.values(v).map(text).join(' ') : '';
+const words = (v) => text(v).replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+for (const n of notes) n.mins = Math.max(2, Math.round(words([n.title, n.lede, n.sections, n.recommendation]) / 200));
 
 export const bySlug = Object.fromEntries(notes.map((n) => [n.slug, n]));
