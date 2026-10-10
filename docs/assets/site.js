@@ -62,7 +62,7 @@
   // Contact form (FormSubmit). The AJAX endpoint is set at build time from src/config.mjs.
   // Without JS the form still posts to the action URL and FormSubmit redirects back.
   var form = document.getElementById('contact-form');
-  if (!form) return;
+  if (form) {
   var status = document.getElementById('form-status');
   var fields = form.querySelector('.form__fields');
   var again = form.querySelector('.form__again');
@@ -124,6 +124,22 @@
       button.disabled = false;
     });
   });
+  }
+
+  // Notes index: topic filter buttons show only the matching cards.
+  var filter = document.querySelector('[data-topic-filter]');
+  if (filter) {
+    var pills = filter.querySelectorAll('.pill--filter');
+    var cards = document.querySelectorAll('.note-card[data-topic]');
+    filter.addEventListener('click', function (e) {
+      var btn = e.target.closest('.pill--filter');
+      if (!btn) return;
+      var topic = btn.getAttribute('data-topic');
+      for (var i = 0; i < pills.length; i++) pills[i].setAttribute('aria-pressed', pills[i] === btn ? 'true' : 'false');
+      for (var j = 0; j < cards.length; j++) cards[j].classList.toggle('is-hidden', topic !== 'All' && cards[j].getAttribute('data-topic') !== topic);
+    });
+  }
+
   // Engagement cards: on phones the details sit behind a toggle (CSS hides them under .js at <= 700px).
   var toggles = document.querySelectorAll('.card__toggle');
   for (var k = 0; k < toggles.length; k++) {

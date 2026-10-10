@@ -7,27 +7,27 @@ import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
 
 const problems = [
-  ['USUALLY RAISED BY A CTO OR HEAD OF PRODUCT', '“The demo impressed everyone. On real data it falls apart.”', 'We rebuild around your actual data and edge cases, starting with a test set that defines what “working” means before any code is written.', 'AGENT MVP · AI RELIABILITY AUDIT'],
-  ['USUALLY RAISED BY AN ENGINEERING LEAD', '“We changed a prompt or a model and can’t tell whether things got worse.”', 'We build an evaluation suite that runs on every change, so a drop in accuracy, safety or cost shows up before your customers notice it.', 'AI RELIABILITY AUDIT · MANAGED AI OPERATIONS'],
-  ['USUALLY RAISED BY A HEAD OF RISK OR COMPLIANCE', '“Risk and compliance won’t sign off on anything with AI in it.”', 'We design the controls, audit trails and human checkpoints regulated teams expect, and document them in the language your reviewers use.', 'AI OPPORTUNITY SPRINT · TRANSFORM'],
-  ['USUALLY RAISED BY A COO OR HEAD OF OPERATIONS', '“Our support and back-office queues keep growing.”', 'We automate the classification, triage and first responses, with AI that knows when to hand off to a person, and we measure the cost it takes out.', 'AGENT MVP · BUILD'],
-  ['USUALLY RAISED BY A VP ENGINEERING OR HEAD OF QA', '“AI writes half our code now. Our testing hasn’t caught up.”', 'We bring your quality process up to speed for AI-generated code: automated test generation, risk-based coverage and release gates that keep you shipping quickly without causing outages.', 'QE HEALTH CHECK · ASSURE'],
-  ['USUALLY RAISED BY A FOUNDER OR CEO', '“We need senior technical leadership, but a full-time CTO isn’t realistic yet.”', 'A fractional CTO who owns architecture, hiring, delivery and AI strategy for the days a week you actually need.', 'FRACTIONAL CTO · SCALE'],
-].map(([who, quote, body, tag]) => `<article class="card">
+  ['CTO OR HEAD OF PRODUCT', '“The demo impressed everyone. On real data it falls apart.”', 'We rebuild around your actual data and edge cases, starting with a test set that defines what “working” means before any code is written.', 'AGENT MVP · AI RELIABILITY AUDIT'],
+  ['ENGINEERING LEAD', '“We changed a prompt or a model and can’t tell whether things got worse.”', 'We build an evaluation suite that runs on every change, so a drop in accuracy, safety or cost shows up before your customers notice it.', 'AI RELIABILITY AUDIT · MANAGED AI OPERATIONS'],
+  ['HEAD OF RISK OR COMPLIANCE', '“Risk and compliance won’t sign off on anything with AI in it.”', 'We design the controls, audit trails and human checkpoints regulated teams expect, and document them in the language your reviewers use.', 'AI OPPORTUNITY SPRINT · TRANSFORM'],
+  ['COO OR HEAD OF OPERATIONS', '“Our support and back-office queues keep growing.”', 'We automate the classification, triage and first responses, with AI that knows when to hand off to a person, and we measure the cost it takes out.', 'AGENT MVP · BUILD'],
+  ['VP ENGINEERING OR HEAD OF QA', '“AI writes half our code now. Our testing hasn’t caught up.”', 'We bring your quality process up to speed for AI-generated code: automated test generation, risk-based coverage and release gates that keep you shipping quickly without causing outages.', 'QE HEALTH CHECK · ASSURE'],
+  ['FOUNDER OR CEO', '“We need senior technical leadership, but a full-time CTO isn’t realistic yet.”', 'A fractional CTO who owns architecture, hiring, delivery and AI strategy for the days a week you actually need.', 'FRACTIONAL CTO · SCALE'],
+].map(([who, quote, body, tag]) => `<li class="quote">
 <div class="eyebrow eyebrow--xs eyebrow--grey">${who}</div>
 <h3 class="card__title card__title--sm">${quote}</h3>
 <p class="card__text">${body}</p>
 <div class="card__tag">→ ${tag}</div>
-</article>`).join('\n');
+</li>`).join('\n');
 
 // Anchor id for an engagement card, used by the services' "How we deliver it" links.
 const engId = (name) => 'eng-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '');
 
 const services = [
-  ['build', ['Agent MVP', 'Larger programmes'], '01 — BUILD', 'Agentic AI &amp; GenAI engineering', 'Agents that complete real tasks, assistants that answer from your own data, and automation for support and operations.', ['Agents and workflow automation', 'Knowledge assistants', 'Fine-tuning and model routing'], false],
-  ['assure', ['AI Reliability Audit', 'QE Health Check', 'Managed AI Operations'], '02 — ASSURE', 'AI quality &amp; verifiable assurance', 'Know how your AI performs before your customers do. We measure accuracy, safety and cost, find where it fails and keep it dependable.', ['Evaluation suites', 'Adversarial testing and guardrails', 'Quality for AI-written code'], true],
-  ['transform', ['AI Opportunity Sprint', 'Team Workshops'], '03 — TRANSFORM', 'AI &amp; engineering transformation', 'BCG estimates about 10% of AI’s value comes from the model, 20% from data and technology, and 70% from how work, governance and teams change. We work on the 70%.', ['AI readiness and roadmap', 'AI governance', 'Release and quality engineering'], false],
-  ['scale', ['Fractional CTO', 'Larger programmes'], '04 — SCALE', 'Fractional leadership &amp; capability centres', 'Senior technology leadership without a full-time hire, and engineering or QE teams set up for you in India.', ['Fractional CTO or Head of Engineering', 'India capability centres', 'Managed delivery teams'], false],
+  ['build', ['Agent MVP', 'Larger programmes'], '01 — BUILD', 'Agentic AI engineering', 'Agents that complete real tasks, assistants that answer from your own data, and automation for support and operations.', ['Agents and workflow automation', 'Knowledge assistants', 'Fine-tuning and model routing'], false],
+  ['assure', ['AI Reliability Audit', 'QE Health Check', 'Managed AI Operations'], '02 — ASSURE', 'AI quality assurance', 'Know how your AI performs before your customers do. We measure accuracy, safety and cost, find where it fails and keep it dependable.', ['Evaluation suites', 'Adversarial testing and guardrails', 'Quality for AI-written code'], true],
+  ['transform', ['AI Opportunity Sprint', 'Team Workshops'], '03 — TRANSFORM', 'AI transformation', 'BCG estimates about 10% of AI’s value comes from the model, 20% from data and technology, and 70% from how work, governance and teams change. We work on the 70%.', ['AI readiness and roadmap', 'AI governance', 'Release and quality engineering'], false],
+  ['scale', ['Fractional CTO', 'Larger programmes'], '04 — SCALE', 'Fractional leadership', 'Senior technology leadership without a full-time hire, and engineering or QE teams set up for you in India.', ['Fractional CTO or Head of Engineering', 'India capability centres', 'Managed delivery teams'], false],
 ].map(([ic, via, num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
 <div class="card__top">${icon(ic)}<div class="card__num">${num}</div></div>
 <h3 class="card__title">${title}</h3>
@@ -39,12 +39,12 @@ const services = [
 const uc = (ic, title, body, foot) => `<li class="uc">${icon(ic)}<div class="uc__body"><h3>${title}</h3><p>${body}</p>${foot}</div></li>`;
 const note = (slug, t) => `<a class="uc__note" href="/notes/${slug}/">${t}</a>`;
 const usecases = [
-  uc('support', 'Support and complaint handling', 'Classify, route and draft replies to tickets and complaints, with a person in the loop for the difficult ones.',note('measure-before-you-ship', 'Advisory note: measure the change before you ship it →')),
-  uc('knowledge', 'Knowledge assistants', 'Answer staff or customer questions from policies, contracts and manuals, citing the source every time.', note('grounded-answers', 'Advisory note: a fluent answer is not a grounded answer →')),
-  uc('documents', 'Document processing', 'Extract, check and reconcile data from invoices, KYC files, claims and forms at volume.', note('deterministic-orchestrator', 'Advisory note: keep the orchestrator deterministic →')),
+  uc('support', 'Support and complaint handling', 'Classify, route and draft replies to tickets and complaints, with a person in the loop for the difficult ones.',note('measure-before-you-ship', 'Measure the change before you ship it →')),
+  uc('knowledge', 'Knowledge assistants', 'Answer staff or customer questions from policies, contracts and manuals, citing the source every time.', note('grounded-answers', 'A fluent answer is not a grounded answer →')),
+  uc('documents', 'Document processing', 'Extract, check and reconcile data from invoices, KYC files, claims and forms at volume.', note('deterministic-orchestrator', 'Keep the orchestrator deterministic →')),
   uc('testing', 'AI-assisted testing', 'Generate and maintain tests, flag risky changes and shorten regression cycles in fast-moving codebases.', ''),
   uc('matching', 'Data matching and identity resolution', 'Link records across messy datasets, including Indian-language names, into one trusted view.', ''),
-  uc('compliance', 'Compliance and review workflows', 'Pre-screen documents and decisions against policy, flag exceptions and keep a full audit trail.', note('guardrails-in-the-architecture', 'Advisory note: guardrails belong in the architecture →')),
+  uc('compliance', 'Compliance and review workflows', 'Pre-screen documents and decisions against policy, flag exceptions and keep a full audit trail.', note('guardrails-in-the-architecture', 'Guardrails belong in the architecture →')),
   uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', `<span class="uc__badge">Patent pending</span>`),
 ].join('\n');
 
@@ -105,14 +105,12 @@ const trust = [
   ['<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M9 14l2 2 4-4"></path>', 'You own what we build', 'Code, prompts, evaluation suites and documentation are yours on delivery. We sign a mutual NDA before any detailed discussion.'],
   ['<circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.3 11l7.4-3.8M8.3 13l7.4 3.8"></path>', 'No model or cloud lock-in', 'OpenAI, Anthropic, Google, Llama, Mistral or open-source models; AWS, Azure, Google Cloud, OCI or on-premise. Chosen per task on accuracy, cost and your data policy.'],
   ['<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"></path>', 'Designed around recognised frameworks', 'Audit trails, access controls and human checkpoints built in from the start, designed to the NIST AI Risk Management Framework, the EU AI Act’s risk tiers, India’s DPDP Act and GDPR.'],
-].map(([svg, t, b]) => `<div class="card card--lg">
+].map(([svg, t, b]) => `<div class="trust">
 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2B5BFF" stroke-width="1.8" aria-hidden="true">${svg}</svg>
 <h3 class="card__title card__title--xs">${t}</h3>
 <p class="card__text card__text--sm">${b}</p>
 </div>`).join('\n');
 
-const sectors = ['Financial services', 'Mobility &amp; logistics', 'Gaming', 'Energy &amp; utilities', 'Public sector', 'Software &amp; SaaS']
-  .map((s) => `<li class="pill">${s}</li>`).join('');
 
 const faqs = [
   ['How quickly can EonAI start on a new engagement?', 'Usually within one to two weeks of a first conversation. Fixed-scope engagements such as the AI Opportunity Sprint or the AI Reliability Audit begin with a short kickoff, access to the relevant data or systems, and a signed statement of work. There is no hand-off from a sales team to a delivery team.'],
@@ -134,7 +132,7 @@ ${heroBg()}
 <div class="eyebrow">EVALUATION-FIRST AI ENGINEERING</div>
 <h1>AI that works beyond the demo</h1>
 <p class="hero__lead">Plenty of AI pilots look good in a meeting and stall afterwards. We help startups and enterprises get past that point: building, testing and running AI systems their customers, engineers and auditors can rely on.</p>
-<p class="hero__sub">EonAI’s engineers kept software reliable for millions of users before turning that discipline to AI. We work hands-on, speak plainly and are clear about what AI can and can’t do yet.</p>
+<p class="hero__sub">We work hands-on, speak plainly and are clear about what AI can and can’t do yet.</p>
 <div class="hero__actions">
 <a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 <a class="btn btn--ghost" href="#problems">See what we solve</a>
@@ -172,10 +170,11 @@ ${heroDemo()}
 <div class="section-head">
 <div class="eyebrow">PROBLEMS WE SOLVE</div>
 <h2 class="h2">The situations clients usually bring to us</h2>
+<p class="lede">In the words of the people who usually raise them.</p>
 </div>
-<div class="grid grid--3">
+<ul class="quotes">
 ${problems}
-</div>
+</ul>
 </section>
 
 <!-- ENGINEERING NOTES -->
@@ -233,7 +232,7 @@ ${services}
 <div class="section-head">
 <div class="eyebrow">USE CASES</div>
 <h2 class="h2">Examples of the work we take on</h2>
-<p class="lede">A selection of problems we have built for, tested or led before. Yours does not need to be on the list.</p>
+<p class="lede">A selection of problems we have built for, tested or led before.</p>
 </div>
 <ul class="uc-list">
 ${usecases}
@@ -298,10 +297,6 @@ ${moreOffers}
 <div class="grid grid--trust">
 ${trust}
 </div>
-<ul class="pills pills--sector" aria-label="Sector experience">
-<li class="pills__label">SECTOR EXPERIENCE</li>
-${sectors}
-</ul>
 </section>
 
 <!-- ABOUT -->
@@ -310,7 +305,7 @@ ${sectors}
 <div class="about">
 <div class="eyebrow">ABOUT EONAI</div>
 <h2 class="h2 h2--md">An AI engineering firm with a quality engineering background</h2>
-<p>EonAI is an India-registered firm serving clients worldwide. Its leadership kept software reliable for millions of users at global technology companies and now applies the same discipline to AI. The firm is senior-led and hands-on. The people who scope an engagement are the people who deliver it.</p>
+<p>We are an India-registered firm serving clients worldwide. We kept software reliable for millions of users at global technology companies and now apply the same discipline to AI. We are senior-led and hands-on: the people who scope an engagement are the people who deliver it.</p>
 <p>We do the engineering ourselves and stay until the system is running and your team can own it.</p>
 <p>Two pieces of our own work come with every engagement: a multi-model orchestration engine that routes each task to the best-fit model for accuracy and cost, with a compliance trail for every decision (patent application filed in India, 2025), and the evaluation and test-generation tooling behind our Assure work. You can use both without being locked into them.</p>
 </div>

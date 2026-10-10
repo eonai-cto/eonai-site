@@ -36,12 +36,12 @@ ${s.blocks.map(block).join('\n')}
     .map(([id, h]) => `<a href="#${id}">${h}</a>`).join('\n');
 
   const applies = n.sideApplies
-    ? `<h2>${n.engagements[0]}</h2>
+    ? `<h3>${n.engagements[0]}</h3>
 <p>${n.sideApplies}</p>
 <a class="card__more" href="${ENGAGEMENTS[n.engagements[0]].href}">See the engagement →</a>`
     : n.engagements.map((e) => {
       const info = ENGAGEMENTS[e];
-      return `<h2>${e}</h2>${info.blurb ? `\n<p>${info.blurb}</p>` : ''}\n<a class="card__more" href="${info.href}">${info.href === '/#offers' ? 'See the engagement →' : 'Read more →'}</a>`;
+      return `<h3>${e}</h3>${info.blurb ? `\n<p>${info.blurb}</p>` : ''}\n<a class="card__more" href="${info.href}">${info.href === '/#offers' ? 'See the engagement →' : 'Read more →'}</a>`;
     }).join('\n');
 
   const related = n.related.map((s) => `<a href="/notes/${s}/">${amp(bySlug[s].cardTitle || bySlug[s].title)}</a>`).join('\n');
@@ -67,7 +67,7 @@ ${s.blocks.map(block).join('\n')}
 ${sections}
 
 <section id="our-recommendation" class="recommend">
-<h2>OUR RECOMMENDATION</h2>
+<h2>Our recommendation</h2>
 <p>${n.recommendation}</p>
 </section>
 
@@ -89,7 +89,7 @@ ${applies}
 ${related}
 </nav>
 <div class="side-card side-card--cta">
-<h2>${n.ctaTitle || 'Does your agent have one of these exposures?'}</h2>
+<h3>${n.ctaTitle || 'Does your agent have one of these exposures?'}</h3>
 <p>${n.ctaText || 'A 30-minute working session is usually enough to find out.'}</p>
 <a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session →${BOOK_SR}</a>
 </div>

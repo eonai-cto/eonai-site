@@ -250,6 +250,20 @@ ul, ol { margin: 0; }
   .dl--cursor .dl__txt::after { animation: none; }
 }
 
+/* Problems: two columns of quotes, no boxes */
+.quotes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 0 56px; border-top: 1px solid var(--line); }
+.quote { display: flex; flex-direction: column; gap: 10px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.quote .card__tag { padding-top: 4px; }
+
+/* Trust: four plain columns */
+.trust { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid var(--line); }
+
+/* How we deliver: a line joins the step numbers on wide screens */
+@media (min-width: 900px) {
+  .step { position: relative; }
+  .step:not(:last-child)::before { content: ''; position: absolute; top: 18px; left: 52px; right: -24px; height: 1px; background: var(--line); }
+}
+
 /* Use cases: a compact two-column list on the dark band (no cards) */
 .uc-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 0 56px; border-top: 1px solid var(--border-dark); }
 .uc { display: flex; gap: 16px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid var(--border-dark); }
@@ -353,10 +367,12 @@ ul, ol { margin: 0; }
 
 /* Pills */
 .pills { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 14px; padding: 0; list-style: none; }
-.pills--sector { gap: 16px 20px; margin-top: 40px; }
 .pills__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--caption-grey); margin-right: 8px; }
 .pill { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 16px; font-size: 14px; color: var(--ink); }
-.pills--sector .pill { padding: 9px 16px; }
+.pill--filter { font: inherit; font-size: 14px; cursor: pointer; }
+.pill--filter:hover { border-color: var(--accent); }
+.pill--filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.note-card.is-hidden { display: none; }
 
 /* Labs / about */
 .about { display: flex; flex-direction: column; gap: 16px; max-width: 800px; }
@@ -496,7 +512,7 @@ ul, ol { margin: 0; }
 .scenario td:first-child { font-weight: 600; width: 22%; }
 .scenario td:last-child { color: var(--body-grey); width: 28%; }
 .recommend { background: var(--ink); color: #fff; border-radius: var(--radius); padding: clamp(24px, 4vw, 32px); display: flex; flex-direction: column; gap: 12px; }
-.article .recommend h2 { font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1.5; letter-spacing: 0.12em; color: var(--accent-light); }
+.article .recommend h2 { font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1.5; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light); }
 .recommend p { font-size: 17px; line-height: 1.65; color: var(--on-dark-soft); }
 .article .recommend { gap: 12px; }
 .provenance { font-size: 14px; line-height: 1.6; color: var(--caption-grey); }
@@ -505,7 +521,7 @@ ul, ol { margin: 0; }
 .side-card--cta { background: var(--tint); border-color: var(--tint-border); gap: 10px; }
 .side-card a { font-size: 14px; line-height: 1.5; text-decoration: none; color: var(--text); }
 .side-card a:hover { text-decoration: underline; }
-.side-card h2 { font-weight: 600; font-size: 17px; }
+.side-card h3 { font-weight: 600; font-size: 17px; }
 .side-card p { font-size: 14px; line-height: 1.6; color: var(--body-grey); }
 .side-card a.card__more { font-weight: 600; color: var(--accent); }
 @media (min-width: 1000px) { .sidebar { position: sticky; top: 24px; } }

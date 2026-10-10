@@ -9,7 +9,7 @@ const cards = notes.map((n, i) => {
   const meta = i === 0
     ? `<span class="eyebrow eyebrow--xs eyebrow--light">${upper(n.category)}</span><span class="eyebrow eyebrow--xs eyebrow--quiet">· ${n.mins} MIN READ · FEATURED</span>`
     : `<span class="eyebrow eyebrow--xs">${upper(n.category)}</span><span class="eyebrow eyebrow--xs eyebrow--grey">· ${n.mins} MIN READ</span>`;
-  return `<a class="note-card${i === 0 ? ' note-card--featured' : ''}" href="${href}">
+  return `<a class="note-card${i === 0 ? ' note-card--featured' : ''}" href="${href}" data-topic="${n.category.replace(/&/g, '&amp;')}">
 <div class="note-card__meta">${meta}</div>
 <h2>${n.cardTitle || n.title}</h2>
 <p>${n.card}</p>
@@ -17,9 +17,9 @@ const cards = notes.map((n, i) => {
 </a>`;
 }).join('\n');
 
-// Static topic list (filtering is a later enhancement), in the order the notes appear.
-const pills = [...new Set(notes.map((n) => n.category))].map((c) => c.replace(/&/g, '&amp;'))
-  .map((p) => `<li class="pill">${p}</li>`).join('');
+// Topic filter (site.js): one button per category, in the order the notes appear. Without JS the list is static.
+const pills = ['All', ...new Set(notes.map((n) => n.category))]
+  .map((p) => `<li><button class="pill pill--filter" type="button" data-topic="${p.replace(/&/g, '&amp;')}" aria-pressed="${p === 'All' ? 'true' : 'false'}">${p.replace(/&/g, '&amp;')}</button></li>`).join('');
 
 const body = `
 <section class="page-title on-dark">
@@ -32,13 +32,13 @@ const body = `
 </section>
 
 <section class="container" style="padding-block: clamp(48px, 7vw, 72px) clamp(64px, 9vw, 112px)">
-<ul class="pills" style="margin: 0 0 32px" aria-label="Note topics">
+<ul class="pills" style="margin: 0 0 32px" aria-label="Filter notes by topic" data-topic-filter>
 <li class="pills__label">TOPICS</li>
 ${pills}
 </ul>
 <div class="grid grid--3">
 ${cards}
-<a class="note-card note-card--talk" href="${TALK_URL}" target="_blank" rel="noopener">
+<a class="note-card note-card--talk" href="${TALK_URL}" target="_blank" rel="noopener" data-topic="Talk">
 <div class="note-card__meta"><span class="eyebrow eyebrow--xs">TALK</span><span class="eyebrow eyebrow--xs eyebrow--grey">· TEST DRIVE PLATFORM · VIDEO</span></div>
 <h2>${TALK_TITLE}</h2>
 <p>A guest talk from EonAI on what changes in testing and release practice when much of your code is written by AI, and what to do about it.</p>
