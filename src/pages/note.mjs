@@ -91,7 +91,7 @@ ${related}
 <div class="side-card side-card--cta">
 <h2>${n.ctaTitle || 'Does your agent have one of these exposures?'}</h2>
 <p>${n.ctaText || 'A 30-minute working session is usually enough to find out.'}</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a call →${BOOK_SR}</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session →${BOOK_SR}</a>
 </div>
 </aside>
 </div>

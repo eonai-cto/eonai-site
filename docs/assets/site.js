@@ -124,6 +124,23 @@
       button.disabled = false;
     });
   });
+  // Engagement cards: on phones the details sit behind a toggle (CSS hides them under .js at <= 700px).
+  var toggles = document.querySelectorAll('.card__toggle');
+  for (var k = 0; k < toggles.length; k++) {
+    toggles[k].addEventListener('click', function () {
+      var card = this.closest('.card--eng');
+      var open = card.classList.toggle('is-open');
+      this.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+  // A link to a collapsed card (services chips, notes) opens it.
+  var openTarget = function () {
+    var t = location.hash && document.querySelector(location.hash);
+    if (t && t.classList.contains('card--eng')) { t.classList.add('is-open'); var b = t.querySelector('.card__toggle'); if (b) b.setAttribute('aria-expanded', 'true'); }
+  };
+  window.addEventListener('hashchange', openTarget);
+  openTarget();
+
   // Hero demo: play the scenes rendered by src/hero-demo.mjs one after another, in a fresh random order
   // each visit (no scene repeats until all have played, and never twice in a row).
   var demo = document.querySelector('.demo');

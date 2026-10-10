@@ -1,6 +1,5 @@
 import { page, BOOK, BOOK_ATTRS, BOOK_SR, esc, emailWithCopy } from '../layout.mjs';
 import { icon } from '../icons.mjs';
-import { explainer } from '../explainer.mjs';
 import { heroBg } from '../hero-bg.mjs';
 import { heroDemo } from '../hero-demo.mjs';
 import { SITE_URL, FORM_TARGET, TALK_URL, TALK_TITLE } from '../config.mjs';
@@ -37,8 +36,8 @@ const services = [
 <div class="card__deliver"><div class="card__deliver-label">HOW WE DELIVER IT</div><div class="card__chips">${via.map((e) => `<a class="svc-chip" href="#${engId(e)}">${e}</a>`).join('')}</div></div>
 </article>`).join('\n');
 
-const uc = (ic, title, body, foot) => `<div class="ucard">${icon(ic)}<h3>${title}</h3><p>${body}</p>${foot}</div>`;
-const note = (slug, t) => `<a class="ucard__note" href="/notes/${slug}/">${t}</a>`;
+const uc = (ic, title, body, foot) => `<li class="uc">${icon(ic)}<div class="uc__body"><h3>${title}</h3><p>${body}</p>${foot}</div></li>`;
+const note = (slug, t) => `<a class="uc__note" href="/notes/${slug}/">${t}</a>`;
 const usecases = [
   uc('support', 'Support and complaint handling', 'Classify, route and draft replies to tickets and complaints, with a person in the loop for the difficult ones.',note('measure-before-you-ship', 'Advisory note: measure the change before you ship it →')),
   uc('knowledge', 'Knowledge assistants', 'Answer staff or customer questions from policies, contracts and manuals, citing the source every time.', note('grounded-answers', 'Advisory note: a fluent answer is not a grounded answer →')),
@@ -46,13 +45,13 @@ const usecases = [
   uc('testing', 'AI-assisted testing', 'Generate and maintain tests, flag risky changes and shorten regression cycles in fast-moving codebases.', ''),
   uc('matching', 'Data matching and identity resolution', 'Link records across messy datasets, including Indian-language names, into one trusted view.', ''),
   uc('compliance', 'Compliance and review workflows', 'Pre-screen documents and decisions against policy, flag exceptions and keep a full audit trail.', note('guardrails-in-the-architecture', 'Advisory note: guardrails belong in the architecture →')),
-  uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', `<div class="ucard__meta"><span class="ucard__badge">Patent pending</span></div>`),
+  uc('routing', 'Multi-model orchestration', 'Send each task to the model that handles it best on accuracy and cost, with a record of every decision.', `<span class="uc__badge">Patent pending</span>`),
 ].join('\n');
 
 const steps = [
-  ['Define success', 'Choose the use case, agree the business metric and build the test set the system has to pass. The job description.'],
+  ['Define success', 'Choose the use case, agree the business metric and build the test set the system has to pass.'],
   ['Build on real data', 'A working version on your data within weeks, using whichever model handles each task best on accuracy and cost.'],
-  ['Test it properly', 'Measure accuracy, safety and cost. Try to break it. Add guardrails until it clears the bar you set. The probation period.'],
+  ['Test it properly', 'Measure accuracy, safety and cost. Try to break it. Add guardrails until it clears the bar you set.'],
   ['Run it, then hand over', 'Deploy with monitoring and train your team, so the work carries on after we leave. Code, prompts, tests and documentation are all yours.'],
 ].map(([t, b], i) => `<li class="step"><div class="step__num" aria-hidden="true">${i + 1}</div><h3>${t}</h3><p class="card__text">${b}</p></li>`).join('\n');
 
@@ -64,13 +63,24 @@ const offers = [
   ['Managed AI Operations', 'MONTHLY', 'We keep your AI working after launch, for teams who would rather not build an AI operations function yet.', 'You walk away with, every month', ['Evaluations re-run on every prompt, model or data change', 'Monitoring of accuracy, cost and drift, with a report you can show your board', 'Prompts and models under release control, with guardrails kept current'], 'How it runs: a monthly retainer sized to the systems in scope, cancellable with notice'],
   ['Fractional CTO', 'ONGOING', 'Senior technology leadership on a retainer, for seed to Series A startups.', 'You walk away with', ['Architecture and technology decisions you can defend to investors', 'Hiring plans, interviews and onboarding for your first engineers', 'A delivery cadence and AI strategy owned by someone accountable'], 'How it runs: one to three days a week, with a defined hand-over when you hire full-time'],
   ['Team Workshops', '1–2 DAYS', 'Hands-on sessions for engineering and product teams, in person or remote.', 'Current workshops', ['Evaluating LLM applications and agents', 'Quality engineering for AI-generated code', 'AI governance for product and risk teams'], 'How it runs: tailored to your stack, with exercises on your own systems where possible'],
-].map(([t, m, d, lab, items, foot]) => `<article class="card card--eng" id="${engId(t)}">
+];
+const PRIMARY = ['AI Opportunity Sprint', 'Agent MVP', 'AI Reliability Audit', 'Managed AI Operations'];
+const offerCards = offers.filter(([t]) => PRIMARY.includes(t)).map(([t, m, d, lab, items, foot]) => `<article class="card card--eng" id="${engId(t)}">
 <div class="card__head"><h3 class="card__title card__title--eng">${t}</h3><span class="card__meta">${m}</span></div>
 <p class="card__text">${d}</p>
+<button class="card__toggle" type="button" aria-expanded="false">Details</button>
 <div class="card__label">${lab}</div>
 <ul class="card__list card__list--eng">${items.map((i) => `<li>${i}</li>`).join('')}</ul>
 <div class="card__foot">${foot}</div>
 </article>`).join('\n');
+const moreOffers = [
+  ...offers.filter(([t]) => !PRIMARY.includes(t)).map(([t, m, d]) => [t, m, d, `#${engId(t)}`]),
+  ['Larger programmes', 'SCOPED INDIVIDUALLY', 'Full builds, multi-quarter transformations and India capability centres, scoped after a short discovery phase.', null],
+].map(([t, m, d, href]) => `<li class="eng-more__item card--eng" id="${engId(t)}">
+<div class="eng-more__head"><h3>${t}</h3><span class="card__meta">${m}</span></div>
+<p>${d}</p>
+${href ? '' : `<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a conversation →${BOOK_SR}</a>`}
+</li>`).join('\n');
 
 
 const chip = (name, len, cls = '') => `<li class="path__step${cls}"><span class="path__name">${name}</span><span class="path__len">${len}</span></li>`;
@@ -144,42 +154,17 @@ ${heroDemo()}
 <div class="grid grid--2">
 <div class="card card--lg">
 <div class="eyebrow eyebrow--sm">FOR STARTUPS</div>
-<h2 class="card__title">Ship a credible AI product before the runway runs out.</h2>
+<h2 class="card__title">Ship a working AI product</h2>
 <p class="card__text">A working agent in weeks, senior technical leadership for the days you need it, and the evaluation evidence investors and first customers ask for.</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a working session →${BOOK_SR}</a>
+<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session →${BOOK_SR}</a>
 </div>
 <div class="card card--lg">
 <div class="eyebrow eyebrow--sm">FOR ENTERPRISES</div>
-<h2 class="card__title">Move AI from pilot to production, safely.</h2>
+<h2 class="card__title">Take AI from pilot to production</h2>
 <p class="card__text">A clear view of where AI pays off, governance your risk and compliance teams will sign off on, and delivery that fits how your engineers already work.</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Request an AI readiness workshop →${BOOK_SR}</a>
+<a class="card__more" href="#eng-ai-opportunity-sprint">Start with the AI Opportunity Sprint →</a>
 </div>
 </div>
-</section>
-
-<!-- WHY PILOTS STALL -->
-<section class="container section">
-<div class="band-dark">
-<div class="band-dark__title">
-<div class="eyebrow">WHY PILOTS STALL</div>
-<h2>Four reasons, and none of them is the model.</h2>
-</div>
-<ul class="band-dark__list">
-<li><strong>No agreed definition of success.</strong> So nobody can say whether it works.</li>
-<li><strong>Built on sample data.</strong> Real data has edge cases the demo never saw.</li>
-<li><strong>Governance bolted on at the end.</strong> Risk and compliance say no, late.</li>
-<li><strong>Nobody owns it after launch.</strong> Models change, prompts drift, quality slips.</li>
-</ul>
-</div>
-</section>
-
-<!-- EXPLAINER -->
-<section class="container section--tall" id="explainer">
-<div class="section-head">
-<div class="eyebrow">HOW IT WORKS</div>
-<h2 class="h2">From demo to production</h2>
-</div>
-${explainer()}
 </section>
 
 <!-- PROBLEMS -->
@@ -190,109 +175,6 @@ ${explainer()}
 </div>
 <div class="grid grid--3">
 ${problems}
-</div>
-</section>
-
-<!-- SERVICES -->
-<section class="container section--tall" id="services">
-<div class="section-head">
-<div class="eyebrow">SERVICES</div>
-<h2 class="h2">What we do</h2>
-</div>
-<div class="grid grid--4">
-${services}
-</div>
-</section>
-
-<!-- USE CASES -->
-<section class="usecases on-dark" id="usecases">
-<div class="container usecases__inner">
-<div class="section-head">
-<div class="eyebrow">USE CASES</div>
-<h2 class="h2">Examples of the work we take on</h2>
-<p class="lede">A selection of problems we have built for, tested or led before. Yours does not need to be on the list.</p>
-</div>
-<div class="grid grid--dark">
-${usecases}
-<a class="ucard ucard--cta" href="#contact"><h3>Something else?</h3><p>Tell us what you are working on.</p><span class="ucard__note">Describe your problem →</span></a>
-</div>
-</div>
-</section>
-
-<!-- APPROACH -->
-<section class="container section--tall" id="approach">
-<div class="panel-light">
-<div class="section-head section-head--wide">
-<div class="eyebrow">HOW WE WORK · EVALUATION-FIRST DELIVERY</div>
-<h2 class="h2">If we can’t measure it, we don’t ship it.</h2>
-<p class="lede">Think of an AI agent as a new hire. It needs a job description, a probation period, performance reviews and an exit process. That is what evaluation-first delivery means in practice: we agree what “good” looks like before writing any code, then test against it at every step. You see the numbers as we go, not just a demo at the end.</p>
-</div>
-<ol class="steps">
-${steps}
-</ol>
-</div>
-</section>
-
-<!-- OFFERS -->
-<section class="container section--tall" id="offers">
-<div class="section-head section-head--split">
-<div class="section-head">
-<div class="eyebrow">ENGAGEMENTS</div>
-<h2 class="h2">Start small, see the results, then decide.</h2>
-<p class="lede">Most relationships begin with a short, fixed-scope engagement. Each one ends with something concrete you keep.</p>
-</div>
-<a class="link-strong" href="#contact">Not sure which fits? Ask us →</a>
-</div>
-${paths}
-<div class="grid grid--engage">
-${offers}
-<article class="card card--highlight card--center card--eng" id="${engId('Larger programmes')}">
-<h3 class="card__title card__title--eng">Larger programmes</h3>
-<p class="card__text">Full builds, multi-quarter transformations and India capability centres are scoped individually after a short discovery phase.</p>
-<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a conversation →${BOOK_SR}</a>
-</article>
-</div>
-</section>
-
-<!-- TRUST -->
-<section class="container section--tall">
-<div class="section-head section-head--tight">
-<div class="eyebrow">SECURITY, DATA AND OWNERSHIP</div>
-<h2 class="h2">Built to pass your security review</h2>
-</div>
-<div class="grid grid--trust">
-${trust}
-</div>
-<ul class="pills pills--sector" aria-label="Sector experience">
-<li class="pills__label">SECTOR EXPERIENCE</li>
-${sectors}
-</ul>
-</section>
-
-<!-- LABS -->
-<section class="container section--tall">
-<div class="band-dark band-labs">
-<div class="band-dark__title">
-<div class="eyebrow">EONAI LABS</div>
-<h2>The IP we bring to every engagement</h2>
-<p>Two pieces of our own work shorten engagements and improve reliability. You can use them without being locked into them.</p>
-</div>
-<div class="labs-grid">
-<div class="ucard"><h3>Multi-model orchestration engine</h3><p>Routes each task to the best-fit model for accuracy and cost, with a compliance trail for every decision. Patent application filed in India, 2025.</p></div>
-<div class="ucard"><h3>GenAI quality platform</h3><p>Evaluation, test generation and triage for AI systems and AI-written code, in development on the engine above. The tooling behind our Assure work.</p></div>
-</div>
-</div>
-</section>
-
-<!-- ABOUT -->
-<section class="container section--tall" id="about">
-<div class="panel-light">
-<div class="about">
-<div class="eyebrow">ABOUT EONAI</div>
-<h2 class="h2 h2--md">An AI engineering firm with a quality engineering background.</h2>
-<p>EonAI is an India-registered firm serving clients worldwide. Its leadership kept software reliable for millions of users at global technology companies and now applies the same discipline to AI. The firm is senior-led and hands-on. The people who scope an engagement are the people who deliver it.</p>
-<p>We do the engineering ourselves and stay until the system is running and your team can own it.</p>
-</div>
 </div>
 </section>
 
@@ -334,6 +216,107 @@ ${sectors}
 </div>
 </section>
 
+<!-- SERVICES -->
+<section class="container section--tall" id="services">
+<div class="section-head">
+<div class="eyebrow">SERVICES</div>
+<h2 class="h2">What we do</h2>
+</div>
+<div class="grid grid--4">
+${services}
+</div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases on-dark" id="usecases">
+<div class="container usecases__inner">
+<div class="section-head">
+<div class="eyebrow">USE CASES</div>
+<h2 class="h2">Examples of the work we take on</h2>
+<p class="lede">A selection of problems we have built for, tested or led before. Yours does not need to be on the list.</p>
+</div>
+<ul class="uc-list">
+${usecases}
+<li class="uc uc--cta"><div class="uc__body"><h3>Something else?</h3><p>Tell us what you are working on.</p><a class="uc__note" href="#contact">Describe your problem →</a></div></li>
+</ul>
+</div>
+</section>
+
+<!-- APPROACH -->
+<section class="container section--tall" id="approach">
+<div class="panel-light">
+<div class="section-head section-head--wide">
+<div class="eyebrow">HOW WE WORK · EVALUATION-FIRST DELIVERY</div>
+<h2 class="h2">How we deliver</h2>
+<p class="lede">Pilots usually stall for one of four reasons: no agreed definition of success, a build on sample data, governance bolted on at the end, and nobody owning the system after launch. None of them is the model. Evaluation-first delivery answers all four. We agree what “good” looks like before writing any code, build on your real data, test against that bar at every step and stay until your team owns the result. You see the numbers as we go.</p>
+</div>
+<ol class="steps">
+${steps}
+</ol>
+</div>
+</section>
+
+<!-- OFFERS -->
+<section class="container section--tall" id="offers">
+<div class="section-head section-head--split">
+<div class="section-head">
+<div class="eyebrow">ENGAGEMENTS</div>
+<h2 class="h2">Where to start</h2>
+<p class="lede">Most relationships begin with a short, fixed-scope engagement. Each one ends with something concrete you keep.</p>
+</div>
+<a class="link-strong" href="#contact">Not sure which fits? Ask us →</a>
+</div>
+${paths}
+<div class="grid grid--engage">
+${offerCards}
+</div>
+<div class="eng-more">
+<div class="eng-more__label">ALSO AVAILABLE</div>
+<ul class="eng-more__list">
+${moreOffers}
+</ul>
+</div>
+</section>
+
+<!-- MID-PAGE CTA -->
+<section class="container section--tall">
+<div class="cta-band">
+<div>
+<h2>Not sure where to start?</h2>
+<p>Thirty minutes with a senior engineer, on your problem. We will say which engagement fits, or that none does.</p>
+</div>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
+</div>
+</section>
+
+<!-- TRUST -->
+<section class="container section--tall">
+<div class="section-head section-head--tight">
+<div class="eyebrow">SECURITY, DATA AND OWNERSHIP</div>
+<h2 class="h2">Built to pass your security review</h2>
+</div>
+<div class="grid grid--trust">
+${trust}
+</div>
+<ul class="pills pills--sector" aria-label="Sector experience">
+<li class="pills__label">SECTOR EXPERIENCE</li>
+${sectors}
+</ul>
+</section>
+
+<!-- ABOUT -->
+<section class="container section--tall" id="about">
+<div class="panel-light">
+<div class="about">
+<div class="eyebrow">ABOUT EONAI</div>
+<h2 class="h2 h2--md">An AI engineering firm with a quality engineering background</h2>
+<p>EonAI is an India-registered firm serving clients worldwide. Its leadership kept software reliable for millions of users at global technology companies and now applies the same discipline to AI. The firm is senior-led and hands-on. The people who scope an engagement are the people who deliver it.</p>
+<p>We do the engineering ourselves and stay until the system is running and your team can own it.</p>
+<p>Two pieces of our own work come with every engagement: a multi-model orchestration engine that routes each task to the best-fit model for accuracy and cost, with a compliance trail for every decision (patent application filed in India, 2025), and the evaluation and test-generation tooling behind our Assure work. You can use both without being locked into them.</p>
+</div>
+</div>
+</section>
+
 <!-- FAQ -->
 <section class="container section--tall" style="padding-bottom: clamp(64px, 9vw, 112px)">
 <div class="faq">
@@ -352,10 +335,10 @@ ${faqs}
 <div class="container contact__inner">
 <div class="contact__copy">
 <div class="eyebrow">CONTACT</div>
-<h2 class="h2">Tell us about the problem. We’ll tell you whether we can help.</h2>
-<p class="lede">If you’d rather talk, book a 30-minute call with a senior engineer. It’s a working session on your problem, not a sales pitch.</p>
+<h2 class="h2">Tell us about the problem</h2>
+<p class="lede">We’ll tell you whether we can help. If you’d rather talk, book a 30-minute call with a senior engineer. It’s a working session on your problem, not a sales pitch.</p>
 <div class="contact__actions">
-<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call${BOOK_SR}</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 ${emailWithCopy('contact__mail')}
 </div>
 <div class="next">

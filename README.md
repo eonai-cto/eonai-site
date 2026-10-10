@@ -67,7 +67,7 @@ To change the logo, edit the constants at the top of `brand/make-logo.py` and ru
 
 ## Visuals
 
-Icons: `src/icons.mjs`. Engagement routes: `paths` in `src/pages/home.mjs`. Explainer scenes and captions: `src/explainer.mjs` (each scene is a small inline SVG; animation classes `a-rise`, `a-grow`, `a-pop`, `a-fade`, `a-draw`, `a-spin` are defined in `site.css`). Rules in `CLAUDE.md` § Visuals.
+Icons: `src/icons.mjs`. Engagement routes: `paths` in `src/pages/home.mjs`. Hero demo scenes: `src/hero-demo.mjs` (each scene is a small inline SVG; animation classes `a-rise`, `a-grow`, `a-pop`, `a-fade`, `a-draw`, `a-spin` are defined in `site.css`). Rules in `CLAUDE.md` § Visuals.
 
 ## Edit copy
 

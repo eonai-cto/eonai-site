@@ -37,7 +37,7 @@ function header(current) {
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
 <nav class="nav" id="site-nav" aria-label="Main">
 ${links}
-<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a call${BOOK_SR}</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a session${BOOK_SR}</a>
 </nav>
 </div>
 </header>`;
