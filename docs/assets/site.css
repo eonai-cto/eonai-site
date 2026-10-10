@@ -110,8 +110,6 @@ ul, ol { margin: 0; }
 .btn--primary:hover { background: #2350E6; color: #fff; }
 .btn--ghost { color: #fff; border-color: var(--ghost-line); }
 .btn--ghost:hover { color: #fff; border-color: var(--on-dark-quiet); }
-.btn--dark { background: var(--ink); color: #fff; }
-.btn--dark:hover { background: var(--panel); color: #fff; }
 .btn--sm { padding: 12px 20px; font-size: 15px; }
 
 /* Header */
