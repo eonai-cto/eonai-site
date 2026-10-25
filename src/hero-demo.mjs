@@ -148,12 +148,14 @@ const paint = (src) => esc(src).replace(/\{([kfsdoxwm]):([^}]*)\}/g, '<span clas
 const plain = (src) => src.replace(/\{[kfsdoxwm]:([^}]*)\}/g, '$1');
 const typedMs = (src) => plain(src).length * CHAR_MS;
 
-for (const sc of scenes) {
-  if (sc.code.length > CODE_LINES) throw new Error(`hero-demo: ${sc.title} has more than ${CODE_LINES} code lines`);
-  for (const [src] of [...sc.code, ...sc.term]) {
-    if (plain(src).length > 44) throw new Error(`hero-demo: line too long in ${sc.title}: ${plain(src)}`);
+const validate = (scenes, name) => {
+  for (const sc of scenes) {
+    if (sc.code.length > CODE_LINES) throw new Error(`${name}: ${sc.title} has more than ${CODE_LINES} code lines`);
+    for (const [src] of [...sc.code, ...sc.term]) {
+      if (plain(src).length > 44) throw new Error(`${name}: line too long in ${sc.title}: ${plain(src)}`);
+    }
   }
-}
+};
 
 // Timeline (ms from scene start) for one scene; returns [codeAt, termAt, end].
 const timeline = (sc) => {
@@ -195,7 +197,7 @@ const line = (src, at, cls, n) => {
   return `<span class="dl ${cls}" data-at="${at}">${n !== undefined ? `<span class="dl__n">${n}</span>` : ''}${body}</span>`;
 };
 
-const scene = (sc, k) => {
+const scene = (termLabel) => (sc, k) => {
   const [codeAt, termAt, end] = timeline(sc);
   const term = [...sc.term, ['{d:$} ', 0]];
   termAt.push(end - 3400);
@@ -205,11 +207,17 @@ const scene = (sc, k) => {
     line(src, termAt[j], `${isTyped ? 'dl--type' : ''}${j === term.length - 1 ? ' dl--cursor' : ''}`)).join('');
   return `<div class="demo__scene${k === 0 ? ' is-active' : ''}" data-end="${end}" data-title="${sc.title}" role="img" aria-label="${sc.label}">
 <div class="demo__pane"><div class="demo__label">${sc.file}</div><div class="demo__code">${codeHtml}</div></div>
-<div class="demo__pane demo__pane--term"><div class="demo__label">terminal</div><div class="demo__term"><div class="demo__scroll" style="--end:${Math.max(0, term.length - VIEW)}">${termHtml}</div></div></div>
+<div class="demo__pane demo__pane--term"><div class="demo__label">${termLabel}</div><div class="demo__term"><div class="demo__scroll" style="--end:${Math.max(0, term.length - VIEW)}">${termHtml}</div></div></div>
 </div>`;
 };
 
-export const heroDemo = () => `<div class="demo" data-view="${VIEW}" style="--view:${VIEW};--code-lines:${CODE_LINES}">
+// Build a demo window from a scene list. The player in site.js drives any `.demo` on the page (one per page).
+export const buildDemo = (scenes, { name = 'hero-demo', termLabel = 'terminal' } = {}) => {
+  validate(scenes, name);
+  return `<div class="demo" data-view="${VIEW}" style="--view:${VIEW};--code-lines:${CODE_LINES}">
 <div class="demo__bar"><span class="demo__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="demo__title" aria-hidden="true">${scenes[0].title}</span><button class="demo__toggle" type="button" aria-label="Pause animation">Pause</button></div>
-${scenes.map(scene).join('\n')}
+${scenes.map(scene(termLabel)).join('\n')}
 </div>`;
+};
+
+export const heroDemo = () => buildDemo(scenes);

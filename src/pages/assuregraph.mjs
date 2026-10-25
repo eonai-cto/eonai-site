@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { page, BOOK, BOOK_ATTRS, BOOK_SR } from '../layout.mjs';
 import { SITE_URL } from '../config.mjs';
+import { productDemo } from '../product-demo.mjs';
 
 // The lowercase lockup, inlined like the EonAI logo (brand/make-assuregraph.py). Decorative; the h1 carries the name as hidden text.
 const lockup = readFileSync(new URL('../../brand/logo/assuregraph-logo-on-dark.svg', import.meta.url), 'utf8')
@@ -49,8 +50,9 @@ const security = [
 ].map(([t, d]) => `<div class="trust"><h3 class="card__title card__title--xs">${t}</h3><p class="card__text">${d}</p></div>`).join('\n');
 
 const body = `
-<section class="page-title on-dark ag-hero">
-<div class="container page-title__inner">
+<section class="hero on-dark ag-hero">
+<div class="container hero__inner">
+<div class="hero__copy">
 <div class="eyebrow">PRODUCT · AGENTIC AI FOR QUALITY ENGINEERING</div>
 <h1 class="ag-h1">${lockup}<span class="visually-hidden">AssureGraph</span></h1>
 <p class="page-title__lead">Developers write code with AI assistants now, and the rate of change has gone up. Testing has not kept pace. AssureGraph watches changes in your code, specs, designs and logs, writes and maintains the tests they need, and keeps the record from requirement to evidence. It runs on the LLM you already use, in your VPC or an isolated tenant.</p>
@@ -58,6 +60,8 @@ const body = `
 <a class="btn btn--primary" href="${EARLY_ACCESS}">Join the waitlist</a>
 <a class="btn btn--ghost" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 </div>
+</div>
+${productDemo()}
 </div>
 </section>
 

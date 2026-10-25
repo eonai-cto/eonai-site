@@ -10,7 +10,8 @@ src/layout.mjs            header, footer, <head> metadata, booking and email hel
 src/pages/                home, assuregraph (product page), notes index, note template, privacy, 404
 src/notes-data.mjs        content of all eight engineering notes (reading time computed from word count)
 src/hero-bg.mjs           home hero background: the slowly turning loops (inline SVG)
-src/hero-demo.mjs         home hero demo: five agent-code scenes played by site.js
+src/hero-demo.mjs         home hero demo: five agent-code scenes played by site.js (exports buildDemo)
+src/product-demo.mjs      AssureGraph hero demo: four scenes of the product at work, built with buildDemo
 src/icons.mjs             line icons for the service cards and use cases
 src/assets/               site.css (single stylesheet), site.js (mobile nav, copy buttons, form, notes filter,
                           engagement toggles, hero demo player)

@@ -1,0 +1,113 @@
+// AssureGraph product page hero: the same window as the home hero demo (src/hero-demo.mjs), with scenes that show
+// the product at work. Top pane: the change that landed (a diff, a CI log, a spec, a release). Bottom pane: the
+// AssureGraph trace. Same build-time limits: code ≤ 9 lines, every line ≤ 44 characters. Numbers are illustrative.
+import { buildDemo } from './hero-demo.mjs';
+
+const scenes = [
+  {
+    title: 'pr-482 · refund cap',
+    file: 'PR #482 · refunds.py',
+    label: 'Illustration: a pull request changes the refund cap to count earlier refunds. AssureGraph sees that the behaviour changed, routes it to a mid-sized model under policy, generates three unit tests, runs them, checks the rationale against the diff, places them at unit level and records the lineage. A pull request with the tests is opened.',
+    code: [
+      ['{d:@@ apply_refund @@}', 1],
+      ['{x:-   if amt <= order.total:}', 1],
+      ['{o:+   paid = ledger.refunded(order.id)}', 1],
+      ['{o:+   if amt + paid <= order.total:}', 1],
+      ['        {k:return} payments.refund(order, amt)', 1],
+      ['{x:-   raise RefundTooLarge}', 1],
+      ['{o:+   raise RefundTooLarge(paid=paid)}', 1],
+    ],
+    term: [
+      ['{d:$} {w:assuregraph run --pr 482}', 2, true],
+      ['  {d:◦} behaviour change: cap is now cumulative', 2],
+      ['  {d:↳} policy_brain.route(diff)', 2],
+      ['    {d:←} unit tests · mid model · cost 4×', 2],
+      ['  {d:↳} generate(tests={s:3})', 2],
+      ['    {d:←} test_refund_within_total', 2],
+      ['    {d:←} test_refund_over_total_after_partial', 2],
+      ['  {d:↳} validate()      {o:3 run · 3 pass}', 2],
+      ['  {d:↳} judge()         {o:rationale matches diff}', 2],
+      ['  {d:↳} suite.place(level={s:unit})', 2],
+      ['  {d:↳} ledger.write({s:REQ-311} → 3 tests → run)', 2],
+      ['{m:PR opened · 3 tests · lineage recorded}', 2],
+    ],
+  },
+  {
+    title: 'nightly-5127 · triage',
+    file: 'ci · nightly run 5127',
+    label: 'Illustration: a nightly run has three failures. AssureGraph checks each test’s history: two fail without any code change, one from a missing await and one from test order, so they are quarantined with fix pull requests; the third started failing after a specific pull request and gets a ticket to the owning team.',
+    code: [
+      ['{d:# ci/nightly · run 5127 · 41m}', 1],
+      ['{x:FAILED} checkout/test_cart.py::test_total', 1],
+      ['{x:FAILED} search/test_index.py::test_rebuild', 1],
+      ['{x:FAILED} auth/test_login.py::test_lockout', 1],
+      ['{d:2,415 passed · 3 failed}', 1],
+    ],
+    term: [
+      ['{d:$} {w:assuregraph triage --run 5127}', 2, true],
+      ['  {d:↳} history(test_total)      12 runs', 2],
+      ['    {d:←} fails 4 of 12 with no code change', 2],
+      ['    {d:←} cause: timing, missing await', 2],
+      ['  {d:↳} quarantine(test_total)   {o:fix PR opened}', 2],
+      ['  {d:↳} history(test_rebuild)    12 runs', 2],
+      ['    {d:←} fails 3 of 12 · order-dependent', 2],
+      ['  {d:↳} quarantine(test_rebuild) {o:fix PR opened}', 2],
+      ['  {d:↳} history(test_lockout)    first failure', 2],
+      ['    {x:← fails since PR #480 · real}', 2],
+      ['  {d:↳} ticket(test_lockout, owner={s:auth})', 2],
+      ['{m:2 flaky quarantined · 1 real · build green}', 2],
+    ],
+  },
+  {
+    title: 'pay-77 · spec change',
+    file: 'Jira PAY-77 · refund policy v4',
+    label: 'Illustration: a policy document changes the refund window from 14 to 30 days. AssureGraph finds that the existing tests cover only the old window, routes the spec text to a larger model, generates two API tests for the new boundary, and records them against the requirement ahead of the code change.',
+    code: [
+      ['{d:PAY-77 · Refund policy v4}', 1],
+      ['{x:- Refunds allowed within 14 days}', 1],
+      ['{o:+ Refunds allowed within 30 days}', 1],
+      ['{o:+ Partial refunds count toward the cap}', 1],
+      ['', 1],
+      ['{d:Acceptance: a day-29 refund succeeds;}', 1],
+      ['{d:  a day-31 refund is refused}', 1],
+    ],
+    term: [
+      ['{d:$} {w:assuregraph run --spec PAY-77}', 2, true],
+      ['  {d:↳} coverage_graph.lookup(refund window)', 2],
+      ['    {d:←} 2 tests cover 14 days · none cover 30', 2],
+      ['  {d:↳} policy_brain.route(spec)', 2],
+      ['    {d:←} api tests · large model · spec text', 2],
+      ['  {d:↳} generate(tests={s:2})', 2],
+      ['    {d:←} test_refund_day_29_succeeds', 2],
+      ['    {d:←} test_refund_day_31_refused', 2],
+      ['  {d:↳} validate()   {x:2 fail} · awaiting the code', 2],
+      ['  {d:↳} ledger.write({s:PAY-77} → 2 tests, pending)', 2],
+      ['{m:2 tests ahead of the code · gap recorded}', 2],
+    ],
+  },
+  {
+    title: 'v2.14.0 · release gate',
+    file: 'release · v2.14.0',
+    label: 'Illustration: a release gate. AssureGraph queries the ledger for every change in the release, confirms each has a passing test and that two were reviewed by a person, checks the hot-path policy, and exports the evidence pack. The gate opens.',
+    code: [
+      ['{d:# release checklist · v2.14.0}', 1],
+      ['changes:   18 PRs', 1],
+      ['tests:     +41 generated · 6 maintained', 1],
+      ['coverage:  hot paths 100% · overall 83%', 1],
+      ['flaky:     0 open', 1],
+    ],
+    term: [
+      ['{d:$} {w:assuregraph gate --release v2.14.0}', 2, true],
+      ['  {d:↳} ledger.query(release={s:v2.14.0})', 2],
+      ['    {d:←} 18 changes → 59 tests → 59 runs', 2],
+      ['  {d:↳} evidence.check()', 2],
+      ['    {d:←} every change has a passing test', 2],
+      ['    {d:←} 2 changes reviewed by a person', 2],
+      ['  {d:↳} policy.check(hot_paths)      {o:✓}', 2],
+      ['  {d:↳} export(evidence_pack.pdf)', 2],
+      ['{m:GATE OPEN · evidence pack attached}', 2],
+    ],
+  },
+];
+
+export const productDemo = () => buildDemo(scenes, { name: 'product-demo', termLabel: 'assuregraph' });
