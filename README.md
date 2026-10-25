@@ -12,6 +12,7 @@ src/notes-data.mjs        content of all eight engineering notes (reading time c
 src/hero-bg.mjs           home hero background: the slowly turning loops (inline SVG)
 src/hero-demo.mjs         home hero demo: five agent-code scenes played by site.js (exports buildDemo)
 src/product-demo.mjs      AssureGraph hero demo: four scenes of the product at work, built with buildDemo
+src/product-ui.mjs        AssureGraph app mock: Runs, Traceability, Coverage and Setup tabs (HTML and CSS)
 src/icons.mjs             line icons for the service cards and use cases
 src/assets/               site.css (single stylesheet), site.js (mobile nav, copy buttons, form, notes filter,
                           engagement toggles, hero demo player)

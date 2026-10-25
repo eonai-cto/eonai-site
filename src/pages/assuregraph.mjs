@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { page, BOOK, BOOK_ATTRS, BOOK_SR } from '../layout.mjs';
 import { SITE_URL } from '../config.mjs';
 import { productDemo } from '../product-demo.mjs';
+import { productUi } from '../product-ui.mjs';
 
 // The lowercase lockup, inlined like the EonAI logo (brand/make-assuregraph.py). Decorative; the h1 carries the name as hidden text.
 const lockup = readFileSync(new URL('../../brand/logo/assuregraph-logo-on-dark.svg', import.meta.url), 'utf8')
@@ -91,6 +92,15 @@ ${flow()}
 <li><strong>The ledger records it.</strong> Requirement to test to run to evidence, in a form your auditors can read.</li>
 </ol>
 <p class="ag-metrics">It reports change failure rate, mean time to recovery, time to green, flaky reruns and test-suite acceptance, so you can see what it changed.</p>
+</section>
+
+<section class="container section--tall" id="product">
+<div class="section-head">
+<div class="eyebrow">THE PRODUCT</div>
+<h2 class="h2">What it looks like</h2>
+<p class="lede">Four views of the same ledger: the runs, the lineage behind each change, the coverage map, and the setup. The terminal above is the same engine from the command line.</p>
+</div>
+${productUi()}
 </section>
 
 <section class="container section--tall" id="inside">

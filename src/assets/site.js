@@ -140,6 +140,34 @@
     });
   }
 
+  // Tabs ([data-tabs]): the AssureGraph app mock. Without JS every panel is shown.
+  var tabsets = document.querySelectorAll('[data-tabs]');
+  for (var ti = 0; ti < tabsets.length; ti++) {
+    (function (set) {
+      var tabs = set.querySelectorAll('[role="tab"]');
+      var panels = set.querySelectorAll('[role="tabpanel"]');
+      var select = function (tab) {
+        for (var i = 0; i < tabs.length; i++) {
+          var on = tabs[i] === tab;
+          tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+          tabs[i].tabIndex = on ? 0 : -1;
+        }
+        for (var j = 0; j < panels.length; j++) panels[j].hidden = panels[j].id !== tab.getAttribute('aria-controls');
+      };
+      for (var k = 0; k < tabs.length; k++) {
+        tabs[k].addEventListener('click', function () { select(this); });
+        tabs[k].addEventListener('keydown', function (e) {
+          var idx = Array.prototype.indexOf.call(tabs, this);
+          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            var next = tabs[(idx + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+            select(next); next.focus(); e.preventDefault();
+          }
+        });
+      }
+      select(tabs[0]);
+    })(tabsets[ti]);
+  }
+
   // Engagement cards: on phones the details sit behind a toggle (CSS hides them under .js at <= 700px).
   var toggles = document.querySelectorAll('.card__toggle');
   for (var k = 0; k < toggles.length; k++) {

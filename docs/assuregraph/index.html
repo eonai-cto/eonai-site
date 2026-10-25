@@ -114,6 +114,112 @@
 <p class="ag-metrics">It reports change failure rate, mean time to recovery, time to green, flaky reruns and test-suite acceptance, so you can see what it changed.</p>
 </section>
 
+<section class="container section--tall" id="product">
+<div class="section-head">
+<div class="eyebrow">THE PRODUCT</div>
+<h2 class="h2">What it looks like</h2>
+<p class="lede">Four views of the same ledger: the runs, the lineage behind each change, the coverage map, and the setup. The terminal above is the same engine from the command line.</p>
+</div>
+<div class="app" data-tabs>
+<div class="demo__bar app__bar"><span class="demo__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+<div class="app__tabs" role="tablist" aria-label="Product views">
+<button class="app__tab" role="tab" id="tab-runs" aria-controls="panel-runs" aria-selected="true" type="button">Runs</button>
+<button class="app__tab" role="tab" id="tab-traceability" aria-controls="panel-traceability" aria-selected="false" type="button">Traceability</button>
+<button class="app__tab" role="tab" id="tab-coverage" aria-controls="panel-coverage" aria-selected="false" type="button">Coverage</button>
+<button class="app__tab" role="tab" id="tab-setup" aria-controls="panel-setup" aria-selected="false" type="button">Setup</button>
+</div></div>
+<section class="app__panel" role="tabpanel" id="panel-runs" aria-labelledby="tab-runs">
+<h3 class="visually-hidden">Runs</h3>
+<div class="app-kpis" aria-label="This week">
+<div class="app-kpi"><span class="app-kpi__label">Change failure rate</span><strong>4.1%</strong></div>
+<div class="app-kpi"><span class="app-kpi__label">Mean time to recovery</span><strong>38 min</strong></div>
+<div class="app-kpi"><span class="app-kpi__label">Time to green</span><strong>11 min</strong></div>
+<div class="app-kpi"><span class="app-kpi__label">Flaky reruns</span><strong>6</strong></div>
+<div class="app-kpi"><span class="app-kpi__label">Suite acceptance</span><strong>91%</strong></div>
+</div>
+<table class="app-table">
+<thead><tr><th>Run</th><th>Trigger</th><th>Tests</th><th>Result</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>5128</td><td>PR #482 · refund cap</td><td>3 generated</td><td>3 pass</td><td><span class="app-chip app-chip--pass">PR opened</span></td></tr>
+<tr><td>5127</td><td>nightly</td><td>2,418</td><td>2,415 pass · 3 fail</td><td><span class="app-chip app-chip--pass">2 flaky quarantined · 1 ticket</span></td></tr>
+<tr><td>5126</td><td>PR #480 · login lockout</td><td>4 generated</td><td>3 pass · 1 fail</td><td><span class="app-chip app-chip--fail">held · regression</span></td></tr>
+<tr><td>5125</td><td>spec PAY-77</td><td>2 generated</td><td>pending code</td><td><span class="app-chip app-chip--pending">ahead of the code</span></td></tr>
+<tr><td>5124</td><td>PR #479 · search index</td><td>6 maintained</td><td>6 pass</td><td><span class="app-chip app-chip--pass">merged</span></td></tr>
+</tbody>
+</table>
+</section>
+<section class="app__panel" role="tabpanel" id="panel-traceability" aria-labelledby="tab-traceability" hidden>
+<h3 class="visually-hidden">Traceability</h3>
+<div class="app-trace">
+<div class="app-trace__chain" aria-label="Lineage for requirement REQ-311">
+<div class="app-node"><span class="app-node__kind">Requirement</span><strong>REQ-311</strong><span>Cumulative refund cap</span></div>
+<div class="app-node"><span class="app-node__kind">Change</span><strong>PR #482</strong><span>refunds.py · 3 lines</span></div>
+<div class="app-node"><span class="app-node__kind">Tests</span><strong>3</strong><span>unit · placed by policy</span></div>
+<div class="app-node"><span class="app-node__kind">Run</span><strong>5128</strong><span>3 of 3 pass · 2.4 s</span></div>
+<div class="app-node app-node--end"><span class="app-node__kind">Evidence</span><strong>Signed</strong><span>judge ok · reviewed by a person</span></div>
+</div>
+<table class="app-table app-table--compact">
+<thead><tr><th>Requirement</th><th>Tests</th><th>Last run</th><th>Evidence</th></tr></thead>
+<tbody>
+<tr><td>REQ-311 · Cumulative refund cap</td><td>3</td><td>5128 · pass</td><td><span class="app-chip app-chip--pass">complete</span></td></tr>
+<tr><td>REQ-298 · Login lockout after 5 tries</td><td>4</td><td>5126 · 1 fail</td><td><span class="app-chip app-chip--fail">regression held</span></td></tr>
+<tr><td>PAY-77 · 30-day refund window</td><td>2</td><td>pending</td><td><span class="app-chip app-chip--pending">awaiting code</span></td></tr>
+<tr><td>REQ-240 · Search index rebuild</td><td>6</td><td>5124 · pass</td><td><span class="app-chip app-chip--pass">complete</span></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="app__panel" role="tabpanel" id="panel-coverage" aria-labelledby="tab-coverage" hidden>
+<h3 class="visually-hidden">Coverage</h3>
+<table class="app-table">
+<thead><tr><th>Path</th><th>Production traffic</th><th>Tests</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>checkout / refund</td><td><span class="app-bar" aria-hidden="true"><span style="width:92%"></span></span> high</td><td><span class="app-bar" aria-hidden="true"><span style="width:100%"></span></span> 11</td><td><span class="app-chip app-chip--pass">covered</span></td></tr>
+<tr><td>auth / lockout</td><td><span class="app-bar" aria-hidden="true"><span style="width:74%"></span></span> high</td><td><span class="app-bar" aria-hidden="true"><span style="width:45%"></span></span> 4</td><td><span class="app-chip app-chip--fail">generate 3 tests</span></td></tr>
+<tr><td>search / index</td><td><span class="app-bar" aria-hidden="true"><span style="width:58%"></span></span> medium</td><td><span class="app-bar" aria-hidden="true"><span style="width:80%"></span></span> 6</td><td><span class="app-chip app-chip--pass">covered</span></td></tr>
+<tr><td>billing / invoice export</td><td><span class="app-bar" aria-hidden="true"><span style="width:31%"></span></span> low</td><td><span class="app-bar" aria-hidden="true"><span style="width:20%"></span></span> 1</td><td><span class="app-chip app-chip--pending">low priority</span></td></tr>
+<tr><td>profile / avatar upload</td><td><span class="app-bar" aria-hidden="true"><span style="width:12%"></span></span> low</td><td><span class="app-bar" aria-hidden="true"><span style="width:0%"></span></span> 0</td><td><span class="app-chip app-chip--pending">watch</span></td></tr>
+</tbody>
+</table>
+<p class="app-note">Ranked by how often production hits the path against how much of it has tests. UI tests are only proposed where a lower level cannot prove the behaviour.</p>
+</section>
+<section class="app__panel" role="tabpanel" id="panel-setup" aria-labelledby="tab-setup" hidden>
+<h3 class="visually-hidden">Setup</h3>
+<div class="app-setup">
+<div class="app-setup__col">
+<div class="app-setup__h">Sources</div>
+<ul class="app-list">
+<li><span>GitHub</span><span class="app-chip app-chip--pass">connected · read</span></li>
+<li><span>Jira</span><span class="app-chip app-chip--pass">connected · read</span></li>
+<li><span>CI</span><span class="app-chip app-chip--pass">GitHub Actions · read</span></li>
+<li><span>Logs</span><span class="app-chip app-chip--pending">choose a source</span></li>
+<li><span>Designs</span><span class="app-chip app-chip--pending">optional</span></li>
+</ul>
+<div class="app-setup__h">Your model</div>
+<ul class="app-list">
+<li><span>Endpoint</span><span class="app-chip app-chip--pass">your tenant · in VPC</span></li>
+<li><span>Approved models</span><span class="app-list__val">small · mid · large</span></li>
+<li><span>Output</span><span class="app-list__val">pull requests only</span></li>
+</ul>
+</div>
+<div class="app-setup__col">
+<div class="app-setup__h">Policy</div>
+<pre class="app-code" aria-label="Policy file">route:
+  accuracy: ≥ 0.95
+  latency:  ≤ 2 s
+  cost:     prefer lowest
+  data:     no customer data to external
+placement:
+  levels: [unit, api, ui]
+  prefer: lowest that proves it
+review:
+  human: refunds, auth, payments</pre>
+</div>
+</div>
+</section>
+</div>
+</section>
+
 <section class="container section--tall" id="inside">
 <div class="section-head">
 <div class="eyebrow">COMPONENTS</div>
