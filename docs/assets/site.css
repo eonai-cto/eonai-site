@@ -37,7 +37,7 @@
   --on-dark-muted: #A9B5CB;
   --on-dark-quiet: #93A1BC;
   --fail-soft: #F4A6A0;
-  --pass: #3DDC97;        /* the green tick: the AssureGraph logo and the hero demo's pass marks, on dark */
+  --pass: #3DDC97;        /* the green tick: the assuregraph logo and the hero demo's pass marks, on dark */
   --pass-light: #0E9F6E;  /* the same on light surfaces */
   --font-head: 'Space Grotesk', 'Space Grotesk Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body: 'IBM Plex Sans', 'IBM Plex Sans Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -299,7 +299,7 @@ ul, ol { margin: 0; }
   .hero__checks { display: none; }
 }
 
-/* AssureGraph product page */
+/* assuregraph product page */
 .ag-h1 { display: block; line-height: 0; }
 .ag-lockup { display: block; height: clamp(54px, 8vw, 96px); width: auto; max-width: 100%; }
 .ag-gap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 40px; }
@@ -323,7 +323,7 @@ ul, ol { margin: 0; }
 .btn--ghost-light:hover { border-color: var(--accent); color: var(--ink); }
 .cta-band .hero__actions { padding-top: 0; }
 
-/* AssureGraph app mock (src/product-ui.mjs): the demo window with tabs */
+/* assuregraph app mock (src/product-ui.mjs): the demo window with tabs */
 .app { position: relative; font-family: var(--font-body); font-size: 14px; color: var(--on-dark);
   background: rgba(11, 18, 32, 0.92); border: 1px solid var(--border-dark); border-radius: var(--radius);
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7), 0 0 0 6px rgba(143, 176, 255, 0.04); }

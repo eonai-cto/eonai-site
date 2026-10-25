@@ -140,7 +140,7 @@
     });
   }
 
-  // Tabs ([data-tabs]): the AssureGraph app mock. Without JS every panel is shown.
+  // Tabs ([data-tabs]): the assuregraph app mock. Without JS every panel is shown.
   var tabsets = document.querySelectorAll('[data-tabs]');
   for (var ti = 0; ti < tabsets.length; ti++) {
     (function (set) {

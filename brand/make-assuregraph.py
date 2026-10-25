@@ -1,6 +1,6 @@
-"""Generate the AssureGraph product mark and wordmark from Space Grotesk outlines.
+"""Generate the assuregraph product mark and wordmark from Space Grotesk outlines.
 
-AssureGraph is EonAI's product, so the mark borrows the EonAI logo's grammar:
+assuregraph is EonAI's product, so the mark borrows the EonAI logo's grammar:
   - the open loop: a ring open at the top right, with a solid dot outside the gap
   - inside the loop, three nodes joined by two edges form a tick: the coverage graph
   - a two-weight lowercase wordmark, like "eonai": "assure" Light (300), "graph" Bold (700) in the accent
@@ -8,7 +8,7 @@ AssureGraph is EonAI's product, so the mark borrows the EonAI logo's grammar:
     down into the descender, the dot sits where the ear would be and the tick sits in the bowl
   - the tick is green: the "pass" signal, the one place the brand uses green (plus the hero demo's
     pass marks on the site, so the logo is not the only green thing on a page)
-    (chosen by the owner 2026-10-25; in running text the product is "AssureGraph")
+    (chosen by the owner 2026-10-25; the product name is lowercase everywhere: "assuregraph")
 
 Run:  pip install fonttools && python3 brand/make-assuregraph.py
 Writes brand/logo/assuregraph-*.svg. The constants below are the specification.
@@ -120,7 +120,7 @@ def wordmark(fg, accent, green):
     return body, x
 
 
-def svg(view_box, body, label="AssureGraph"):
+def svg(view_box, body, label="assuregraph"):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view_box}" role="img" aria-label="{label}">'
             f'{body}</svg>\n')
 
