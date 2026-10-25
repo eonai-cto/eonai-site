@@ -4,10 +4,16 @@
 // summary (CSS :has), so the window never overflows. Everything is HTML and CSS; values are illustrative and match
 // the app mock (src/product-ui.mjs): PR #482, run 5127, PAY-77, REQ-311.
 
+import { readFileSync } from 'node:fs';
+
+// The product mark in the window bar (brand/make-assuregraph.py), decorative.
+const mark = readFileSync(new URL('../brand/logo/assuregraph-mark-on-dark.svg', import.meta.url), 'utf8')
+  .trim().replace(' role="img" aria-label="AssureGraph"', ' aria-hidden="true" focusable="false"');
+
 const chip = (kind, text, at) => `<span class="app-chip app-chip--${kind}"${at === undefined ? '' : ` data-at="${at}"`}>${text}</span>`;
 const chipStack = (states) => `<span class="pd-chipstack">${states.map(([kind, text, at]) => chip(kind, text, at)).join('')}</span>`;
 const stages = (names, ats) => `<ol class="pd-stages" aria-hidden="true">${names.map((n, i) => `<li data-at="${ats[i]}">${n}</li>`).join('')}</ol>`;
-const block = (at, title, sum, body) => `<div class="pd-block" data-at="${at}"><div class="pd-block__head"><span class="pd-block__title">${title}</span><span class="pd-block__sum">${sum}</span></div><div class="pd-block__body">${body}</div></div>`;
+const block = (at, title, sum, body) => `<div class="pd-block" data-at="${at}"><div class="pd-block__head"><span class="pd-block__title">${title}</span><span class="pd-block__sum">${sum}</span><span class="pd-block__queued">queued</span></div><div class="pd-block__body">${body}</div></div>`;
 const row = (at, left, right, dim = false) => `<div class="pd-row${dim ? ' pd-row--dim' : ''}" data-at="${at}"><span class="pd-row__l">${left}</span><span class="pd-row__r">${right}</span></div>`;
 const diff = (lines) => `<div class="pd-diff">${lines.map(([k, t, at]) => `<span class="pd-diff__l pd-diff__l--${k}" data-at="${at}">${t}</span>`).join('')}</div>`;
 const chain = (nodes, start, step) => `<div class="pd-chain">${nodes.map(([kind, big, small, cls], i) =>
@@ -52,7 +58,7 @@ ${block(17800, 'Ship · lineage', 'shipped', chain([
 ${verdict(19900, 'pass', 'Shipped · release gate open · lineage complete')}`,
   },
   {
-    title: 'PAY-77 · refund policy v4',
+    title: 'PAY-77 · policy v4',
     end: 24500,
     label: 'Illustration of the product on a spec change: a policy document moves the refund window from 14 to 30 days. AssureGraph identifies the behaviours the change implies, writes three test requirements, generates and judges three API tests, runs them against the current code and finds two unmet, opens a change request to the owning team, a developer’s pull request is reviewed and approved, the re-run passes, and the policy ships with evidence.',
     body: `
@@ -88,7 +94,7 @@ ${verdict(19900, 'pass', 'Shipped · policy v4 live · lineage complete')}`,
 ];
 
 export const productDemo = () => `<div class="demo demo--ui" data-view="0">
-<div class="demo__bar"><span class="demo__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="demo__title" aria-hidden="true">${scenes[0].title}</span><button class="demo__toggle" type="button" aria-label="Pause animation">Pause</button></div>
+<div class="demo__bar"><span class="demo__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="demo__brand" aria-hidden="true">${mark}<span>AssureGraph</span></span><span class="demo__title" aria-hidden="true">${scenes[0].title}</span><button class="demo__toggle" type="button" aria-label="Pause animation">Pause</button></div>
 ${scenes.map((sc, k) => `<div class="demo__scene pd${k === 0 ? ' is-active' : ''}" data-end="${sc.end}" data-title="${sc.title}" role="img" aria-label="${sc.label}">${sc.body}
 </div>`).join('\n')}
 </div>`;
