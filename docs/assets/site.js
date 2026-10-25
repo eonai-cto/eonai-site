@@ -210,7 +210,7 @@
     };
     var showFinal = function () {
       stop();
-      if (current) { current.classList.remove('is-leaving'); current.querySelector('.demo__scroll').style.removeProperty('--s'); }
+      if (current) { current.classList.remove('is-leaving'); var sr = current.querySelector('.demo__scroll'); if (sr) sr.style.removeProperty('--s'); }
       demo.classList.add('demo--static');
     };
     var play = function (sc) {
@@ -218,16 +218,16 @@
       show(sc);
       var steps = [].slice.call(sc.querySelectorAll('[data-at]'));
       var scroller = sc.querySelector('.demo__scroll');
-      var termLines = [].slice.call(scroller.querySelectorAll('.dl'));
+      var termLines = scroller ? [].slice.call(scroller.querySelectorAll('.dl')) : [];
       steps.forEach(function (el) { el.classList.remove('on'); });
-      scroller.style.setProperty('--s', 0);
+      if (scroller) scroller.style.setProperty('--s', 0);
       demo.classList.remove('demo--static');
       void demo.offsetWidth;
       steps.forEach(function (el) {
         timers.push(setTimeout(function () {
           el.classList.add('on');
           var i = termLines.indexOf(el);
-          if (i >= view) scroller.style.setProperty('--s', i - view + 1);
+          if (scroller && i >= view) scroller.style.setProperty('--s', i - view + 1);
         }, +el.getAttribute('data-at')));
       });
       var end = +sc.getAttribute('data-end');
