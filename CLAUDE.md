@@ -1,20 +1,25 @@
 # EonAI website — project instructions for Claude Code
 
-You are building the public website for EonAI (eonai.ai), an AI engineering consultancy.
-Read `BRIEF.md` first. The approved design and copy are in `reference/` — treat them as the
-source of truth for content, structure, colours, type and tone. Rebuild them properly; do not
-ship the reference files as-is.
+You are maintaining the public website for EonAI (eonai.ai), an AI engineering consultancy.
 
-Inputs you must use, not recreate: `reference/` (design and copy), `content/` (notes outline,
-privacy draft) and `brand/` (logo, fonts, Open Graph image). Everything in `src/` and `docs/`
-can be rebuilt; nothing in `brand/` should be regenerated except with `brand/make-logo.py`.
+**Where the truth lives (as of 2026-10-25).** `src/` is the source of truth for everything on the
+site: copy (`src/pages/*.mjs`, `src/notes-data.mjs`), structure, styles (`src/assets/site.css`) and
+behaviour (`src/assets/site.js`). `npm run build` renders it into `docs/`, which GitHub Pages serves;
+`docs/` is output and is never edited by hand. `brand/` holds the logo files, fonts and Open Graph
+image and is not rebuilt (regenerate logos only with `brand/make-logo.py` and
+`brand/make-assuregraph.py`). `reference/` is the original 2026-10 design mock-up: use it for the
+design tokens and the look, but it still contains copy and sections the owner has since removed,
+so where it and `src/` differ, `src/` wins. `content/` holds the original notes outline and privacy
+draft, superseded by `src/`. `BRIEF.md` is the original build brief with a status block at the top
+of § Site tree. To rebuild from scratch: read this file top to bottom, then `BRIEF.md` § Site tree,
+then build from `src/`; the decisions below explain every departure from `reference/`.
 
 ## Non-negotiables
 
 - Static site. No CMS, no server, no build step more complex than a single `npm run build`.
 - Hosting: GitHub Pages from this repo (see `deploy/`). Must work at `https://eonai.ai` and `https://www.eonai.ai`.
 - Zero recurring cost: no paid services, no paid fonts, no paid form backends beyond free tiers.
-- Copy is final. As of 2026-10-08 the **source of truth for copy is `src/`** (`src/pages/*.mjs`, `src/notes-data.mjs`), not `reference/`: the owner approved an editorial pass that removed rule-breaking lines (years-of-experience figures, role references), finished the eight notes as prose, and rewrote AI-sounding phrasing. Where `src/` and `reference/` differ, `src/` wins. Do not add, reword or "improve" content without the owner's instruction. Fix typos only.
+- Copy is final. As of 2026-10-08 the **source of truth for copy is `src/`** (`src/pages/*.mjs`, `src/notes-data.mjs`), not `reference/`: the owner approved an editorial pass that removed rule-breaking lines (years-of-experience figures, role references), finished the notes as prose (nine then; eight since the 2026-10-10 review), and rewrote AI-sounding phrasing. Where `src/` and `reference/` differ, `src/` wins. Do not add, reword or "improve" content without the owner's instruction. Fix typos only.
 - House style for any new text: write like a person, not a model. Avoid "X, not Y" antithesis and slogan-style paragraph endings, rule-of-three lists used for rhythm, filler such as "quietly", "seamless", "leverage", "journey", and repeating the same point in consecutive sentences. Use British spelling, no em dashes in running copy, and concrete facts over abstractions.
 - No phone number anywhere on the site. No founder names, bios, photos, or headcount anywhere on the site.
 - No prices anywhere on the site.
@@ -84,7 +89,7 @@ These rules come from measured failures. Each one was needed to get from 88 to 9
 
 The site uses diagrams and pictograms instead of photos or stock imagery (no people may appear). All are inline SVG or HTML/CSS: no image files, no icon fonts, no third-party players.
 
-- **Line icons** (`src/icons.mjs`): one style, 32px grid, 1.75 stroke, round caps, `currentColor`. Used on the four service cards (`build`, `assure`, `transform`, `scale`) and the eight use-case cards. Tinted tile on light cards, panel tile with `#8FB0FF` stroke on dark cards. New icons follow the same grid and stroke.
+- **Line icons** (`src/icons.mjs`): one style, 32px grid, 1.75 stroke, round caps, `currentColor`. Used on the four service cards (`build`, `assure`, `transform`, `scale`) and the seven use-case list items. Tinted tile on light cards, panel tile with `#8FB0FF` stroke on dark cards. New icons follow the same grid and stroke.
 - **Where clients usually start** (`paths` in `src/pages/home.mjs`, top of § Engagements): three routes as HTML chips joined by arrows. Starting with AI: Sprint → Agent MVP → Managed AI Operations. Already running AI: Reliability Audit → Managed AI Operations. Startups: Agent MVP + Fractional CTO alongside. Routes come from the FAQ and the who-we-serve copy. On phones each route stacks vertically with downward arrows.
 - **"From demo to production" storyboard: removed 2026-10-10** in the home page restructure (the hero demo tells that story now). `src/explainer.mjs` is gone; do not bring the storyboard back.
 

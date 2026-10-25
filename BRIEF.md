@@ -28,6 +28,13 @@ The approved logo is the lowercase wordmark **eonai** with the `o` replaced by a
 
 ## 3. Site tree
 
+**Status 2026-10-25.** The site as built (all from `src/`; the Source column below is the original brief):
+`/` (home, sections per `CLAUDE.md` "Home page structure"), `/assuregraph/` (product page, added 2026-10-25),
+`/notes/` (index with topic filter), eight notes at `/notes/<slug>/` (`refunds-agent`, `measure-before-you-ship`,
+`guardrails-in-the-architecture`, `deterministic-orchestrator`, `grounded-answers`, `fairness-is-a-test`,
+`when-a-high-score-means-nothing`, `decisions-not-reasoning`; `build-on-real-data` was dropped 2026-10-10),
+`/privacy/`, `/404.html`. No "Draft" markers remain.
+
 | URL | Source | Notes |
 |---|---|---|
 | `/` | `reference/index.html` | Home. Anchors: `#problems #services #usecases #approach #offers #notes #about #contact` |
@@ -95,7 +102,7 @@ GitHub Pages from the `main` branch. Static output in `/docs` (chosen; see READM
 
 ## 9. Acceptance checklist
 
-_Copy note (2026-10-08): an owner-approved editorial pass revised some reference copy and finished notes 2–9 as prose; `src/` is now the source of truth for copy._
+_Copy note (2026-10-08): an owner-approved editorial pass revised some reference copy and finished notes 2–9 as prose; `src/` is now the source of truth for copy. This checklist records the launch state; later changes (home page restructure, notes review, AssureGraph page) are recorded in `CLAUDE.md`._
 
 Status at launch, 2026-10-07. Open owner items are listed in README → "Owner to-do".
 

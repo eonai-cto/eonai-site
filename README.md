@@ -64,7 +64,7 @@ The logo files live in `brand/logo/` and are published at `https://eonai.ai/bran
 | `favicon.svg` | browser tab icon (published at `/favicon.svg`) |
 | `brand/social/linkedin-cover.png` (1128×191) and `@2x` | LinkedIn company page cover; source `linkedin-cover.html` (open in Chrome headless at 1128×191 to re-render) |
 
-To change the logo, edit the constants at the top of `brand/make-logo.py` and run `python3 brand/make-logo.py` (needs `pip install fonttools`), then `npm run build`. Also re-render `brand/og/og.png` from `og.svg` and `brand/logo/eonai-logo-on-light.png` (open in Chrome and screenshot). The rules are in `CLAUDE.md` § Logo.
+To change the logo, edit the constants at the top of `brand/make-logo.py` and run `python3 brand/make-logo.py` (needs `pip install fonttools`), then `npm run build`. The AssureGraph product logo (`brand/logo/assuregraph-*.svg`) is generated the same way by `brand/make-assuregraph.py`; its rules are in `CLAUDE.md` § AssureGraph. Also re-render `brand/og/og.png` from `og.svg` and `brand/logo/eonai-logo-on-light.png` (open in Chrome and screenshot). The rules are in `CLAUDE.md` § Logo.
 
 ## Visuals
 
@@ -105,8 +105,8 @@ Current configuration (set 2026-10-07):
 
 If the site ever shows a 404 or a certificate error after a change, check Settings → Pages for the DNS check status first.
 
-## Checks (last run 2026-10-07)
+## Checks (last run 2026-10-25)
 
 - `npm run check`: all internal links and anchors resolve, one `h1` per page, required files present.
-- Lighthouse (mobile): home 99 / 100 / 100 / 100 (performance, accessibility, best practices, SEO) over six runs; every other page 100 across the board.
+- Lighthouse (mobile): home 98 to 99 / 100 / 100 / 100 (performance, accessibility, best practices, SEO); AssureGraph page 99 to 100; notes 99 to 100; CLS 0 everywhere.
 - Layout checked at 375, 768 and 1440 px; no horizontal scroll.
