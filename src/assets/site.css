@@ -347,6 +347,7 @@ ul, ol { margin: 0; }
 .app-chip--pending { color: var(--accent-light); border-color: rgba(143, 176, 255, 0.4); }
 .app-bar { display: inline-block; width: 64px; height: 6px; margin-right: 8px; vertical-align: middle; border-radius: 3px; background: rgba(143, 176, 255, 0.15); overflow: hidden; }
 .app-bar span { display: block; height: 100%; background: var(--accent-light); border-radius: 3px; }
+.app-caption { margin-top: 14px; font-size: 13px; line-height: 1.55; color: var(--caption-grey); }
 .app-note { margin-top: 14px; font-size: 13px; line-height: 1.55; color: var(--on-dark-quiet); }
 .app-trace__chain { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 10px; }
 .app-node { position: relative; background: rgba(143, 176, 255, 0.06); border: 1px solid var(--border-dark); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--on-dark-muted); }

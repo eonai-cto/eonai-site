@@ -101,6 +101,7 @@ ${flow()}
 <p class="lede">Four views of the same ledger: the runs, the lineage behind each change, the coverage map, and the setup. The terminal above is the same engine from the command line.</p>
 </div>
 ${productUi()}
+<p class="app-caption">Illustrative data. The screens show the product's views with example values, not results from a customer.</p>
 </section>
 
 <section class="container section--tall" id="inside">
