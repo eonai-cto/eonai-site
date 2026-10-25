@@ -67,7 +67,7 @@ const body = `
 <h2 class="h2">Where testing falls behind</h2>
 </div>
 <ul class="ag-gap">
-<li><strong>Coverage drifts.</strong> Critical paths change with every release and the tests do not follow. Where traceability exists at all, it lives in a spreadsheet that is out of date by the next sprint.</li>
+<li><strong>Coverage drifts.</strong> Critical paths change with every release and the tests do not follow. Code assistants write tests when an engineer asks, and nobody asks for the ones that fell behind. Where traceability exists at all, it lives in a spreadsheet that is out of date by the next sprint.</li>
 <li><strong>The picture is split across tools.</strong> Test management, CI, observability and the issue tracker each hold part of it. Feedback arrives late and in pieces.</li>
 <li><strong>Triage is manual.</strong> Flaky tests and red builds are worked through by hand, one at a time. Recovery takes longer and releases slip.</li>
 </ul>
@@ -118,16 +118,6 @@ ${uses}
 </div>
 <div class="grid grid--trust">
 ${security}
-</div>
-</section>
-
-<section class="container section--tall" id="differs">
-<div class="panel-light">
-<div class="section-head section-head--wide">
-<div class="eyebrow">HOW IT COMPARES</div>
-<h2 class="h2">Compared with the tools you already have</h2>
-<p class="lede">Code assistants write tests when an engineer asks. Test management suites store tests but do not write or maintain them. AssureGraph starts from the change, keeps the tests aligned with your strategy, and records the lineage from requirement to result.</p>
-</div>
 </div>
 </section>
 
