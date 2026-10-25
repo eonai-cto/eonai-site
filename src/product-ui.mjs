@@ -1,4 +1,4 @@
-// AssureGraph product page: a mock of the app, in the same dark window as the demos, with four tabs.
+// assuregraph product page: a mock of the app, in the same dark window as the demos, with four tabs.
 // Everything is HTML and CSS (no images). Values are illustrative, like the demo traces. Tabs are switched by
 // site.js ([data-tabs]); without JS all four panels are shown stacked.
 

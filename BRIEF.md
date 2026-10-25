@@ -102,7 +102,7 @@ GitHub Pages from the `main` branch. Static output in `/docs` (chosen; see READM
 
 ## 9. Acceptance checklist
 
-_Copy note (2026-10-08): an owner-approved editorial pass revised some reference copy and finished notes 2–9 as prose; `src/` is now the source of truth for copy. This checklist records the launch state; later changes (home page restructure, notes review, AssureGraph page) are recorded in `CLAUDE.md`._
+_Copy note (2026-10-08): an owner-approved editorial pass revised some reference copy and finished notes 2–9 as prose; `src/` is now the source of truth for copy. This checklist records the launch state; later changes (home page restructure, notes review, assuregraph page) are recorded in `CLAUDE.md`._
 
 Status at launch, 2026-10-07. Open owner items are listed in README → "Owner to-do".
 

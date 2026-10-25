@@ -1,4 +1,4 @@
-// AssureGraph product page hero: one workflow, told twice. Eight stages (scenario, requirements, test cases,
+// assuregraph product page hero: one workflow, told twice. Eight stages (scenario, requirements, test cases,
 // execution, bug, PR, fix, ship) in the demo window, driven by the same player as the home hero demo: site.js
 // turns on every [data-at] element at its time in ms from the scene start. Finished stages collapse to a one-line
 // summary (CSS :has), so the window never overflows. Everything is HTML and CSS; values are illustrative and match
@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs';
 
 // The product mark in the window bar (brand/make-assuregraph.py), decorative.
 const mark = readFileSync(new URL('../brand/logo/assuregraph-mark-on-dark.svg', import.meta.url), 'utf8')
-  .trim().replace(' role="img" aria-label="AssureGraph"', ' aria-hidden="true" focusable="false"');
+  .trim().replace(' role="img" aria-label="assuregraph"', ' aria-hidden="true" focusable="false"');
 
 const chip = (kind, text, at) => `<span class="app-chip app-chip--${kind}"${at === undefined ? '' : ` data-at="${at}"`}>${text}</span>`;
 const chipStack = (states) => `<span class="pd-chipstack">${states.map(([kind, text, at]) => chip(kind, text, at)).join('')}</span>`;
@@ -27,7 +27,7 @@ const scenes = [
   {
     title: 'PR #482 · refund cap',
     end: 24500,
-    label: 'Illustration of the product on a code change: a pull request changes the refund cap. AssureGraph identifies the behaviours touched, writes three test requirements against REQ-311, generates and judges three tests, runs them and finds one failure, opens a defect with the trace attached, proposes a fix as a pull request that a person approves, re-runs with three of three passing, and ships with the lineage signed.',
+    label: 'Illustration of the product on a code change: a pull request changes the refund cap. assuregraph identifies the behaviours touched, writes three test requirements against REQ-311, generates and judges three tests, runs them and finds one failure, opens a defect with the trace attached, proposes a fix as a pull request that a person approves, re-runs with three of three passing, and ships with the lineage signed.',
     body: `
 ${stages(STAGES, [300, 2800, 4900, 8200, 10700, 12900, 15700, 17800])}
 ${block(300, 'Scenario · PR #482 refunds.py', '3 behaviours · 1 high risk', diff([
@@ -60,7 +60,7 @@ ${verdict(19900, 'pass', 'Shipped · release gate open · lineage complete')}`,
   {
     title: 'PAY-77 · policy v4',
     end: 24500,
-    label: 'Illustration of the product on a spec change: a policy document moves the refund window from 14 to 30 days. AssureGraph identifies the behaviours the change implies, writes three test requirements, generates and judges three API tests, runs them against the current code and finds two unmet, opens a change request to the owning team, a developer’s pull request is reviewed and approved, the re-run passes, and the policy ships with evidence.',
+    label: 'Illustration of the product on a spec change: a policy document moves the refund window from 14 to 30 days. assuregraph identifies the behaviours the change implies, writes three test requirements, generates and judges three API tests, runs them against the current code and finds two unmet, opens a change request to the owning team, a developer’s pull request is reviewed and approved, the re-run passes, and the policy ships with evidence.',
     body: `
 ${stages(STAGES, [300, 2800, 4900, 8200, 10700, 12900, 15700, 17800])}
 ${block(300, 'Scenario · Jira PAY-77 refund policy v4', '3 behaviours · policy change', diff([

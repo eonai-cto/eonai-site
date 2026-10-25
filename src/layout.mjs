@@ -23,7 +23,7 @@ const NAV = [
   ['Services', '/#services'],
   ['How we work', '/#approach'],
   ['Engagements', '/#offers'],
-  ['AssureGraph', '/assuregraph/'],
+  ['assuregraph', '/assuregraph/'],
   ['Engineering notes', '/notes/'],
 ];
 
@@ -60,7 +60,7 @@ function footer() {
 <a href="/#services">Services</a>
 <a href="/#approach">How we work</a>
 <a href="/#offers">Engagements</a>
-<a href="/assuregraph/">AssureGraph</a>
+<a href="/assuregraph/">assuregraph</a>
 <a href="/#about">About</a>
 </div>
 <div class="site-footer__col">

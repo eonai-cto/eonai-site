@@ -1,4 +1,4 @@
-// AssureGraph product page. Copy was reviewed against the house style on 2026-10-25 (see CLAUDE.md § AssureGraph).
+// assuregraph product page. Copy was reviewed against the house style on 2026-10-25 (see CLAUDE.md § assuregraph).
 import { readFileSync } from 'node:fs';
 import { page, BOOK, BOOK_ATTRS, BOOK_SR } from '../layout.mjs';
 import { SITE_URL } from '../config.mjs';
@@ -7,7 +7,7 @@ import { productUi } from '../product-ui.mjs';
 
 // The lowercase lockup, inlined like the EonAI logo (brand/make-assuregraph.py). Decorative; the h1 carries the name as hidden text.
 const lockup = readFileSync(new URL('../../brand/logo/assuregraph-logo-on-dark.svg', import.meta.url), 'utf8')
-  .trim().replace(' role="img" aria-label="AssureGraph"', ' class="ag-lockup" aria-hidden="true" focusable="false"');
+  .trim().replace(' role="img" aria-label="assuregraph"', ' class="ag-lockup" aria-hidden="true" focusable="false"');
 
 const EARLY_ACCESS = '/#contact';
 
@@ -20,7 +20,7 @@ const flow = () => {
     ['Test suites', 'placed at the lowest level that proves it'],
     ['Ledger', 'requirement to test to run to evidence'],
   ];
-  return `<ol class="flow" aria-label="How AssureGraph handles a change">
+  return `<ol class="flow" aria-label="How assuregraph handles a change">
 ${stages.map(([t, d], i) => `<li class="flow__step"><span class="flow__num" aria-hidden="true">${i + 1}</span><strong>${t}</strong><span class="visually-hidden">: </span><span>${d}</span></li>`).join('\n')}
 </ol>`;
 };
@@ -55,8 +55,8 @@ const body = `
 <div class="container hero__inner">
 <div class="hero__copy">
 <div class="eyebrow">PRODUCT · AGENTIC AI FOR QUALITY ENGINEERING</div>
-<h1 class="ag-h1">${lockup}<span class="visually-hidden">AssureGraph</span></h1>
-<p class="page-title__lead">Developers write code with AI assistants now, and the rate of change has gone up. Testing has not kept pace. AssureGraph watches changes in your code, specs, designs and logs, writes and maintains the tests they need, and keeps the record from requirement to evidence. It runs on the LLM you already use, in your VPC or an isolated tenant.</p>
+<h1 class="ag-h1">${lockup}<span class="visually-hidden">assuregraph</span></h1>
+<p class="page-title__lead">Developers write code with AI assistants now, and the rate of change has gone up. Testing has not kept pace. assuregraph watches changes in your code, specs, designs and logs, writes and maintains the tests they need, and keeps the record from requirement to evidence. It runs on the LLM you already use, in your VPC or an isolated tenant.</p>
 <div class="hero__actions">
 <a class="btn btn--primary" href="${EARLY_ACCESS}">Join the waitlist</a>
 <a class="btn btn--ghost" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
@@ -140,7 +140,7 @@ ${security}
 <div class="cta-band">
 <div>
 <h2>Try it on your own pipeline</h2>
-<p>AssureGraph is in development. If your pipeline runs thousands of tests a night and your engineers lose mornings to red builds, join the waitlist and we will show you what it does on a week of your own changes as soon as there is a build to run.</p>
+<p>assuregraph is in development. If your pipeline runs thousands of tests a night and your engineers lose mornings to red builds, join the waitlist and we will show you what it does on a week of your own changes as soon as there is a build to run.</p>
 </div>
 <div class="hero__actions">
 <a class="btn btn--primary" href="${EARLY_ACCESS}">Join the waitlist</a>
@@ -151,14 +151,14 @@ ${security}
 `;
 
 export default page({
-  title: 'AssureGraph: agentic AI for quality engineering — EonAI',
-  description: 'AssureGraph watches real change in your code, specs and logs, writes and maintains the tests that change needs, and keeps the lineage from requirement to evidence. Runs on your own LLM, in your VPC.',
+  title: 'assuregraph: agentic AI for quality engineering — EonAI',
+  description: 'assuregraph watches real change in your code, specs and logs, writes and maintains the tests that change needs, and keeps the lineage from requirement to evidence. Runs on your own LLM, in your VPC.',
   path: '/assuregraph/',
   current: 'assuregraph',
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'AssureGraph',
+    name: 'assuregraph',
     applicationCategory: 'DeveloperApplication',
     description: 'Agentic AI for quality engineering: change-triggered test generation and maintenance with policy-aware model routing and a traceability ledger.',
     url: `${SITE_URL}/assuregraph/`,

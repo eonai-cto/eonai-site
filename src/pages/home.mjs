@@ -26,7 +26,7 @@ const engId = (name) => 'eng-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').
 
 const services = [
   ['build', ['Agent MVP', 'Larger programmes'], '01 — BUILD', 'Agentic AI engineering', 'Agents that complete real tasks, assistants that answer from your own data, and automation for support and operations.', ['Agents and workflow automation', 'Knowledge assistants', 'Fine-tuning and model routing'], false],
-  ['assure', ['AI Reliability Audit', 'QE Health Check', 'Managed AI Operations', 'AssureGraph'], '02 — ASSURE', 'AI quality assurance', 'Know how your AI performs before your customers do. We measure accuracy, safety and cost, find where it fails and keep it dependable.', ['Evaluation suites', 'Adversarial testing and guardrails', 'Quality for AI-written code'], true],
+  ['assure', ['AI Reliability Audit', 'QE Health Check', 'Managed AI Operations', 'assuregraph'], '02 — ASSURE', 'AI quality assurance', 'Know how your AI performs before your customers do. We measure accuracy, safety and cost, find where it fails and keep it dependable.', ['Evaluation suites', 'Adversarial testing and guardrails', 'Quality for AI-written code'], true],
   ['transform', ['AI Opportunity Sprint', 'Team Workshops'], '03 — TRANSFORM', 'AI transformation', 'BCG estimates about 10% of AI’s value comes from the model, 20% from data and technology, and 70% from how work, governance and teams change. We work on the 70%.', ['AI readiness and roadmap', 'AI governance', 'Release and quality engineering'], false],
   ['scale', ['Fractional CTO', 'Larger programmes'], '04 — SCALE', 'Fractional leadership', 'Senior technology leadership without a full-time hire, and engineering or QE teams set up for you in India.', ['Fractional CTO or Head of Engineering', 'India capability centres', 'Managed delivery teams'], false],
 ].map(([ic, via, num, title, body, items, dark]) => `<article class="card card--svc${dark ? ' card--dark' : ''}">
@@ -34,7 +34,7 @@ const services = [
 <h3 class="card__title">${title}</h3>
 <p class="card__text">${body}</p>
 <ul class="card__list">${items.map((i) => `<li>${i}</li>`).join('')}</ul>
-<div class="card__deliver"><div class="card__deliver-label">HOW WE DELIVER IT</div><div class="card__chips">${via.map((e) => `<a class="svc-chip" href="${e === 'AssureGraph' ? '/assuregraph/' : '#' + engId(e)}">${e}</a>`).join('')}</div></div>
+<div class="card__deliver"><div class="card__deliver-label">HOW WE DELIVER IT</div><div class="card__chips">${via.map((e) => `<a class="svc-chip" href="${e === 'assuregraph' ? '/assuregraph/' : '#' + engId(e)}">${e}</a>`).join('')}</div></div>
 </article>`).join('\n');
 
 const uc = (ic, title, body, foot) => `<li class="uc">${icon(ic)}<div class="uc__body"><h3>${title}</h3><p>${body}</p>${foot}</div></li>`;
@@ -308,7 +308,7 @@ ${trust}
 <h2 class="h2 h2--md">An AI engineering firm with a quality engineering background</h2>
 <p>We are an India-registered firm serving clients worldwide. We kept software reliable for millions of users at global technology companies and now apply the same discipline to AI. We are senior-led and hands-on: the people who scope an engagement are the people who deliver it.</p>
 <p>We do the engineering ourselves and stay until the system is running and your team can own it.</p>
-<p>We also build <a href="/assuregraph/">AssureGraph</a>, agentic AI for quality engineering. Its routing engine and its evaluation and test-generation tooling come with every engagement, and you can use them without being locked into them.</p>
+<p>We also build <a href="/assuregraph/">assuregraph</a>, agentic AI for quality engineering. Its routing engine and its evaluation and test-generation tooling come with every engagement, and you can use them without being locked into them.</p>
 </div>
 </div>
 </section>
@@ -359,7 +359,7 @@ ${emailWithCopy('contact__mail')}
 <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
 </div>
 <div class="form__row">
-<div class="field"><label for="f-interest">I’m interested in</label><select id="f-interest" name="interest"><option>Building an AI product or agent</option><option>AssureGraph waitlist</option><option>Testing or auditing an AI system</option><option>Keeping an AI system running well</option><option>AI strategy and governance</option><option>Fractional CTO or India team</option><option>A team workshop</option><option>Something else</option></select></div>
+<div class="field"><label for="f-interest">I’m interested in</label><select id="f-interest" name="interest"><option>Building an AI product or agent</option><option>assuregraph waitlist</option><option>Testing or auditing an AI system</option><option>Keeping an AI system running well</option><option>AI strategy and governance</option><option>Fractional CTO or India team</option><option>A team workshop</option><option>Something else</option></select></div>
 <div class="field"><label for="f-stage">Where are you with AI?</label><select id="f-stage" name="stage"><option>Exploring what’s possible</option><option>Have a use case, no build yet</option><option>Have a pilot or prototype</option><option>Have something in production</option></select></div>
 </div>
 <div class="field"><label for="f-message">What problem are you trying to solve?</label><textarea id="f-message" name="message" rows="4"></textarea></div>
