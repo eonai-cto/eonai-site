@@ -381,18 +381,12 @@ ul, ol { margin: 0; }
 .js .demo:not(.demo--static) .pd .pd-block[data-at]:not(.on) .pd-block__queued { display: inline; }
 .pd-block__queued { display: none; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--on-dark-quiet); flex: none; }
 .js .demo:not(.demo--static) .pd [data-at].on { opacity: 1; }
-.pd-stages { list-style: none; margin: 0 0 4px; padding: 0; display: flex; gap: 4px; counter-reset: stage; }
-.pd-stages li { flex: 0 1 auto; min-width: 0; display: flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--on-dark-quiet); padding: 5px 8px; border-radius: 999px; border: 1px solid rgba(34, 48, 74, 0.9); background: transparent; white-space: nowrap; counter-increment: stage; }
-.pd-stages li::before { content: counter(stage); font-size: 9px; color: var(--on-dark-quiet); }
-.pd-stages li span { overflow: hidden; text-overflow: ellipsis; }
-/* Stepper states. Queued: number only. Active: number and label, filled in the accent, takes the spare room. Done: a tick. */
+.pd-stages { list-style: none; margin: 0 0 2px; padding: 0; display: flex; gap: 4px; }
+.pd-stages li { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; color: var(--on-dark-quiet); padding: 0 0 6px; border-bottom: 2px solid rgba(34, 48, 74, 0.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: border-color 0.3s ease, color 0.3s ease; }
+/* The ribbon: all labels visible; the underline carries the state. Active: accent and white text. Done: green. */
 .js .demo:not(.demo--static) .pd .pd-stages li[data-at] { opacity: 1; }
-.js .demo:not(.demo--static) .pd .pd-stages li[data-at]:not(.on) span { display: none; }
-.js .demo:not(.demo--static) .pd .pd-stages li[data-at].on, .demo--static .pd .pd-stages li { flex: 1 1 auto; color: #fff; background: var(--accent); border-color: var(--accent); }
-.js .demo:not(.demo--static) .pd .pd-stages li[data-at].on::before, .demo--static .pd .pd-stages li::before { color: #fff; }
-.js .demo:not(.demo--static) .pd .pd-stages li[data-at].on:has(~ li.on), .demo--static .pd .pd-stages li:has(~ li) { flex: 0 1 auto; color: var(--pass); background: rgba(61, 220, 151, 0.12); border-color: rgba(61, 220, 151, 0.45); }
-.js .demo:not(.demo--static) .pd .pd-stages li[data-at].on:has(~ li.on)::before, .demo--static .pd .pd-stages li:has(~ li)::before { content: '✓'; color: var(--pass); }
-.js .demo:not(.demo--static) .pd .pd-stages li[data-at].on:has(~ li.on) span, .demo--static .pd .pd-stages li:has(~ li) span { display: none; }
+.js .demo:not(.demo--static) .pd .pd-stages li[data-at].on, .demo--static .pd .pd-stages li { color: #fff; border-bottom-color: var(--accent-light); }
+.js .demo:not(.demo--static) .pd .pd-stages li[data-at].on:has(~ li.on), .demo--static .pd .pd-stages li:has(~ li) { color: var(--on-dark-muted); border-bottom-color: rgba(61, 220, 151, 0.7); }
 .pd-block { background: rgba(143, 176, 255, 0.06); border: 1px solid var(--border-dark); border-left-width: 3px; border-radius: 8px; padding: 8px 12px 9px; display: flex; flex-direction: column; gap: 3px; transition: background 0.4s ease, border-color 0.4s ease; counter-increment: block; }
 .pd { counter-reset: block; }
 .pd-block__num::before { content: counter(block) ' · '; }
