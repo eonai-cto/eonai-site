@@ -37,6 +37,8 @@
   --on-dark-muted: #A9B5CB;
   --on-dark-quiet: #93A1BC;
   --fail-soft: #F4A6A0;
+  --pass: #3DDC97;        /* the green tick: the AssureGraph logo and the hero demo's pass marks, on dark */
+  --pass-light: #0E9F6E;  /* the same on light surfaces */
   --font-head: 'Space Grotesk', 'Space Grotesk Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body: 'IBM Plex Sans', 'IBM Plex Sans Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', 'IBM Plex Mono Fallback', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -219,7 +221,7 @@ ul, ol { margin: 0; }
 .t-f, .t-w { color: #fff; }
 .t-s { color: var(--on-dark-muted); }
 .t-d { color: var(--on-dark-quiet); }
-.t-o { color: var(--accent-light); }
+.t-o { color: var(--pass); }
 .t-x { color: var(--fail-soft); }
 .dl--mark { margin-inline: -16px; padding-inline: 14px; border-left: 2px solid var(--accent-light); background: rgba(143, 176, 255, 0.12); color: #fff; font-weight: 600; }
 .dl--mark .t-m { color: #fff; }
