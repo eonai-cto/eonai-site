@@ -55,7 +55,7 @@ const body = `
 <h1 class="ag-h1">${mark}AssureGraph</h1>
 <p class="page-title__lead">Developers write code with AI assistants now, and the rate of change has gone up. Testing has not kept pace. AssureGraph watches changes in your code, specs, designs and logs, writes and maintains the tests they need, and keeps the record from requirement to evidence. It runs on the LLM you already use, in your VPC or an isolated tenant.</p>
 <div class="hero__actions">
-<a class="btn btn--primary" href="${EARLY_ACCESS}">Request early access</a>
+<a class="btn btn--primary" href="${EARLY_ACCESS}">Join the waitlist</a>
 <a class="btn btn--ghost" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 </div>
 </div>
@@ -125,10 +125,10 @@ ${security}
 <div class="cta-band">
 <div>
 <h2>Try it on your own pipeline</h2>
-<p>AssureGraph is in early access. If your pipeline runs thousands of tests a night and your engineers lose mornings to red builds, we would like to show you what it does with a week of your changes.</p>
+<p>AssureGraph is in development. If your pipeline runs thousands of tests a night and your engineers lose mornings to red builds, join the waitlist and we will show you what it does on a week of your own changes as soon as there is a build to run.</p>
 </div>
 <div class="hero__actions">
-<a class="btn btn--primary" href="${EARLY_ACCESS}">Request early access</a>
+<a class="btn btn--primary" href="${EARLY_ACCESS}">Join the waitlist</a>
 <a class="btn btn--ghost btn--ghost-light" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 </div>
 </div>
