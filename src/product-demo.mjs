@@ -12,7 +12,7 @@ const mark = readFileSync(new URL('../brand/logo/assuregraph-mark-on-dark.svg', 
 
 const chip = (kind, text, at) => `<span class="app-chip app-chip--${kind}"${at === undefined ? '' : ` data-at="${at}"`}>${text}</span>`;
 const chipStack = (states) => `<span class="pd-chipstack">${states.map(([kind, text, at]) => chip(kind, text, at)).join('')}</span>`;
-const stages = (names, ats) => `<ol class="pd-stages" aria-hidden="true">${names.map((n, i) => `<li data-at="${ats[i]}">${n}</li>`).join('')}</ol>`;
+const stages = (names, ats) => `<ol class="pd-stages" aria-hidden="true">${names.map((n, i) => `<li data-at="${ats[i]}"><span>${n}</span></li>`).join('')}</ol>`;
 const block = (at, title, sum, body) => `<div class="pd-block" data-at="${at}"><div class="pd-block__head"><span class="pd-block__title">${title}</span><span class="pd-block__sum">${sum}</span><span class="pd-block__queued">queued</span></div><div class="pd-block__body">${body}</div></div>`;
 const row = (at, left, right, dim = false) => `<div class="pd-row${dim ? ' pd-row--dim' : ''}" data-at="${at}"><span class="pd-row__l">${left}</span><span class="pd-row__r">${right}</span></div>`;
 const diff = (lines) => `<div class="pd-diff">${lines.map(([k, t, at]) => `<span class="pd-diff__l pd-diff__l--${k}" data-at="${at}">${t}</span>`).join('')}</div>`;

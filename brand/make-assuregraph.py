@@ -83,12 +83,12 @@ ICON_R = 370 - STROKE / 2   # the standalone icon's ring, in an 800-unit box
 
 
 def mark(fg, accent, green, ox=0, oy=0):
-    """The standalone icon: the open loop with the dot, the green tick inside."""
+    """The standalone icon, derived from the g of the wordmark: ring in the accent, dot in the foreground, green tick."""
     cx, cy = ox + 400, oy + 400
-    body = f'<path d="{arc(cx, cy, ICON_R, *GAP)}" fill="none" stroke="{fg}" stroke-width="{STROKE}" stroke-linecap="round"/>'
+    body = f'<path d="{arc(cx, cy, ICON_R, *GAP)}" fill="none" stroke="{accent}" stroke-width="{STROKE}" stroke-linecap="round"/>'
     d = ICON_R + 1.65 * STROKE
     body += (f'<circle cx="{cx + d * math.cos(math.radians(-50)):.1f}" cy="{cy + d * math.sin(math.radians(-50)):.1f}" '
-             f'r="{0.95 * STROKE:.0f}" fill="{accent}"/>')
+             f'r="{0.95 * STROKE:.0f}" fill="{fg}"/>')
     return body + tick(cx, cy, 1.0, green, w=TICK_W, nr=TICK_R)
 
 
@@ -144,7 +144,7 @@ def main():
         files[f"assuregraph-logo-{name}.svg"] = svg(f"-20 {top} {w + 40:.0f} {bottom - top}", body)
         files[f"assuregraph-mark-{name}.svg"] = svg("-40 -70 940 910", mark(fg, accent, green))
     files["assuregraph-icon.svg"] = tile(NAVY, WHITE, ACCENT_LIGHT, GREEN_DARK)
-    files["assuregraph-icon-accent.svg"] = tile(ACCENT, WHITE, WHITE, GREEN_DARK)
+    files["assuregraph-icon-accent.svg"] = tile(ACCENT, NAVY, WHITE, GREEN_DARK)
     for fn, content in files.items():
         with open(os.path.join(OUT, fn), "w") as f:
             f.write(content)
