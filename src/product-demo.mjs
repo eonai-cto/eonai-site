@@ -94,7 +94,7 @@ ${verdict(19900, 'pass', 'Shipped · policy v4 live · lineage complete')}`,
 ];
 
 export const productDemo = () => `<div class="demo demo--ui" data-view="0">
-<div class="demo__bar"><span class="demo__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="demo__brand" aria-hidden="true">${mark}<span>AssureGraph</span></span><span class="demo__title" aria-hidden="true">${scenes[0].title}</span><button class="demo__toggle" type="button" aria-label="Pause animation">Pause</button></div>
+<div class="demo__bar"><span class="demo__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="demo__brand" aria-hidden="true">${mark}<span>assuregraph</span></span><span class="demo__title" aria-hidden="true">${scenes[0].title}</span><button class="demo__toggle" type="button" aria-label="Pause animation">Pause</button></div>
 ${scenes.map((sc, k) => `<div class="demo__scene pd${k === 0 ? ' is-active' : ''}" data-end="${sc.end}" data-title="${sc.title}" role="img" aria-label="${sc.label}">${sc.body}
 </div>`).join('\n')}
 </div>`;
