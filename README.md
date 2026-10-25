@@ -15,7 +15,7 @@ src/product-demo.mjs      assuregraph hero demo: the eight-stage workflow (scena
 src/product-ui.mjs        assuregraph app mock: Runs, Traceability, Coverage and Setup tabs (HTML and CSS)
 src/icons.mjs             line icons for the service cards and use cases
 src/assets/               site.css (single stylesheet), site.js (mobile nav, copy buttons, form, notes filter,
-                          engagement toggles, hero demo player)
+                          engagement toggles, app-mock tabs, the demo player shared by both heroes)
 src/build.mjs, check.mjs  build to docs/; link, anchor, h1 and required-file checks
 brand/logo/               EonAI and assuregraph logo files and favicon (copied to docs/brand/ and docs/favicon.svg)
 brand/fonts/              self-hosted woff2 fonts (copied to docs/assets/fonts/)
@@ -49,6 +49,7 @@ After setting a value, run `npm run build`, then commit and push.
 - [x] Engineering notes 2 to 9 written up as prose from the outline (2026-10-08). The owner may refine them in `src/notes-data.mjs`.
 - [ ] Optional: `CF_ANALYTICS_TOKEN` for Cloudflare Web Analytics (cookieless, free).
 - [ ] Send a test email to hello@eonai.ai to confirm mail still works after the DNS change.
+- [ ] assuregraph: register `assuregraph.ai` and the `assuregraph` GitHub organisation (both were free on 2026-10-25); commission a Class 9/42 trademark search, India first (`CLAUDE.md` § assuregraph, "Name").
 
 ## Editorial pass (2026-10-08)
 
@@ -69,7 +70,7 @@ The logo files live in `brand/logo/` and are published at `https://eonai.ai/bran
 | `eonai-logo-square.png` | wordmark on a white square, for square logo slots (e.g. Zoho Bookings) |
 | `favicon.svg` | browser tab icon (published at `/favicon.svg`) |
 | `assuregraph-logo-on-dark.svg`, `-on-light.svg` | the assuregraph wordmark (the product page h1); the g of "graph" is the loop with a green tick |
-| `assuregraph-mark-on-dark.svg`, `-on-light.svg` | the assuregraph icon: the open loop with the green tick |
+| `assuregraph-mark-on-dark.svg`, `-on-light.svg` | the assuregraph icon, derived from the g: ring in the accent, dot in the foreground, green tick |
 | `assuregraph-icon.svg`, `assuregraph-icon-accent.svg` | square tiles for the product's avatars and favicons |
 | `brand/social/linkedin-cover.png` (1128×191) and `@2x` | LinkedIn company page cover; source `linkedin-cover.html` (open in Chrome headless at 1128×191 to re-render) |
 
@@ -79,7 +80,7 @@ To change the logo, edit the constants at the top of `brand/make-logo.py` and ru
 
 Colour tokens are in `src/assets/site.css` (`:root`). Two are deliberately rare: `--pass` / `--pass-light` (green) appear only in the assuregraph tick and the hero demo's pass marks; `--fail-soft` only in the hero demo. Do not use them elsewhere.
 
-Icons: `src/icons.mjs`. Engagement routes: `paths` in `src/pages/home.mjs`. Hero demo scenes: `src/hero-demo.mjs` (each scene is a small inline SVG; animation classes `a-rise`, `a-grow`, `a-pop`, `a-fade`, `a-draw`, `a-spin` are defined in `site.css`). Rules in `CLAUDE.md` § Visuals.
+Icons: `src/icons.mjs`. Engagement routes: `paths` in `src/pages/home.mjs`. Home hero demo scenes: `src/hero-demo.mjs` (editor and terminal lines with a timeline; `buildDemo()` is shared). Product hero workflow: `src/product-demo.mjs` (eight stages, queued/active/done rows). App mock: `src/product-ui.mjs`. All build-time limits are enforced by the modules themselves.
 
 ## Edit copy
 
