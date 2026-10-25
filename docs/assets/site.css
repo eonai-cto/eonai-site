@@ -295,8 +295,8 @@ ul, ol { margin: 0; }
 }
 
 /* AssureGraph product page */
-.ag-h1 { display: flex; align-items: center; gap: 0.35em; }
-.ag-mark { height: 1.05em; width: auto; flex: none; }
+.ag-h1 { display: block; line-height: 0; }
+.ag-lockup { display: block; height: clamp(44px, 6.5vw, 76px); width: auto; max-width: 100%; }
 .ag-gap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 40px; }
 .ag-gap li { font-size: 16px; line-height: 1.6; color: var(--body-grey); padding-top: 18px; border-top: 1px solid var(--line); }
 .ag-gap strong, .ag-uses strong, .ag-steps strong { color: var(--ink); font-weight: 600; }

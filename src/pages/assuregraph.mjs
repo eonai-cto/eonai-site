@@ -3,9 +3,9 @@ import { readFileSync } from 'node:fs';
 import { page, BOOK, BOOK_ATTRS, BOOK_SR } from '../layout.mjs';
 import { SITE_URL } from '../config.mjs';
 
-// The product mark, inlined like the EonAI logo (brand/make-assuregraph.py). Decorative beside the h1.
-const mark = readFileSync(new URL('../../brand/logo/assuregraph-mark-on-dark.svg', import.meta.url), 'utf8')
-  .trim().replace(' role="img" aria-label="AssureGraph"', ' class="ag-mark" aria-hidden="true" focusable="false"');
+// The lowercase lockup, inlined like the EonAI logo (brand/make-assuregraph.py). Decorative; the h1 carries the name as hidden text.
+const lockup = readFileSync(new URL('../../brand/logo/assuregraph-logo-on-dark.svg', import.meta.url), 'utf8')
+  .trim().replace(' role="img" aria-label="AssureGraph"', ' class="ag-lockup" aria-hidden="true" focusable="false"');
 
 const EARLY_ACCESS = '/#contact';
 
@@ -52,7 +52,7 @@ const body = `
 <section class="page-title on-dark ag-hero">
 <div class="container page-title__inner">
 <div class="eyebrow">PRODUCT · AGENTIC AI FOR QUALITY ENGINEERING</div>
-<h1 class="ag-h1">${mark}AssureGraph</h1>
+<h1 class="ag-h1">${lockup}<span class="visually-hidden">AssureGraph</span></h1>
 <p class="page-title__lead">Developers write code with AI assistants now, and the rate of change has gone up. Testing has not kept pace. AssureGraph watches changes in your code, specs, designs and logs, writes and maintains the tests they need, and keeps the record from requirement to evidence. It runs on the LLM you already use, in your VPC or an isolated tenant.</p>
 <div class="hero__actions">
 <a class="btn btn--primary" href="${EARLY_ACCESS}">Join the waitlist</a>
