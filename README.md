@@ -9,6 +9,7 @@ src/config.mjs        owner placeholders (see below)
 src/layout.mjs        header, footer, <head> metadata
 src/pages/            home, notes index, note template, privacy, 404
 src/notes-data.mjs    content of all eight engineering notes
+src/pages/assuregraph.mjs  the AssureGraph product page (logo: brand/make-assuregraph.py)
 src/assets/           site.css (single stylesheet), site.js (mobile nav, form)
 brand/logo/           logo files and favicon (copied to docs/brand/ and docs/favicon.svg)
 brand/fonts/          self-hosted woff2 fonts (copied to docs/assets/fonts/)

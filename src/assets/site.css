@@ -294,6 +294,30 @@ ul, ol { margin: 0; }
   .hero__checks { display: none; }
 }
 
+/* AssureGraph product page */
+.ag-h1 { display: flex; align-items: center; gap: 0.35em; }
+.ag-mark { height: 1.05em; width: auto; flex: none; }
+.ag-gap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 40px; }
+.ag-gap li { font-size: 16px; line-height: 1.6; color: var(--body-grey); padding-top: 18px; border-top: 1px solid var(--line); }
+.ag-gap strong, .ag-uses strong, .ag-steps strong { color: var(--ink); font-weight: 600; }
+.flow { list-style: none; margin: 0 0 36px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 16px; counter-reset: none; }
+.flow__step { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 18px 18px 18px 20px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; line-height: 1.5; color: var(--body-grey); }
+.flow__step strong { color: var(--ink); font-weight: 600; font-size: 16px; }
+.flow__num { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
+@media (min-width: 900px) {
+  .flow__step:not(:last-child)::after { content: ''; position: absolute; top: 50%; right: -12px; width: 8px; height: 8px; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); transform: translateY(-50%) rotate(45deg); }
+}
+.ag-steps { margin: 0; padding-left: 1.4em; display: grid; gap: 14px; max-width: 800px; font-size: 16px; line-height: 1.6; color: var(--body-grey); }
+.ag-part { scroll-margin-top: 24px; }
+.ag-part:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--tint-border); }
+.ag-metrics { margin-top: 28px; max-width: 800px; font-size: 15px; line-height: 1.6; color: var(--caption-grey); }
+.ag-uses { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 0 56px; border-top: 1px solid var(--border-dark); }
+.ag-uses li { padding: 18px 0; border-bottom: 1px solid var(--border-dark); font-size: 15px; line-height: 1.6; color: var(--on-dark-muted); }
+.ag-uses strong { color: #fff; }
+.btn--ghost-light { border-color: var(--line); color: var(--ink); }
+.btn--ghost-light:hover { border-color: var(--accent); color: var(--ink); }
+.cta-band .hero__actions { padding-top: 0; }
+
 /* Mid-page call to action */
 .cta-band { background: var(--tint); border: 1px solid var(--tint-border); border-radius: var(--radius); padding: clamp(24px, 4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
 .cta-band h2 { font-weight: 600; font-size: 22px; line-height: 1.25; }

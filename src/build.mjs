@@ -8,6 +8,7 @@ import home from './pages/home.mjs';
 import notesIndex from './pages/notes-index.mjs';
 import { notePage } from './pages/note.mjs';
 import privacy from './pages/privacy.mjs';
+import assuregraph from './pages/assuregraph.mjs';
 import notFound from './pages/not-found.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,6 +25,7 @@ await mkdir(out, { recursive: true });
 
 const pages = [
   ['index.html', home, '/'],
+  ['assuregraph/index.html', assuregraph, '/assuregraph/'],
   ['notes/index.html', notesIndex, '/notes/'],
   ...notes.map((n) => [`notes/${n.slug}/index.html`, notePage(n), `/notes/${n.slug}/`]),
   ['privacy/index.html', privacy, '/privacy/'],

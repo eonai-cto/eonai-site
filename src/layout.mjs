@@ -23,12 +23,13 @@ const NAV = [
   ['Services', '/#services'],
   ['How we work', '/#approach'],
   ['Engagements', '/#offers'],
+  ['AssureGraph', '/assuregraph/'],
   ['Engineering notes', '/notes/'],
 ];
 
 function header(current) {
   const links = NAV.map(([label, href]) => {
-    const cur = current === 'notes' && href === '/notes/' ? ' aria-current="page"' : '';
+    const cur = (current === 'notes' && href === '/notes/') || (current === 'assuregraph' && href === '/assuregraph/') ? ' aria-current="page"' : '';
     return `<a href="${href}"${cur}>${label}</a>`;
   }).join('\n');
   return `<header class="site-header">
@@ -59,6 +60,7 @@ function footer() {
 <a href="/#services">Services</a>
 <a href="/#approach">How we work</a>
 <a href="/#offers">Engagements</a>
+<a href="/assuregraph/">AssureGraph</a>
 <a href="/#about">About</a>
 </div>
 <div class="site-footer__col">
