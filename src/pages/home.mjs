@@ -299,9 +299,9 @@ ${trust}
 <div class="about">
 <div class="eyebrow">ABOUT EONAI</div>
 <h2 class="h2 h2--md">An AI engineering firm with a quality engineering background</h2>
-<p>We are an India-registered firm serving clients worldwide. We kept software reliable for millions of users at global technology companies and now apply the same discipline to AI. We are senior-led and hands-on: the people who scope an engagement are the people who deliver it.</p>
-<p>We do the engineering ourselves and stay until the system is running and your team can own it.</p>
-<p>We also build <a href="/assuregraph/">assuregraph</a>, agentic AI for quality engineering. Its routing engine and its evaluation and test-generation tooling come with every engagement, and you can use them without being locked into them.</p>
+<p>EonAI was founded by engineers who spent their careers keeping software reliable for millions of users at global technology companies. We apply that discipline to AI. Every system we build is specified against a test set before the first line of code, measured on your own data throughout, and delivered with the evidence that it works.</p>
+<p>The people who scope your engagement are the people who deliver it. We work inside your environment and alongside your team, and we stay until the system is running in production and your engineers can own it without us.</p>
+<p>The same approach is going into <a href="/assuregraph/">assuregraph</a>, our agentic AI platform for quality engineering, now in development. It is built for teams whose code is increasingly written with AI assistants and whose testing has to keep up, and the evaluation and test-generation tooling behind it informs every engagement we take on.</p>
 </div>
 </div>
 </section>
