@@ -168,7 +168,28 @@
     })(tabsets[ti]);
   }
 
-  // Engagement cards: on phones the details sit behind a toggle (CSS hides them under .js at <= 700px).
+  // Engagements: the situation selector filters the route row and the cards (CSS matches data-route on the
+  // container against each item's data-routes). Without JS every route and card is shown.
+  var routesBox = document.querySelector('[data-routes-switch]');
+  var routeTabs = routesBox ? routesBox.querySelectorAll('.routes__tab') : [];
+  var setRoute = function (id) {
+    routesBox.setAttribute('data-route', id);
+    for (var r = 0; r < routeTabs.length; r++) routeTabs[r].setAttribute('aria-pressed', routeTabs[r].getAttribute('data-route') === id ? 'true' : 'false');
+  };
+  if (routesBox && routeTabs.length) {
+    for (var q = 0; q < routeTabs.length; q++) routeTabs[q].addEventListener('click', function () { setRoute(this.getAttribute('data-route')); });
+    setRoute(routeTabs[0].getAttribute('data-route'));
+  }
+  // Problems: three more situations behind a toggle.
+  var moreQuotes = document.querySelector('.quotes__more');
+  if (moreQuotes) {
+    moreQuotes.addEventListener('click', function () {
+      var open = this.previousElementSibling.classList.toggle('is-open');
+      this.setAttribute('aria-expanded', open ? 'true' : 'false');
+      this.firstChild.nodeValue = open ? 'Fewer situations' : 'Two more situations';
+    });
+  }
+  // Engagement cards: the details sit behind a toggle (CSS hides them under .js).
   var toggles = document.querySelectorAll('.card__toggle');
   for (var k = 0; k < toggles.length; k++) {
     toggles[k].addEventListener('click', function () {
@@ -180,7 +201,13 @@
   // A link to a collapsed card (services chips, notes) opens it.
   var openTarget = function () {
     var t = location.hash && document.querySelector(location.hash);
-    if (t && t.classList.contains('card--eng')) { t.classList.add('is-open'); var b = t.querySelector('.card__toggle'); if (b) b.setAttribute('aria-expanded', 'true'); }
+    if (t && t.classList.contains('card--eng')) {
+      // Switch to the first route that shows this card, so a hidden card is not scrolled to.
+      var inRoutes = t.getAttribute('data-routes');
+      if (inRoutes && routesBox) setRoute(inRoutes.split(' ')[0]);
+      t.classList.add('is-open'); var b = t.querySelector('.card__toggle'); if (b) b.setAttribute('aria-expanded', 'true');
+      if (inRoutes) t.scrollIntoView();
+    }
   };
   window.addEventListener('hashchange', openTarget);
   openTarget();

@@ -256,10 +256,17 @@ ul, ol { margin: 0; }
 /* Problems: two columns of quotes, no boxes */
 .quotes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 0 56px; border-top: 1px solid var(--line); }
 .quote { display: flex; flex-direction: column; gap: 10px; padding: 26px 0; border-bottom: 1px solid var(--line); }
-.quote .card__tag { padding-top: 4px; }
+.quotes__more { display: none; margin-top: 20px; font: 600 14px/1 var(--font-body); color: var(--link); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
+.quotes__more::after { content: ' +'; }
+.js .quotes__more { display: inline-block; }
+.js .quotes:not(.is-open) .quote--more { display: none; }
+.js .quotes.is-open + .quotes__more::after { content: ' −'; }
 
 /* Trust: four plain columns */
-.trust { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid var(--line); }
+.trust { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--accent); }
+.on-dark .trust { border-top-color: var(--border-dark); color: var(--accent-light); }
+.on-dark .trust .card__title { color: #fff; }
+.on-dark .trust .card__text { color: var(--on-dark-muted); }
 
 /* How we deliver: a line joins the step numbers on wide screens */
 @media (min-width: 900px) {
@@ -293,10 +300,10 @@ ul, ol { margin: 0; }
 .card__toggle { display: none; align-self: flex-start; font: 600 14px/1 var(--font-body); color: var(--link); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
 .card__toggle::after { content: ' +'; }
 .card--eng.is-open .card__toggle::after { content: ' −'; }
+.js .card__toggle { display: inline-block; }
+.js .card--eng:not(.is-open) .card__label, .js .card--eng:not(.is-open) .card__list--eng, .js .card--eng:not(.is-open) .card__foot { display: none; }
 @media (max-width: 700px) {
-  .js .card__toggle { display: inline-block; }
-  .js .card--eng:not(.is-open) .card__label, .js .card--eng:not(.is-open) .card__list--eng, .js .card--eng:not(.is-open) .card__foot { display: none; }
-  .hero__checks { display: none; }
+  .hero__checks, .hero .hero__sub, .hero .btn--ghost { display: none; }
 }
 
 /* assuregraph product page */
@@ -455,7 +462,7 @@ ul, ol { margin: 0; }
 .grid--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
 .grid--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
 .grid--trust { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
-.grid--engage { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.grid--engage { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
 .card {
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px;
   display: flex; flex-direction: column; gap: 14px; color: var(--ink);
@@ -476,7 +483,6 @@ ul, ol { margin: 0; }
 .card__more--bottom { margin-top: auto; padding-top: 6px; font-size: 14px; }
 .card--lg .card__more { margin-top: 8px; }
 .card--dark .card__more { color: #fff; }
-.card__tag { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--accent); margin-top: auto; padding-top: 6px; }
 .card__list { padding-left: 18px; font-size: 14px; line-height: 1.8; color: var(--text); }
 .card--dark .card__list { color: var(--on-dark-soft); }
 .card__list--eng { line-height: 1.7; }
@@ -696,29 +702,32 @@ ul, ol { margin: 0; }
 .card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .card--dark .icon-tile { background: var(--panel); border: 1px solid var(--border-dark); color: var(--accent-light); }
 
-/* Where clients usually start (engagement paths) */
-.paths { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px 12px; margin-bottom: 24px; }
-.paths__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; color: var(--caption-grey); margin-bottom: 8px; }
-.path { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 16px 0; border-top: 1px solid var(--row-line); }
-.paths__label + .path { border-top: 0; }
+/* Where to start: the situation selector. Under .js the three buttons filter the route row and the cards to one route. */
+.routes__tabs { display: none; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.js .routes__tabs { display: flex; }
+.routes__tab { display: flex; flex-direction: column; gap: 2px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); font-family: var(--font-body); text-align: left; color: var(--ink); cursor: pointer; }
+.routes__tab strong { font-size: 15px; font-weight: 600; }
+.routes__tab span { font-size: 13px; color: var(--caption-grey); }
+.routes__tab:hover { border-color: var(--accent); }
+.routes__tab[aria-pressed="true"] { border-color: var(--accent); background: var(--tint); box-shadow: inset 0 0 0 1px var(--accent); }
+.js .routes[data-route="start"] [data-routes]:not([data-routes~="start"]),
+.js .routes[data-route="running"] [data-routes]:not([data-routes~="running"]),
+.js .routes[data-route="startup"] [data-routes]:not([data-routes~="startup"]) { display: none; }
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 4px 0 24px; }
 .path__who { flex: 0 0 200px; display: flex; flex-direction: column; gap: 2px; }
+.js .path__who { display: none; }
 .path__who strong { font-size: 15px; font-weight: 600; }
 .path__who span { font-size: 13px; color: var(--caption-grey); }
-.path__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 0; flex: 1 1 480px; }
-.path__step { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--ground); }
+.path__steps { list-style: none; margin: 0; padding: 0 0 4px; display: flex; align-items: center; flex: 1 1 480px; max-width: 100%; overflow-x: auto; }
+.path__step { position: relative; flex: none; }
+.path__step a { display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--ground); color: inherit; text-decoration: none; }
+.path__step a:hover { border-color: var(--accent); }
 .path__step + .path__step { margin-left: 40px; }
 .path__step + .path__step::before { content: '\2192'; position: absolute; left: -30px; top: 50%; transform: translateY(-50%); color: var(--accent); font-weight: 600; }
 .path__steps--plus .path__step + .path__step::before { content: '+'; }
-.path__name { font-size: 15px; font-weight: 600; }
-.path__len { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; color: var(--caption-grey); }
-.path__step--ongoing { background: var(--ink); border-color: var(--ink); color: #fff; }
+.path__name { font-size: 15px; font-weight: 600; white-space: nowrap; }
+.path__len { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; color: var(--caption-grey); white-space: nowrap; }
+.path__step--ongoing a { background: var(--ink); border-color: var(--ink); color: #fff; }
 .path__step--ongoing .path__len { color: var(--accent-light); }
-.path__step--alongside { border-style: dashed; background: var(--card); }
-@media (max-width: 640px) {
-  .path__who { flex-basis: 100%; }
-  .path__steps { flex-direction: column; align-items: flex-start; gap: 0; }
-  .path__step + .path__step { margin-left: 0; margin-top: 30px; }
-  .path__step + .path__step::before { content: '\2193'; left: 16px; top: -26px; transform: none; }
-  .path__steps--plus .path__step + .path__step::before { content: '+'; }
-}
+.path__step--alongside a { border-style: dashed; background: var(--card); }
 

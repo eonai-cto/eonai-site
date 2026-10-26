@@ -8,17 +8,16 @@ import { bySlug } from '../notes-data.mjs';
 const check = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FB0FF" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>';
 
 const problems = [
-  ['CTO OR HEAD OF PRODUCT', '“The demo impressed everyone. On real data it falls apart.”', 'We rebuild around your actual data and edge cases, starting with a test set that defines what “working” means before any code is written.', 'AGENT MVP · AI RELIABILITY AUDIT'],
-  ['ENGINEERING LEAD', '“We changed a prompt or a model and can’t tell whether things got worse.”', 'We build an evaluation suite that runs on every change, so a drop in accuracy, safety or cost shows up before your customers notice it.', 'AI RELIABILITY AUDIT · MANAGED AI OPERATIONS'],
-  ['HEAD OF RISK OR COMPLIANCE', '“Risk and compliance won’t sign off on anything with AI in it.”', 'We design the controls, audit trails and human checkpoints regulated teams expect, and document them in the language your reviewers use.', 'AI OPPORTUNITY SPRINT · TRANSFORM'],
-  ['COO OR HEAD OF OPERATIONS', '“Our support and back-office queues keep growing.”', 'We automate the classification, triage and first responses, with AI that knows when to hand off to a person, and we measure the cost it takes out.', 'AGENT MVP · BUILD'],
-  ['VP ENGINEERING OR HEAD OF QA', '“AI writes half our code now. Our testing hasn’t caught up.”', 'We bring your quality process up to speed for AI-generated code: automated test generation, risk-based coverage and release gates that keep you shipping quickly without causing outages.', 'QE HEALTH CHECK · ASSURE'],
-  ['FOUNDER OR CEO', '“We need senior technical leadership, but a full-time CTO isn’t realistic yet.”', 'A fractional CTO who owns architecture, hiring, delivery and AI strategy for the days a week you actually need.', 'FRACTIONAL CTO · SCALE'],
-].map(([who, quote, body, tag]) => `<li class="quote">
+  ['CTO OR HEAD OF PRODUCT', '“The demo impressed everyone. On real data it falls apart.”', 'We rebuild around your actual data and edge cases, starting with a test set that defines what “working” means before any code is written.'],
+  ['ENGINEERING LEAD', '“We changed a prompt or a model and can’t tell whether things got worse.”', 'We build an evaluation suite that runs on every change, so a drop in accuracy, safety or cost shows up before your customers notice it.'],
+  ['HEAD OF RISK OR COMPLIANCE', '“Risk and compliance won’t sign off on anything with AI in it.”', 'We design the controls, audit trails and human checkpoints regulated teams expect, and document them in the language your reviewers use.'],
+  ['COO OR HEAD OF OPERATIONS', '“Our support and back-office queues keep growing.”', 'We automate the classification, triage and first responses, with AI that knows when to hand off to a person, and we measure the cost it takes out.'],
+  ['VP ENGINEERING OR HEAD OF QA', '“AI writes half our code now. Our testing hasn’t caught up.”', 'We bring your quality process up to speed for AI-generated code: automated test generation, risk-based coverage and release gates that keep you shipping quickly without causing outages.'],
+  ['FOUNDER OR CEO', '“We need senior technical leadership, but a full-time CTO isn’t realistic yet.”', 'A fractional CTO who owns architecture, hiring, delivery and AI strategy for the days a week you actually need.'],
+].map(([who, quote, body], i) => `<li class="quote${i >= 4 ? ' quote--more' : ''}">
 <div class="eyebrow eyebrow--xs eyebrow--grey">${who}</div>
 <h3 class="card__title card__title--sm">${quote}</h3>
 <p class="card__text">${body}</p>
-<div class="card__tag">→ ${tag}</div>
 </li>`).join('\n');
 
 // Anchor id for an engagement card, used by the services' "How we deliver it" links.
@@ -65,8 +64,14 @@ const offers = [
   ['Fractional CTO', 'ONGOING', 'Senior technology leadership on a retainer, for seed to Series A startups.', 'You walk away with', ['Architecture and technology decisions you can defend to investors', 'Hiring plans, interviews and onboarding for your first engineers', 'A delivery cadence and AI strategy owned by someone accountable'], 'How it runs: one to three days a week, with a defined hand-over when you hire full-time'],
   ['Team Workshops', '1–2 DAYS', 'Hands-on sessions for engineering and product teams, in person or remote.', 'Current workshops', ['Evaluating LLM applications and agents', 'Quality engineering for AI-generated code', 'AI governance for product and risk teams'], 'How it runs: tailored to your stack, with exercises on your own systems where possible'],
 ];
-const PRIMARY = ['AI Opportunity Sprint', 'Agent MVP', 'AI Reliability Audit', 'Managed AI Operations'];
-const offerCards = offers.filter(([t]) => PRIMARY.includes(t)).map(([t, m, d, lab, items, foot]) => `<article class="card card--eng" id="${engId(t)}">
+// Routes (the situation selector above the cards) and the engagements each one shows, in order.
+const ROUTES = [
+  ['start', 'Starting with AI', 'Enterprises', ['AI Opportunity Sprint', 'Agent MVP', 'Managed AI Operations'], '→'],
+  ['running', 'Already running AI', 'Teams shipping AI today', ['AI Reliability Audit', 'Managed AI Operations'], '→'],
+  ['startup', 'Startups', 'Seed to Series A', ['Agent MVP', 'Fractional CTO'], '+'],
+];
+const routesOf = (t) => ROUTES.filter(([, , , list]) => list.includes(t)).map(([id]) => id);
+const offerCards = offers.filter(([t]) => routesOf(t).length).map(([t, m, d, lab, items, foot]) => `<article class="card card--eng" id="${engId(t)}" data-routes="${routesOf(t).join(' ')}">
 <div class="card__head"><h3 class="card__title card__title--eng">${t}</h3><span class="card__meta">${m}</span></div>
 <p class="card__text">${d}</p>
 <button class="card__toggle" type="button" aria-expanded="false">Details</button>
@@ -75,7 +80,7 @@ const offerCards = offers.filter(([t]) => PRIMARY.includes(t)).map(([t, m, d, la
 <div class="card__foot">${foot}</div>
 </article>`).join('\n');
 const moreOffers = [
-  ...offers.filter(([t]) => !PRIMARY.includes(t)).map(([t, m, d]) => [t, m, d, `#${engId(t)}`]),
+  ...offers.filter(([t]) => !routesOf(t).length).map(([t, m, d]) => [t, m, d, `#${engId(t)}`]),
   ['Larger programmes', 'SCOPED INDIVIDUALLY', 'Full builds, multi-quarter transformations and India capability centres, scoped after a short discovery phase.', null],
 ].map(([t, m, d, href]) => `<li class="eng-more__item card--eng" id="${engId(t)}">
 <div class="eng-more__head"><h3>${t}</h3><span class="card__meta">${m}</span></div>
@@ -84,22 +89,16 @@ ${href ? '' : `<a class="card__more" href="${BOOK}"${BOOK_ATTRS}>Start with a co
 </li>`).join('\n');
 
 
-const chip = (name, len, cls = '') => `<li class="path__step${cls}"><span class="path__name">${name}</span><span class="path__len">${len}</span></li>`;
-const paths = `<div class="paths">
-<div class="paths__label">WHERE CLIENTS USUALLY START</div>
-<div class="path">
-<div class="path__who"><strong>Starting with AI</strong><span>Enterprises</span></div>
-<ol class="path__steps">${chip('AI Opportunity Sprint', '2 weeks')}${chip('Agent MVP', '4–6 weeks')}${chip('Managed AI Operations', 'Monthly', ' path__step--ongoing')}</ol>
+const LEN = { 'AI Opportunity Sprint': '2 weeks', 'Agent MVP': '4–6 weeks', 'AI Reliability Audit': '2–3 weeks', 'Managed AI Operations': 'Monthly', 'Fractional CTO': 'Alongside, ongoing' };
+const chip = (name) => `<li class="path__step${name === 'Managed AI Operations' ? ' path__step--ongoing' : name === 'Fractional CTO' ? ' path__step--alongside' : ''}"><a href="#${engId(name)}"><span class="path__name">${name}</span><span class="path__len">${LEN[name]}</span></a></li>`;
+// Situation selector: three buttons (under .js) filter the cards below to one route; without JS every route row and card is shown.
+const routes = `<div class="routes__tabs" role="group" aria-label="Your situation">
+${ROUTES.map(([id, who, sub], i) => `<button class="routes__tab" type="button" data-route="${id}" aria-pressed="${i === 0}"><strong>${who}</strong><span>${sub}</span></button>`).join('\n')}
 </div>
-<div class="path">
-<div class="path__who"><strong>Already running AI</strong><span>Teams shipping AI today</span></div>
-<ol class="path__steps">${chip('AI Reliability Audit', '2–3 weeks')}${chip('Managed AI Operations', 'Monthly', ' path__step--ongoing')}</ol>
-</div>
-<div class="path">
-<div class="path__who"><strong>Startups</strong><span>Seed to Series A</span></div>
-<ol class="path__steps path__steps--plus">${chip('Agent MVP', '4–6 weeks')}${chip('Fractional CTO', 'Alongside, ongoing', ' path__step--alongside')}</ol>
-</div>
-</div>`;
+${ROUTES.map(([id, who, sub, list, join]) => `<div class="path" data-routes="${id}">
+<div class="path__who"><strong>${who}</strong><span>${sub}</span></div>
+<ol class="path__steps${join === '+' ? ' path__steps--plus' : ''}">${list.map(chip).join('')}</ol>
+</div>`).join('\n')}`;
 
 const trust = [
   ['<rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path>', 'Your data stays in your environment', 'We build inside your cloud or on your infrastructure. Where a third-party model is used, it is accessed under business terms that exclude training on your data, or replaced with a self-hosted model where your policy requires it.'],
@@ -107,7 +106,7 @@ const trust = [
   ['<circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.3 11l7.4-3.8M8.3 13l7.4 3.8"></path>', 'No model or cloud lock-in', 'OpenAI, Anthropic, Google, Llama, Mistral or open-source models; AWS, Azure, Google Cloud, OCI or on-premise. Chosen per task on accuracy, cost and your data policy.'],
   ['<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"></path>', 'Designed around recognised frameworks', 'Audit trails, access controls and human checkpoints built in from the start, designed to the NIST AI Risk Management Framework, the EU AI Act’s risk tiers, India’s DPDP Act and GDPR.'],
 ].map(([svg, t, b]) => `<div class="trust">
-<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2B5BFF" stroke-width="1.8" aria-hidden="true">${svg}</svg>
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">${svg}</svg>
 <h3 class="card__title card__title--xs">${t}</h3>
 <p class="card__text card__text--sm">${b}</p>
 </div>`).join('\n');
@@ -176,6 +175,7 @@ ${heroDemo()}
 <ul class="quotes">
 ${problems}
 </ul>
+<button class="quotes__more" type="button" aria-expanded="false" aria-controls="problems">Two more situations</button>
 </section>
 
 <!-- ENGINEERING NOTES -->
@@ -262,13 +262,15 @@ ${steps}
 <div class="section-head">
 <div class="eyebrow">ENGAGEMENTS</div>
 <h2 class="h2">Where to start</h2>
-<p class="lede">Most relationships begin with a short, fixed-scope engagement. Each one ends with something concrete you keep.</p>
+<p class="lede">Most relationships begin with a short, fixed-scope engagement. Each one ends with something concrete you keep. If you are not sure which fits, thirty minutes with a senior engineer will tell you which one does, or that none does.</p>
 </div>
-<a class="link-strong" href="#contact">Not sure which fits? Ask us →</a>
+<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 </div>
-${paths}
+<div class="routes" data-routes-switch>
+${routes}
 <div class="grid grid--engage">
 ${offerCards}
+</div>
 </div>
 <div class="eng-more">
 <div class="eng-more__label">ALSO AVAILABLE</div>
@@ -278,25 +280,16 @@ ${moreOffers}
 </div>
 </section>
 
-<!-- MID-PAGE CTA -->
-<section class="container section--tall">
-<div class="cta-band">
-<div>
-<h2>Not sure where to start?</h2>
-<p>Thirty minutes with a senior engineer, on your problem. We will say which engagement fits, or that none does.</p>
-</div>
-<a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
-</div>
-</section>
-
-<!-- TRUST -->
-<section class="container section--tall">
+<!-- TRUST (dark band, so the page changes pace between Engagements and About) -->
+<section class="usecases on-dark">
+<div class="container usecases__inner">
 <div class="section-head section-head--tight">
 <div class="eyebrow">SECURITY, DATA AND OWNERSHIP</div>
 <h2 class="h2">Built to pass your security review</h2>
 </div>
 <div class="grid grid--trust">
 ${trust}
+</div>
 </div>
 </section>
 

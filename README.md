@@ -80,7 +80,7 @@ To change the logo, edit the constants at the top of `brand/make-logo.py` and ru
 
 Colour tokens are in `src/assets/site.css` (`:root`). Two are deliberately rare: `--pass` / `--pass-light` (green) appear only in the assuregraph tick and the hero demo's pass marks; `--fail-soft` only in the hero demo. Do not use them elsewhere.
 
-Icons: `src/icons.mjs`. Engagement routes: `paths` in `src/pages/home.mjs`. Home hero demo scenes: `src/hero-demo.mjs` (editor and terminal lines with a timeline; `buildDemo()` is shared). Product hero workflow: `src/product-demo.mjs` (eight stages, queued/active/done rows). App mock: `src/product-ui.mjs`. All build-time limits are enforced by the modules themselves.
+Icons: `src/icons.mjs`. Engagement routes (the situation selector): `ROUTES` in `src/pages/home.mjs`. Home hero demo scenes: `src/hero-demo.mjs` (editor and terminal lines with a timeline; `buildDemo()` is shared). Product hero workflow: `src/product-demo.mjs` (eight stages, queued/active/done rows). App mock: `src/product-ui.mjs`. All build-time limits are enforced by the modules themselves.
 
 ## Edit copy
 
