@@ -175,7 +175,7 @@ ${heroDemo()}
 <ul class="quotes">
 ${problems}
 </ul>
-<button class="quotes__more" type="button" aria-expanded="false" aria-controls="problems">Two more situations</button>
+<button class="quotes__more" type="button" aria-expanded="false" aria-controls="problems">More</button>
 </section>
 
 <!-- ENGINEERING NOTES -->
@@ -325,7 +325,7 @@ ${faqs}
 <div class="contact__copy">
 <div class="eyebrow">CONTACT</div>
 <h2 class="h2">Tell us about the problem</h2>
-<p class="lede">We’ll tell you whether we can help. If you’d rather talk, book a 30-minute call with a senior engineer. It’s a working session on your problem, not a sales pitch.</p>
+<p class="lede">We’ll tell you whether we can help. If you’d rather talk, book a 30-minute call with us. It’s a working session on your problem, not a sales pitch.</p>
 <div class="contact__actions">
 <a class="btn btn--primary" href="${BOOK}"${BOOK_ATTRS}>Book a 30-minute working session${BOOK_SR}</a>
 ${emailWithCopy('contact__mail')}

@@ -186,7 +186,7 @@
     moreQuotes.addEventListener('click', function () {
       var open = this.previousElementSibling.classList.toggle('is-open');
       this.setAttribute('aria-expanded', open ? 'true' : 'false');
-      this.firstChild.nodeValue = open ? 'Fewer situations' : 'Two more situations';
+      this.firstChild.nodeValue = open ? 'Less' : 'More';
     });
   }
   // Engagement cards: the details sit behind a toggle (CSS hides them under .js).
